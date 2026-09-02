@@ -1,3 +1,5 @@
+'use client';
+
 import { useSyncExternalStore } from 'react';
 import { Product } from '@/types/catalog';
 
@@ -104,11 +106,13 @@ export const cartStore = {
   },
 };
 
+const emptyServerState: CartStoreState = { items: [], isOpen: false };
+
 export function useCartStore() {
   const storeState = useSyncExternalStore(
     cartStore.subscribe, 
     cartStore.getState, 
-    () => ({ items: [], isOpen: false }) // Server side fallback
+    () => emptyServerState // Server side fallback
   );
   
   const totalItemsCount = storeState.items.reduce((sum, i) => sum + i.quantity, 0);

@@ -68,3 +68,11 @@ frontend/
 │       ├── auth.ts                         # User, credentials, session types
 │       ├── catalog.ts                      # Category, Product, ProductVariant, Attribute
 │       └── order.ts                        # Order, OrderItem, ChapaPayload, Transaction
+
+
+
+
+![alt text](<design/Corporate Order History.png>)
+![alt text](<design/Corporate Product Catalog.png>)
+![alt text](<design/Corporate Product Details.png>)
+![alt text](<design/Corporate Secure Checkout.png>)

@@ -41,10 +41,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <Card
       onClick={handleSelect}
-      className="group cursor-pointer hover:border-[#747687] transition-all duration-200 h-full flex flex-col relative"
+      className="group cursor-pointer border border-[#c4c5d8] hover:border-[#747687] rounded-xl overflow-hidden transition-all duration-200 h-full flex flex-col relative shadow-none"
     >
       {/* Image container */}
-      <div className="relative aspect-square overflow-hidden bg-[#f3f2ff]">
+      <div className="relative aspect-4/3 w-full overflow-hidden bg-[#f3f2ff]">
         <img
           src={image}
           alt={product.title}
@@ -52,30 +52,27 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           loading="lazy"
         />
         {product.category && (
-          <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-xs px-2 py-1 rounded font-geist text-xs text-[#1a1b24] border border-[#c4c5d8]/50 shadow-xs">
+          <div className="absolute top-3 right-3 bg-white px-2.5 py-1 rounded-md font-medium text-[11px] text-[#1a1b24] shadow-xs">
             {product.category.name}
           </div>
         )}
       </div>
 
       <CardContent className="flex flex-col grow p-4 pb-0">
-        <h3 className="text-base text-[#012169] font-medium line-clamp-1 mb-1">
+        <h3 className="text-[15px] text-[#012169] font-medium line-clamp-1 mb-1.5">
           {product.title}
         </h3>
 
         <div className="flex items-center gap-1 mb-2">
-          <Badge
-            variant={isOutOfStock ? "secondary" : isLowStock ? "destructive" : "default"}
-            className={
+          <div className={`text-[10px] font-bold px-2 py-0.5 rounded-full w-fit ${
               isOutOfStock
-                ? "bg-gray-200 text-gray-600 hover:bg-gray-200"
+                ? "bg-gray-200 text-gray-600"
                 : isLowStock
-                ? "bg-[#ffdad6] text-[#ba1a1a] hover:bg-[#ffdad6]/90"
-                : "bg-[#e3e1ec]/60 text-[#059669] hover:bg-[#e3e1ec]/80"
-            }
-          >
+                ? "bg-[#ffdad6] text-[#ba1a1a]"
+                : "bg-[#00875A]/10 text-[#00875A]"
+            }`}>
             {stockStatus}
-          </Badge>
+          </div>
         </div>
 
         <div className="mt-auto flex items-end justify-between pt-2">
@@ -92,9 +89,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             onQuickAdd(product, e);
           }}
           disabled={isOutOfStock}
-          className="w-full bg-[#FDD79A] hover:bg-[#FDD79A]/90 text-[#012169] font-bold"
+          className="w-full bg-[#FDD79A] hover:bg-[#FDD79A]/90 text-[#012169] font-bold shadow-none"
         >
-          <Plus className="w-4 h-4 mr-1" /> Quick Add
+          <Plus className="w-4 h-4 mr-1.5" /> Quick Add
         </Button>
       </CardFooter>
     </Card>

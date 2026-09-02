@@ -47,3 +47,19 @@ export function useLogout() {
     },
   });
 }
+
+export function useRegister() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (credentials: RegisterCredentials): Promise<User> => {
+      await apiClient.get('/sanctum/csrf-cookie');
+      const response = await apiClient.post<{ data: User }>('/api/register', credentials);
+      return response.data.data;
+    },
+    onSuccess: (user) => {
+      queryClient.setQueryData(AUTH_QUERY_KEY, user);
+      queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY });
+    },
+  });
+}

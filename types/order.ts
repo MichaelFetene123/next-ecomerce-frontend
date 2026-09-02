@@ -9,9 +9,13 @@ export interface Address {
   country: string;
   postal_code: string | null;
   phone: string | null;
+  is_default?: boolean;
   created_at: string;
   updated_at: string;
 }
+
+export type PaymentGateway = 'chapa' | 'cbebirr' | 'telebirr';
+export type OrderStatus = 'pending' | 'paid' | 'failed' | 'completed' | 'cancelled';
 
 export interface Payment {
   id: number;
@@ -46,11 +50,13 @@ export interface Order {
   user_id: number;
   order_number: string;
   tx_ref: string;
-  status: 'pending' | 'paid' | 'failed' | 'completed' | 'cancelled';
+  status: OrderStatus;
   billing_address_id: number | null;
   subtotal: number;
   total: number;
   currency: string;
+  payment_gateway?: PaymentGateway;
+  transaction_id?: string;
   paid_at: string | null;
   created_at: string;
   updated_at: string;

@@ -114,19 +114,30 @@ export const VariantMatrix: React.FC<VariantMatrixProps> = ({
                   value={val}
                   aria-label={`Select ${val}`}
                   className={cn(
-                    'border transition-all duration-200 cursor-pointer flex items-center justify-center data-[state=on]:bg-[#012169] data-[state=on]:text-white',
+                    'transition-all duration-200 cursor-pointer flex items-center justify-center p-0',
                     isColor
-                      ? 'w-8 h-8 rounded-full shadow-sm data-[state=on]:ring-2 data-[state=on]:ring-offset-2 data-[state=on]:ring-[#012169] data-[state=on]:border-transparent'
-                      : 'px-4 py-2 rounded-md text-sm font-medium',
-                    !isColor && 'border-[#c4c5d8] text-[#434655] hover:border-[#747687] bg-white'
+                      ? 'w-8 h-8 rounded-full'
+                      : 'px-4 py-2 rounded-lg font-geist text-xs h-auto min-h-0'
                   )}
-                  style={isColor ? { backgroundColor: val } : {}}
+                  style={isColor ? { backgroundColor: val.toLowerCase() } : {}}
                   title={isColor ? val : undefined}
                 >
-                  {isColor && selectedOptions[attr.name] === val && (
-                    <Check className={cn('w-4 h-4', ['#ffffff', 'white'].includes(val.toLowerCase()) ? 'text-black' : 'text-white')} />
+                  {isColor ? (
+                    selectedOptions[attr.name] === val ? (
+                      <div className="w-full h-full rounded-full ring-2 ring-offset-2 ring-[#012169]" />
+                    ) : (
+                      <div className="w-full h-full rounded-full border border-[#c4c5d8] hover:scale-105 transition-transform" />
+                    )
+                  ) : (
+                    <div className={cn(
+                      'w-full h-full flex items-center justify-center px-4 py-2 rounded-lg border',
+                      selectedOptions[attr.name] === val
+                        ? 'border-2 border-[#012169] text-[#012169] font-bold bg-[#f3f2ff] px-3.75 py-1.75'
+                        : 'border-[#c4c5d8] text-[#1a1b24] hover:border-[#747687]'
+                    )}>
+                      {val}
+                    </div>
                   )}
-                  {!isColor && val}
                 </ToggleGroupItem>
               );
             })}

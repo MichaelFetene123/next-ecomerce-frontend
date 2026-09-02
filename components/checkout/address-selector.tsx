@@ -20,7 +20,7 @@ export const AddressSelector: React.FC<AddressSelectorProps> = ({
   onOpenAddModal,
 }) => {
   return (
-    <Card className="p-6 sm:p-8 bg-white border-[#c4c5d8]">
+    <Card className="p-6 sm:p-8 bg-white border-[#c4c5d8] shadow-none rounded-xl">
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
         <div className="w-7 h-7 rounded-full bg-[#FDD79A] text-[#012169] font-bold text-xs flex items-center justify-center">
@@ -48,22 +48,22 @@ export const AddressSelector: React.FC<AddressSelectorProps> = ({
               <label
                 htmlFor={`address-${address.id}`}
                 className={cn(
-                  'p-5 rounded-lg border transition-all duration-200 cursor-pointer relative flex flex-col justify-between min-h-35 w-full',
+                  'p-5 rounded-lg border transition-all duration-200 cursor-pointer relative flex flex-col justify-between min-h-[140px] w-full',
                   isSelected
-                    ? 'border-[#FDD79A] bg-[#fbf8ff] shadow-sm'
-                    : 'border-[#c4c5d8] bg-white hover:border-[#747687] peer-focus-visible:ring-2 peer-focus-visible:ring-[#012169] peer-focus-visible:ring-offset-2'
+                    ? 'border-[#FDD79A] bg-[#fbf8ff] shadow-sm ring-1 ring-[#FDD79A]'
+                    : 'border-[#c4c5d8] bg-white hover:border-[#747687]'
                 )}
               >
                 <div className="flex justify-between items-start mb-2">
-                  <span className="font-semibold text-sm text-[#012169]">
+                  <span className="font-bold text-[13px] text-[#012169]">
                     {address.full_name}
                   </span>
                   {isSelected && (
-                    <CheckCircle2 className="w-5 h-5 text-[#FDD79A] fill-[#FDD79A]/20" />
+                    <CheckCircle2 className="w-4.5 h-4.5 text-[#FDD79A] fill-[#FDD79A]/20" />
                   )}
                 </div>
 
-                <div className="text-xs text-[#434655] space-y-0.5 leading-relaxed">
+                <div className="text-[12px] text-[#434655] space-y-0.5 leading-relaxed font-medium">
                   <p>{address.line1}</p>
                   {address.line2 && <p>{address.line2}</p>}
                   <p>
@@ -74,7 +74,7 @@ export const AddressSelector: React.FC<AddressSelectorProps> = ({
                   </p>
                   {address.postal_code && <p>Postal Code: {address.postal_code}</p>}
                   {address.phone && (
-                    <p className="pt-1 font-geist text-[#747687]">
+                    <p className="pt-1 text-[#747687]">
                       Phone: {address.phone}
                     </p>
                   )}
@@ -86,13 +86,12 @@ export const AddressSelector: React.FC<AddressSelectorProps> = ({
       </RadioGroup>
 
       {/* Add New Address Button */}
-      <Button
-        variant="outline"
+      <button
         onClick={onOpenAddModal}
-        className="mt-4 w-full py-6 border-dashed border-[#c4c5d8] hover:border-[#012169] rounded-lg text-xs font-semibold text-[#434655] hover:text-[#012169] bg-white"
+        className="mt-6 w-full py-4 border border-dashed border-[#c4c5d8] hover:border-[#012169] rounded-lg text-[13px] font-bold text-[#434655] hover:text-[#012169] hover:bg-[#fbf8ff] bg-transparent transition-colors flex items-center justify-center cursor-pointer"
       >
-        <Plus className="w-4 h-4 mr-1.5" /> Add New Address
-      </Button>
+        <Plus className="w-4 h-4 mr-2" /> Add New Address
+      </button>
     </Card>
   );
 };
