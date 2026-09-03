@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useProducts } from '@/hooks/use-products';
 import { useCategories } from '@/hooks/use-categories';
 import { useCartStore } from '@/hooks/use-cart';
+import { useRequireAuth } from '@/hooks/use-require-auth';
 import { ProductCard } from '@/components/catalog/product-card';
 import { CategoryPills } from '@/components/catalog/category-pills';
 import { CategoryGridSkeleton } from '@/components/skeletons/category-grid-skeleton';
@@ -13,6 +14,7 @@ import { Product } from '@/types/catalog';
 export default function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = React.use(params);
   const router = useRouter();
+  const requireAuth = useRequireAuth();
   const { addItem, setIsOpen } = useCartStore();
 
   const { data: categories } = useCategories();
@@ -34,8 +36,10 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
 
   const handleQuickAdd = (product: Product, e: React.MouseEvent) => {
     e.stopPropagation();
-    addItem(product, { quantity: 1 });
-    setIsOpen(true);
+    requireAuth(() => {
+      addItem(product, { quantity: 1 });
+      setIsOpen(true);
+    });
   };
 
   const categoryName = category ? category.name : slug.replace('-', ' ');

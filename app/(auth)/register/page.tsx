@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useRegister } from '@/hooks/use-auth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,8 +11,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
 
-export default function RegisterPage() {
+function RegisterForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const register = useRegister();
   
   const [name, setName] = useState('');
@@ -39,7 +40,9 @@ export default function RegisterPage() {
         password_confirmation: passwordConfirmation 
       });
       toast.success('Account created successfully! Please log in.');
-      router.push('/login');
+      
+      const redirectParam = searchParams.get('redirect');
+      router.push(redirectParam ? `/login?redirect=${redirectParam}` : '/login');
     } catch (err: any) {
       toast.error(err?.response?.data?.message || 'Registration failed');
     } finally {
@@ -117,5 +120,13 @@ export default function RegisterPage() {
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center p-8"><Loader2 className="w-8 h-8 animate-spin text-[#012169]" /></div>}>
+      <RegisterForm />
+    </Suspense>
   );
 }

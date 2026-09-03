@@ -1,6 +1,6 @@
 import React from 'react';
 import { CartItem } from '@/hooks/use-cart';
-import { formatCurrency } from '@/lib/utils';
+import { formatCurrency, getImageUrl } from '@/lib/utils';
 import { Minus, Plus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -15,7 +15,7 @@ export const CartItemRow: React.FC<CartItemRowProps> = ({
   onUpdateQuantity,
   onRemove,
 }) => {
-  const image = item.product.images?.[0]?.path || '/placeholder-product.jpg';
+  const image = getImageUrl(item.product.images?.[0]?.path);
   
   // Try to find the exact variant they added if they selected options,
   // or default to the first one to get price.

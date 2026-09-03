@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useProduct } from '@/hooks/use-product';
 import { useCartStore } from '@/hooks/use-cart';
+import { useRequireAuth } from '@/hooks/use-require-auth';
 import { ProductDetailSkeleton } from '@/components/skeletons/product-detail-skeleton';
 import { ImageGallery } from '@/components/catalog/image-gallery';
 import { VariantMatrix } from '@/components/catalog/variant-matrix';
@@ -17,6 +18,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
   const router = useRouter();
   const { data: product, isLoading } = useProduct(slug);
   const { addItem, setIsOpen } = useCartStore();
+  
+  const requireAuth = useRequireAuth();
   
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
   const [quantity, setQuantity] = useState(1);
@@ -35,19 +38,30 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
   const isOutOfStock = currentStock === 0;
 
   const handleAddToCart = () => {
-    if (!selectedVariant && (product.variants?.length || 0) > 0) return;
-    
-    addItem(product, {
-      quantity,
-      color: selectedVariant?.attribute_values?.find((o: any) => o.attribute?.name === 'Color')?.value,
-      size: selectedVariant?.attribute_values?.find((o: any) => o.attribute?.name === 'Size')?.value,
+    requireAuth(() => {
+      if (!selectedVariant && (product.variants?.length || 0) > 0) return;
+      
+      addItem(product, {
+        quantity,
+        color: selectedVariant?.attribute_values?.find((o: any) => o.attribute?.name === 'Color')?.value,
+        size: selectedVariant?.attribute_values?.find((o: any) => o.attribute?.name === 'Size')?.value,
+      });
+      setIsOpen(true);
     });
-    setIsOpen(true);
   };
 
   const handleBuyNow = () => {
-    handleAddToCart();
-    router.push('/checkout');
+    requireAuth(() => {
+      if (!selectedVariant && (product.variants?.length || 0) > 0) return;
+      
+      addItem(product, {
+        quantity,
+        color: selectedVariant?.attribute_values?.find((o: any) => o.attribute?.name === 'Color')?.value,
+        size: selectedVariant?.attribute_values?.find((o: any) => o.attribute?.name === 'Size')?.value,
+      });
+      setIsOpen(true);
+      router.push('/checkout');
+    });
   };
 
   const toggleAccordion = (section: string) => {

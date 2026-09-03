@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { ProductImage } from '@/types/catalog';
-import { cn } from '@/lib/utils';
+import { cn, getImageUrl } from '@/lib/utils';
 import { Heart, PlayCircle } from 'lucide-react';
 
 interface ImageGalleryProps {
@@ -22,7 +22,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => 
       {/* Main Image */}
       <div className="w-full aspect-square relative rounded-xl overflow-hidden bg-[#f3f2ff] border border-[#c4c5d8] group">
         <img
-          src={galleryImages[activeIndex]?.path}
+          src={getImageUrl(galleryImages[activeIndex]?.path)}
           alt={`${title} - view ${activeIndex + 1}`}
           className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 ease-out"
           loading="eager"
@@ -56,7 +56,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => 
             )}
           >
             <img
-              src={img.path}
+              src={getImageUrl(img.path)}
               alt={`${title} - thumbnail ${idx + 1}`}
               className="object-cover w-full h-full"
               loading="lazy"

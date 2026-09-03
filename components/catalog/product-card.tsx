@@ -1,6 +1,6 @@
 import React from 'react';
 import { Product } from '@/types/catalog';
-import { formatCurrency } from '@/lib/utils';
+import { formatCurrency, getImageUrl } from '@/lib/utils';
 import { Plus } from 'lucide-react';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -30,7 +30,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     ? 'LOW STOCK'
     : 'IN STOCK';
 
-  const image = product.images?.[0]?.path || '/placeholder-product.jpg';
+  const image = getImageUrl(product.images?.[0]?.path);
 
   const handleSelect = () => {
     if (onSelectProduct) {

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useLogin, useUser } from '@/hooks/use-auth';
 import { useQueryClient } from '@tanstack/react-query';
 import { AUTH_QUERY_KEY } from '@/components/querykeys';
@@ -13,8 +13,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const login = useLogin();
   const queryClient = useQueryClient();
   useUser();
@@ -32,7 +33,9 @@ export default function LoginPage() {
       await login.mutateAsync({ email, password });
       await queryClient.invalidateQueries({ queryKey: AUTH_QUERY_KEY });
       toast.success('Successfully logged in');
-      router.push('/');
+      
+      const redirectUrl = searchParams.get('redirect') || '/';
+      router.push(redirectUrl);
     } catch (err: any) {
       toast.error(err?.response?.data?.message || 'Invalid credentials');
     } finally {
@@ -91,5 +94,13 @@ export default function LoginPage() {
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center p-8"><Loader2 className="w-8 h-8 animate-spin text-[#012169]" /></div>}>
+      <LoginForm />
+    </Suspense>
   );
 }

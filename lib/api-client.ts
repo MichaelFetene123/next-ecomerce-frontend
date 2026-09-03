@@ -8,6 +8,7 @@ export const apiClient = axios.create({
     "Content-Type": "application/json",
   },
   withCredentials: true, // Required for Sanctum stateful cookie authentication
+  withXSRFToken: true, // Required for Axios 1.x+ to send X-XSRF-TOKEN cross-origin
 });
 
 export const initializeCsrf = async (): Promise<void> => {

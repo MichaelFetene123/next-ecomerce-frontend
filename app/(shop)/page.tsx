@@ -1,9 +1,10 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useProducts } from '@/hooks/use-products';
 import { useCartStore } from '@/hooks/use-cart';
+import { useRequireAuth } from '@/hooks/use-require-auth';
 import { ProductCard } from '@/components/catalog/product-card';
 import { CategoryPills } from '@/components/catalog/category-pills';
 import { CategoryGridSkeleton } from '@/components/skeletons/category-grid-skeleton';
@@ -11,11 +12,12 @@ import { Product } from '@/types/catalog';
 
 export default function ShopHomepage() {
   const router = useRouter();
+  const requireAuth = useRequireAuth();
   const { addItem, setIsOpen } = useCartStore();
   const [selectedCategory, setSelectedCategory] = useState<string>('Fashion');
   
-  // Fetch a list of products (mocking the frontend filter)
-  const { data: response, isLoading } = useProducts({ per_page: 8 });
+  // Fetch a list of products
+  const { data: response, isLoading } = useProducts({ per_page: 30 });
   const products = response?.data || [];
 
   const handleSelectProduct = (product: Product) => {
@@ -24,8 +26,10 @@ export default function ShopHomepage() {
 
   const handleQuickAdd = (product: Product, e: React.MouseEvent) => {
     e.stopPropagation();
-    addItem(product, { quantity: 1 });
-    setIsOpen(true);
+    requireAuth(() => {
+      addItem(product, { quantity: 1 });
+      setIsOpen(true);
+    });
   };
 
   const categoryTitles: Record<string, { title: string; desc: string }> = {
@@ -37,6 +41,15 @@ export default function ShopHomepage() {
   };
 
   const currentInfo = categoryTitles[selectedCategory] || categoryTitles.Fashion;
+
+  const filteredProducts = selectedCategory === 'All'
+    ? products
+    : products.filter((p) => {
+        const catName = p.category?.name?.toLowerCase() || '';
+        const catSlug = p.category?.slug?.toLowerCase() || '';
+        const sel = selectedCategory.toLowerCase();
+        return catName.includes(sel) || catSlug.includes(sel);
+      });
 
   return (
     <div className="w-full space-y-12">
@@ -61,7 +74,7 @@ export default function ShopHomepage() {
           <CategoryGridSkeleton />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}
                 product={product}
@@ -71,19 +84,6 @@ export default function ShopHomepage() {
             ))}
           </div>
         )}
-      </section>
-
-      <section className="pt-8 border-t border-[#c4c5d8]">
-        <div className="mb-6">
-          <h2 className="text-xl md:text-2xl font-bold text-[#012169] tracking-tight mb-1">
-            Loading State Example
-          </h2>
-          <p className="text-xs md:text-sm text-[#434655]">
-            Demonstrating the skeleton layout for slow connections.
-          </p>
-        </div>
-
-        <CategoryGridSkeleton />
       </section>
     </div>
   );
