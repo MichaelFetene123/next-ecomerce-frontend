@@ -49,10 +49,10 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
       <section>
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-[#012169] tracking-tight capitalize">
+            <h1 className="text-2xl md:text-3xl font-bold text-[#012169] dark:text-foreground tracking-tight capitalize">
               {categoryName} Collection
             </h1>
-            <p className="text-xs md:text-sm text-[#434655] mt-1 capitalize">
+            <p className="text-xs md:text-sm text-muted-foreground mt-1 capitalize">
               Browse our curated selection of high-grade {categoryName.toLowerCase()} essentials.
             </p>
           </div>
@@ -80,8 +80,8 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 bg-white border border-[#c4c5d8] rounded-xl p-8">
-            <p className="text-base text-[#434655]">No products found in this category.</p>
+          <div className="text-center py-16 bg-card border border-border rounded-xl p-8">
+            <p className="text-base text-muted-foreground">No products found in this category.</p>
             <button
               onClick={() => router.push('/')}
               className="mt-4 px-4 py-2 bg-[#FDD79A] text-[#012169] font-bold text-xs rounded-lg cursor-pointer"

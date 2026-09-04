@@ -70,8 +70,8 @@ export default function CheckoutPage() {
   if (items.length === 0) {
     return (
       <div className="w-full py-16 text-center">
-        <h1 className="text-2xl font-bold text-[#012169] mb-4">Your cart is empty</h1>
-        <Link href="/" className="text-[#012169] underline">Return to shop</Link>
+        <h1 className="text-2xl font-bold text-[#012169] dark:text-foreground mb-4">Your cart is empty</h1>
+        <Link href="/" className="text-[#012169] dark:text-[#FDD79A] underline">Return to shop</Link>
       </div>
     );
   }
@@ -80,8 +80,8 @@ export default function CheckoutPage() {
     <AuthGuard>
       <div className="w-full">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-[#012169] mb-1">Checkout</h1>
-          <p className="text-sm text-[#434655]">Please review your order details below.</p>
+          <h1 className="text-3xl font-bold text-[#012169] dark:text-foreground mb-1">Checkout</h1>
+          <p className="text-sm text-muted-foreground">Please review your order details below.</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -104,46 +104,46 @@ export default function CheckoutPage() {
 
           {/* Right: Summary */}
           <div className="lg:col-span-4">
-            <Card className="p-6 sticky top-24 border-[#c4c5d8] shadow-sm bg-white rounded-xl">
-              <h2 className="text-[17px] font-bold text-[#012169] mb-6">Order Summary</h2>
+            <Card className="p-6 sticky top-24 border-border shadow-sm bg-card rounded-xl">
+              <h2 className="text-[17px] font-bold text-[#012169] dark:text-foreground mb-6">Order Summary</h2>
               
               <div className="space-y-4 mb-6">
                 {items.map(item => (
                   <div key={item.id} className="flex justify-between items-start text-[13px]">
                     <div className="flex flex-col">
-                      <span className="font-semibold text-[#1a1b24] line-clamp-1">{item.product.title}</span>
-                      <span className="text-[#747687]">Qty: {item.quantity}</span>
+                      <span className="font-semibold text-foreground line-clamp-1">{item.product.title}</span>
+                      <span className="text-muted-foreground">Qty: {item.quantity}</span>
                     </div>
-                    <span className="font-semibold text-[#1a1b24] shrink-0">
+                    <span className="font-semibold text-foreground shrink-0">
                       {formatCurrency((item.product.variants?.[0]?.price || 0) * item.quantity)}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="border-t border-dashed border-[#c4c5d8] my-4" />
+              <div className="border-t border-dashed border-border my-4" />
               
               <div className="space-y-3 text-[13px] mb-4">
-                <div className="flex justify-between text-[#434655]">
+                <div className="flex justify-between text-muted-foreground">
                   <span>Subtotal</span>
-                  <span className="font-semibold text-[#1a1b24]">{formatCurrency(subtotal)}</span>
+                  <span className="font-semibold text-foreground">{formatCurrency(subtotal)}</span>
                 </div>
-                <div className="flex justify-between text-[#434655]">
+                <div className="flex justify-between text-muted-foreground">
                   <span>Shipping</span>
-                  <span className="text-[#747687]">Free</span>
+                  <span className="text-muted-foreground">Free</span>
                 </div>
               </div>
               
-              <div className="border-t border-dashed border-[#c4c5d8] my-4" />
+              <div className="border-t border-dashed border-border my-4" />
               
               <div className="flex justify-between items-center mb-6">
-                <span className="font-bold text-[15px] text-[#012169]">Total</span>
-                <span className="font-bold text-[17px] text-[#1a1b24]">{formatCurrency(subtotal)}</span>
+                <span className="font-bold text-[15px] text-foreground">Total</span>
+                <span className="font-bold text-[17px] text-foreground">{formatCurrency(subtotal)}</span>
               </div>
 
-              <div className="flex items-center justify-center gap-2 bg-[#f3f2ff] py-2 rounded border border-[#c4c5d8]/50">
-                <Lock className="w-3.5 h-3.5 text-[#012169]" />
-                <span className="text-[11px] font-medium text-[#012169]">Payments are secure and encrypted</span>
+              <div className="flex items-center justify-center gap-2 bg-muted py-2 rounded border border-border">
+                <Lock className="w-3.5 h-3.5 text-foreground" />
+                <span className="text-[11px] font-medium text-muted-foreground">Payments are secure and encrypted</span>
               </div>
             </Card>
           </div>

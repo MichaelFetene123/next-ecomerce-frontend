@@ -20,7 +20,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => 
   return (
     <div className="flex flex-col gap-4">
       {/* Main Image */}
-      <div className="w-full aspect-square relative rounded-xl overflow-hidden bg-[#f3f2ff] border border-[#c4c5d8] group">
+      <div className="w-full aspect-square relative rounded-xl overflow-hidden bg-muted border border-border group">
         <img
           src={getImageUrl(galleryImages[activeIndex]?.path)}
           alt={`${title} - view ${activeIndex + 1}`}
@@ -31,11 +31,11 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => 
           type="button"
           onClick={() => setIsFavorite(!isFavorite)}
           aria-label="Save to Wishlist"
-          className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center border border-[#c4c5d8] hover:bg-[#f3f2ff] transition-colors shadow-xs cursor-pointer z-10"
+          className="absolute top-4 right-4 w-10 h-10 bg-background/90 backdrop-blur-xs rounded-full flex items-center justify-center border border-border hover:bg-muted transition-colors shadow-xs cursor-pointer z-10"
         >
           <Heart
             className={`w-5 h-5 transition-colors ${
-              isFavorite ? 'text-red-600 fill-red-600' : 'text-[#1a1b24]'
+              isFavorite ? 'text-red-600 fill-red-600' : 'text-foreground'
             }`}
           />
         </button>
@@ -49,10 +49,10 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => 
             type="button"
             onClick={() => setActiveIndex(idx)}
             className={cn(
-              'aspect-square bg-[#ededfa] rounded-lg overflow-hidden border transition-all cursor-pointer p-0',
+              'aspect-square bg-muted rounded-lg overflow-hidden border transition-all cursor-pointer p-0',
               activeIndex === idx
-                ? 'border-2 border-[#012169] shadow-xs'
-                : 'border-[#c4c5d8] hover:border-[#747687]'
+                ? 'border-2 border-[#012169] dark:border-[#FDD79A] shadow-xs'
+                : 'border-border hover:border-foreground/40'
             )}
           >
             <img
@@ -68,9 +68,9 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => 
         <button
           type="button"
           onClick={() => setActiveIndex(0)}
-          className="aspect-square bg-[#f3f2ff] rounded-lg border border-[#c4c5d8] hover:border-[#747687] transition-colors overflow-hidden flex items-center justify-center cursor-pointer group p-0"
+          className="aspect-square bg-muted rounded-lg border border-border hover:border-foreground/40 transition-colors overflow-hidden flex items-center justify-center cursor-pointer group p-0"
         >
-          <PlayCircle className="w-8 h-8 text-[#434655] group-hover:text-[#012169] transition-colors" />
+          <PlayCircle className="w-8 h-8 text-muted-foreground group-hover:text-foreground transition-colors" />
         </button>
       </div>
     </div>

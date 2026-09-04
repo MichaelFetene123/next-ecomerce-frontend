@@ -89,10 +89,10 @@ export const VariantMatrix: React.FC<VariantMatrixProps> = ({
     <div className="flex flex-col gap-6">
       {attributes.map((attr) => (
         <div key={attr.id} className="space-y-3">
-          <h4 className="text-sm font-semibold text-[#012169]">
+          <h4 className="text-sm font-semibold text-foreground">
             {attr.name}
             {selectedOptions[attr.name] && (
-              <span className="text-[#434655] font-normal ml-2">
+              <span className="text-muted-foreground font-normal ml-2">
                 {selectedOptions[attr.name]}
               </span>
             )}
@@ -124,16 +124,16 @@ export const VariantMatrix: React.FC<VariantMatrixProps> = ({
                 >
                   {isColor ? (
                     selectedOptions[attr.name] === val ? (
-                      <div className="w-full h-full rounded-full ring-2 ring-offset-2 ring-[#012169]" />
+                      <div className="w-full h-full rounded-full ring-2 ring-offset-2 ring-[#012169] dark:ring-[#FDD79A] ring-offset-background" />
                     ) : (
-                      <div className="w-full h-full rounded-full border border-[#c4c5d8] hover:scale-105 transition-transform" />
+                      <div className="w-full h-full rounded-full border border-border hover:scale-105 transition-transform" />
                     )
                   ) : (
                     <div className={cn(
                       'w-full h-full flex items-center justify-center px-4 py-2 rounded-lg border',
                       selectedOptions[attr.name] === val
-                        ? 'border-2 border-[#012169] text-[#012169] font-bold bg-[#f3f2ff] px-3.75 py-1.75'
-                        : 'border-[#c4c5d8] text-[#1a1b24] hover:border-[#747687]'
+                        ? 'border-2 border-[#012169] dark:border-[#FDD79A] text-[#012169] dark:text-[#FDD79A] font-bold bg-muted px-3.75 py-1.75'
+                        : 'border-border text-foreground hover:border-foreground/40'
                     )}>
                       {val}
                     </div>

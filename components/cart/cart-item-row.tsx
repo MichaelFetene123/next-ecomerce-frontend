@@ -22,8 +22,8 @@ export const CartItemRow: React.FC<CartItemRowProps> = ({
   const price = item.product.variants?.[0]?.price || 0;
 
   return (
-    <div className="flex items-center gap-4 py-4 border-b border-[#c4c5d8]/60 last:border-0">
-      <div className="w-16 h-16 rounded-lg overflow-hidden border border-[#c4c5d8] bg-[#f3f2ff] shrink-0">
+    <div className="flex items-center gap-4 py-4 border-b border-border last:border-0">
+      <div className="w-16 h-16 rounded-lg overflow-hidden border border-border bg-muted shrink-0">
         <img
           src={image}
           alt={item.product.title}
@@ -32,15 +32,15 @@ export const CartItemRow: React.FC<CartItemRowProps> = ({
       </div>
 
       <div className="flex-1 min-w-0">
-        <h4 className="text-sm font-medium text-[#012169] truncate">
+        <h4 className="text-sm font-medium text-foreground truncate">
           {item.product.title}
         </h4>
-        <p className="text-xs text-[#434655] mt-0.5">
+        <p className="text-xs text-muted-foreground mt-0.5">
           {item.selectedColor && `Color: ${item.selectedColor}`}
           {item.selectedColor && item.selectedSize && ' • '}
           {item.selectedSize && `Size: ${item.selectedSize}`}
         </p>
-        <div className="font-geist text-xs font-semibold text-[#1a1b24] mt-1">
+        <div className="font-geist text-xs font-semibold text-foreground mt-1">
           {formatCurrency(price)}
         </div>
       </div>
@@ -50,29 +50,29 @@ export const CartItemRow: React.FC<CartItemRowProps> = ({
           variant="ghost"
           size="icon"
           onClick={() => onRemove(item.id)}
-          className="text-[#747687] hover:text-[#ba1a1a] hover:bg-transparent h-8 w-8"
+          className="text-muted-foreground hover:text-destructive hover:bg-transparent h-8 w-8"
           title="Remove item"
         >
           <Trash2 className="w-4 h-4" />
         </Button>
 
-        <div className="flex items-center border border-[#c4c5d8] rounded-md h-7 overflow-hidden">
+        <div className="flex items-center border border-border rounded-md h-7 overflow-hidden">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
-            className="w-6 h-full rounded-none hover:bg-[#f3f2ff]"
+            className="w-6 h-full rounded-none hover:bg-muted text-muted-foreground hover:text-foreground"
           >
             <Minus className="w-3 h-3" />
           </Button>
-          <span className="w-8 text-center text-xs font-medium text-[#1a1b24]">
+          <span className="w-8 text-center text-xs font-medium text-foreground">
             {item.quantity}
           </span>
           <Button
             variant="ghost"
             size="icon"
             onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-            className="w-6 h-full rounded-none hover:bg-[#f3f2ff]"
+            className="w-6 h-full rounded-none hover:bg-muted text-muted-foreground hover:text-foreground"
           >
             <Plus className="w-3 h-3" />
           </Button>

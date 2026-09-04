@@ -9,15 +9,15 @@ export const Footer: React.FC = () => {
 
   if (pathname?.startsWith('/checkout')) {
     return (
-      <footer className="w-full py-6 bg-white border-t border-[#c4c5d8] mt-auto text-center">
-        <p className="text-xs text-[#747687]">© 2024 Storefront. All rights reserved.</p>
+      <footer className="w-full py-6 bg-card border-t border-border mt-auto text-center">
+        <p className="text-xs text-muted-foreground">© 2024 Storefront. All rights reserved.</p>
       </footer>
     );
   }
 
   return (
     <footer className="w-full py-12 bg-[#012169] text-white mt-auto">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 px-4 md:px-8 max-w-[1280px] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 px-4 md:px-8 max-w-7xl mx-auto">
         <div className="col-span-1 md:col-span-2">
           <p className="text-xs text-white/80 max-w-sm leading-relaxed">
             Premium quality products curated for modern living.<br/>

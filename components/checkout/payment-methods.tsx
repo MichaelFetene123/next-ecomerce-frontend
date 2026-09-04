@@ -25,13 +25,13 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
   ];
 
   return (
-    <Card className="p-6 sm:p-8 bg-white border-[#c4c5d8] shadow-none rounded-xl">
+    <Card className="p-6 sm:p-8 bg-card border-border shadow-none rounded-xl">
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
-        <div className="w-7 h-7 rounded-full bg-[#fbf8ff] border border-[#c4c5d8] text-[#012169] font-bold text-xs flex items-center justify-center">
+        <div className="w-7 h-7 rounded-full bg-muted border border-border text-foreground font-bold text-xs flex items-center justify-center">
           2
         </div>
-        <h2 className="text-xl font-bold text-[#012169]">Payment Method</h2>
+        <h2 className="text-xl font-bold text-foreground">Payment Method</h2>
       </div>
 
       {/* Gateway Options */}
@@ -52,22 +52,22 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
               <label
                 htmlFor={`gateway-${opt.id}`}
                 className={cn(
-                  'h-[88px] rounded-lg border flex flex-col items-center justify-center relative cursor-pointer transition-all w-full',
+                  'h-22 rounded-lg border flex flex-col items-center justify-center relative cursor-pointer transition-all w-full',
                   isSelected
-                    ? 'border-[#FDD79A] bg-[#fbf8ff] shadow-sm ring-1 ring-[#FDD79A]'
-                    : 'border-[#c4c5d8] bg-white hover:border-[#747687]'
+                    ? 'border-[#FDD79A] bg-muted/40 shadow-sm ring-1 ring-[#FDD79A]'
+                    : 'border-border bg-card hover:border-foreground/40'
                 )}
               >
                 {isSelected && (
                   <div className="absolute top-2.5 right-2.5">
-                    <CheckCircle2 className="w-[18px] h-[18px] text-[#FDD79A] fill-[#FDD79A]/20" />
+                    <CheckCircle2 className="w-4.5 h-4.5 text-[#FDD79A] fill-[#FDD79A]/20" />
                   </div>
                 )}
                 <div className="flex flex-col items-center gap-0.5">
-                  <span className={cn('text-[13px] font-bold tracking-tight', isSelected ? 'text-[#012169]' : 'text-[#1a1b24]')}>
+                  <span className={cn('text-[13px] font-bold tracking-tight', isSelected ? 'text-[#012169] dark:text-[#FDD79A]' : 'text-foreground')}>
                     {opt.name}
                   </span>
-                  <span className="text-[10px] text-[#747687] font-medium">
+                  <span className="text-[10px] text-muted-foreground font-medium">
                     {opt.desc}
                   </span>
                 </div>

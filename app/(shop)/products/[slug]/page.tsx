@@ -71,19 +71,19 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
   return (
     <div className="w-full">
       {/* Breadcrumbs */}
-      <nav className="flex items-center text-xs text-[#434655] mb-8">
+      <nav className="flex items-center text-xs text-muted-foreground mb-8">
         <ol className="inline-flex items-center space-x-2">
           <li>
-            <Link href="/" className="hover:text-[#012169] transition-colors font-medium">Home</Link>
+            <Link href="/" className="hover:text-foreground transition-colors font-medium">Home</Link>
           </li>
-          <ChevronRight className="w-3.5 h-3.5 text-[#c4c5d8]" />
+          <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50" />
           <li>
-            <Link href={`/categories/${product.category?.slug}`} className="hover:text-[#012169] transition-colors font-medium capitalize">
+            <Link href={`/categories/${product.category?.slug}`} className="hover:text-foreground transition-colors font-medium capitalize">
               {product.category?.name || 'Category'}
             </Link>
           </li>
-          <ChevronRight className="w-3.5 h-3.5 text-[#c4c5d8]" />
-          <li className="text-[#434655] truncate max-w-50 md:max-w-none capitalize">
+          <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50" />
+          <li className="text-foreground truncate max-w-50 md:max-w-none capitalize font-medium">
             {product.title}
           </li>
         </ol>
@@ -99,10 +99,10 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         {/* Right: Details */}
         <div className="flex flex-col">
           <div className="mb-6">
-            <div className="text-xs font-bold text-[#747687] tracking-wider mb-3">
+            <div className="text-xs font-bold text-muted-foreground tracking-wider mb-3">
               SKU: {selectedVariant ? selectedVariant.sku : product.variants?.[0]?.sku || 'N/A'}
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-[#012169] mb-4 tracking-tight leading-tight">
+            <h1 className="text-3xl md:text-4xl font-bold text-[#012169] dark:text-foreground mb-4 tracking-tight leading-tight">
               {product.title}
             </h1>
             
@@ -110,18 +110,18 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             <div className="flex items-center gap-2 mb-6">
               <div className="flex">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className={`w-4 h-4 ${i < 4 ? 'text-[#012169] fill-[#012169]' : 'text-[#c4c5d8] fill-[#c4c5d8]'}`} />
+                  <Star key={i} className={`w-4 h-4 ${i < 4 ? 'text-amber-500 fill-amber-500' : 'text-muted fill-muted'}`} />
                 ))}
               </div>
-              <span className="text-sm text-[#434655] font-medium underline cursor-pointer hover:text-[#012169]">(24 Reviews)</span>
+              <span className="text-sm text-muted-foreground font-medium underline cursor-pointer hover:text-foreground">(24 Reviews)</span>
             </div>
 
-            <div className="text-3xl font-bold text-[#1a1b24] mb-8">
+            <div className="text-3xl font-bold text-foreground mb-8">
               {formatCurrency(currentPrice)}
             </div>
           </div>
 
-          <hr className="border-[#c4c5d8] mb-8" />
+          <hr className="border-border mb-8" />
 
           {/* Variant Matrix */}
           {(product.variants?.length || 0) > 0 && (
@@ -136,11 +136,11 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
           {/* Actions */}
           <div className="flex flex-col sm:flex-row gap-4 mb-10">
             {/* Quantity */}
-            <div className="flex items-center border border-[#c4c5d8] rounded-lg h-12 w-32 bg-white flex-shrink-0">
+            <div className="flex items-center border border-border rounded-lg h-12 w-32 bg-card shrink-0">
               <button
                 type="button"
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="w-10 h-full flex items-center justify-center text-[#434655] hover:text-[#012169] hover:bg-[#fbf8ff] transition-colors rounded-l-lg cursor-pointer"
+                className="w-10 h-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors rounded-l-lg cursor-pointer"
               >
                 <Minus className="w-4 h-4" />
               </button>
@@ -148,13 +148,14 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 type="text"
                 readOnly
                 value={quantity}
-                className="flex-1 h-full border-none text-center text-sm font-semibold text-[#1a1b24] bg-transparent p-0 focus:ring-0 outline-none"
-              />
+                className="flex-1 h-full border-none text-center text-sm font-semibold text-foreground bg-transparent p-0 focus:ring-0 outline-none"
+              >
+              </input>
               <button
                 type="button"
                 onClick={() => setQuantity(quantity + 1)}
                 disabled={quantity >= currentStock}
-                className="w-10 h-full flex items-center justify-center text-[#434655] hover:text-[#012169] hover:bg-[#fbf8ff] transition-colors rounded-r-lg disabled:opacity-50 cursor-pointer"
+                className="w-10 h-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors rounded-r-lg disabled:opacity-50 cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
               </button>
@@ -180,34 +181,34 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
           </div>
 
           {/* Accordions */}
-          <div className="border-t border-[#c4c5d8]">
+          <div className="border-t border-border">
             {/* Specifications */}
-            <div className="border-b border-[#c4c5d8]">
+            <div className="border-b border-border">
               <button
                 onClick={() => toggleAccordion('specifications')}
-                className="w-full py-4 flex items-center justify-between font-bold text-[#012169] hover:text-[#012169]/80 transition-colors cursor-pointer"
+                className="w-full py-4 flex items-center justify-between font-bold text-foreground hover:text-foreground/80 transition-colors cursor-pointer"
               >
                 Specifications
                 {openAccordion === 'specifications' ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
               </button>
               {openAccordion === 'specifications' && (
-                <div className="pb-6 text-sm text-[#434655] leading-relaxed prose prose-sm max-w-none">
+                <div className="pb-6 text-sm text-muted-foreground leading-relaxed prose prose-sm dark:prose-invert max-w-none">
                   {product.description || 'Premium material and finish for high-durability and corporate use.'}
                 </div>
               )}
             </div>
 
             {/* Shipping Info */}
-            <div className="border-b border-[#c4c5d8]">
+            <div className="border-b border-border">
               <button
                 onClick={() => toggleAccordion('shipping')}
-                className="w-full py-4 flex items-center justify-between font-bold text-[#012169] hover:text-[#012169]/80 transition-colors cursor-pointer"
+                className="w-full py-4 flex items-center justify-between font-bold text-foreground hover:text-foreground/80 transition-colors cursor-pointer"
               >
                 Shipping Info
                 {openAccordion === 'shipping' ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
               </button>
               {openAccordion === 'shipping' && (
-                <div className="pb-6 text-sm text-[#434655] leading-relaxed">
+                <div className="pb-6 text-sm text-muted-foreground leading-relaxed">
                   Delivery within 2-3 business days. Free shipping on orders over 5,000 ETB.
                   All items are securely packaged to prevent damage during transit.
                 </div>

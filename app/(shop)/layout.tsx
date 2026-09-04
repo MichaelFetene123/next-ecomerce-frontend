@@ -8,7 +8,7 @@ export default function ShopLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col min-h-screen bg-[#fbf8ff] text-[#1a1b24]">
+    <div className="flex flex-col min-h-screen bg-background text-foreground transition-colors">
       <Header />
       <main className="flex-1 flex flex-col pt-24 md:pt-28 pb-16 px-4 md:px-8 max-w-7xl mx-auto w-full">
         {children}

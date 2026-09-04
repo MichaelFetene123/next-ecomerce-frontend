@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Search, ShoppingCart, User, Package } from 'lucide-react';
+import { Search, ShoppingCart, User, Package, Sun, Moon } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import { useCartStore } from '@/hooks/use-cart';
 
 export const Header: React.FC = () => {
@@ -11,6 +12,13 @@ export const Header: React.FC = () => {
   const router = useRouter();
   const { totalItemsCount, setIsOpen } = useCartStore();
   const [searchQuery, setSearchQuery] = useState('');
+
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navLinks = [
     { label: 'Electronics', href: '/categories/electronics' },
@@ -35,9 +43,26 @@ export const Header: React.FC = () => {
           >
             Storefront
           </Link>
-          <div className="flex items-center gap-2 text-white/80">
-            <span className="font-geist text-sm">Secure Checkout</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <div className="flex items-center gap-4 text-white/80">
+            {mounted && (
+              <button
+                type="button"
+                onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+                aria-label="Toggle theme"
+                title={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode (hotkey: D)`}
+                className="p-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center cursor-pointer text-white"
+              >
+                {resolvedTheme === 'dark' ? (
+                  <Sun className="w-5 h-5 text-[#FDD79A]" />
+                ) : (
+                  <Moon className="w-5 h-5" />
+                )}
+              </button>
+            )}
+            <div className="flex items-center gap-2">
+              <span className="font-geist text-sm">Secure Checkout</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
           </div>
         </div>
       </header>
@@ -96,6 +121,23 @@ export const Header: React.FC = () => {
 
         {/* Icons / Actions */}
         <div className="flex items-center gap-2 md:gap-4 text-white">
+          {/* Theme Toggle */}
+          {mounted && (
+            <button
+              type="button"
+              onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+              aria-label="Toggle theme"
+              title={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode (hotkey: D)`}
+              className="p-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center cursor-pointer"
+            >
+              {resolvedTheme === 'dark' ? (
+                <Sun className="w-5 h-5 text-[#FDD79A]" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              )}
+            </button>
+          )}
+
           {/* Orders */}
           <Link
             href="/orders"
@@ -120,7 +162,7 @@ export const Header: React.FC = () => {
           <button
             onClick={() => setIsOpen(true)}
             aria-label="Shopping Cart"
-            className="p-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center relative group"
+            className="p-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center relative group cursor-pointer"
           >
             <ShoppingCart className="w-5 h-5 group-active:scale-[0.98] transition-transform" />
             {totalItemsCount > 0 && (

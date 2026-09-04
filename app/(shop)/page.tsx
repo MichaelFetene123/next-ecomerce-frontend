@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -56,10 +56,10 @@ export default function ShopHomepage() {
       <section>
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-[#012169] tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-bold text-[#012169] dark:text-foreground tracking-tight">
               {currentInfo.title}
             </h1>
-            <p className="text-xs md:text-sm text-[#434655] mt-1">
+            <p className="text-xs md:text-sm text-muted-foreground mt-1">
               {currentInfo.desc}
             </p>
           </div>

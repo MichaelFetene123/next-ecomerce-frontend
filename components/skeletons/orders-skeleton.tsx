@@ -8,7 +8,7 @@ export function OrdersSkeleton({ count = 3 }: { count?: number }) {
 
       <div className="grid gap-4">
         {Array.from({ length: count }).map((_, index) => (
-          <Card key={index} className="p-6 border-[#c4c5d8]">
+          <Card key={index} className="p-6 border-border bg-card">
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-4">
               <div className="space-y-2">
                 <div className="flex items-center gap-3">
@@ -24,7 +24,7 @@ export function OrdersSkeleton({ count = 3 }: { count?: number }) {
               </div>
             </div>
 
-            <div className="flex justify-end pt-4 border-t border-[#f3f2ff]">
+            <div className="flex justify-end pt-4 border-t border-border">
               <Skeleton className="h-9 w-28 rounded-md" />
             </div>
           </Card>

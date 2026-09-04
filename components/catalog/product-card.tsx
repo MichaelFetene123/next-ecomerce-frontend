@@ -41,10 +41,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <Card
       onClick={handleSelect}
-      className="group cursor-pointer border border-[#c4c5d8] hover:border-[#747687] rounded-xl overflow-hidden transition-all duration-200 h-full flex flex-col relative shadow-none"
+      className="group cursor-pointer border border-border  bg-card text-card-foreground rounded-xl overflow-hidden transition-all duration-200 h-full flex flex-col relative shadow-none"
     >
       {/* Image container */}
-      <div className="relative aspect-4/3 w-full overflow-hidden bg-[#f3f2ff]">
+      <div className="relative aspect-4/3 w-full overflow-hidden bg-muted">
         <img
           src={image}
           alt={product.title}
@@ -52,31 +52,31 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           loading="lazy"
         />
         {product.category && (
-          <div className="absolute top-3 right-3 bg-white px-2.5 py-1 rounded-md font-medium text-[11px] text-[#1a1b24] shadow-xs">
+          <div className="absolute top-3 right-3 bg-background/90 backdrop-blur-xs px-2.5 py-1 rounded-md font-medium text-[11px] text-foreground shadow-xs border border-border/50">
             {product.category.name}
           </div>
         )}
       </div>
 
       <CardContent className="flex flex-col grow p-4 pb-0">
-        <h3 className="text-[15px] text-[#012169] font-medium line-clamp-1 mb-1.5">
+        <h3 className="text-[15px] text-[#012169] dark:text-foreground font-medium line-clamp-1 mb-1.5">
           {product.title}
         </h3>
 
         <div className="flex items-center gap-1 mb-2">
           <div className={`text-[10px] font-bold px-2 py-0.5 rounded-full w-fit ${
               isOutOfStock
-                ? "bg-gray-200 text-gray-600"
+                ? "bg-muted text-muted-foreground"
                 : isLowStock
-                ? "bg-[#ffdad6] text-[#ba1a1a]"
-                : "bg-[#00875A]/10 text-[#00875A]"
+                ? "bg-red-500/15 text-red-600 dark:text-red-400"
+                : "bg-[#00875A]/15 text-[#00875A] dark:text-emerald-400"
             }`}>
             {stockStatus}
           </div>
         </div>
 
         <div className="mt-auto flex items-end justify-between pt-2">
-          <span className="font-geist text-sm text-[#1a1b24] font-semibold">
+          <span className="font-geist text-sm text-foreground font-semibold">
             {formatCurrency(price)}
           </span>
         </div>

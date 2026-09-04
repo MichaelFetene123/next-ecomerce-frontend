@@ -30,10 +30,10 @@ export default function OrdersPage() {
 
   if (orders.length === 0) {
     return (
-      <Card className="flex flex-col items-center justify-center p-12 text-center border-dashed border-[#c4c5d8]">
-        <PackageOpen className="w-16 h-16 text-[#c4c5d8] mb-4" />
-        <h2 className="text-xl font-bold text-[#012169] mb-2">No orders yet</h2>
-        <p className="text-[#434655] mb-6 max-w-md">
+      <Card className="flex flex-col items-center justify-center p-12 text-center border-dashed border-border bg-card">
+        <PackageOpen className="w-16 h-16 text-muted-foreground/40 mb-4" />
+        <h2 className="text-xl font-bold text-[#012169] dark:text-foreground mb-2">No orders yet</h2>
+        <p className="text-muted-foreground mb-6 max-w-md">
           You haven't placed any orders. Browse our catalog to find what you need.
         </p>
         <Link
@@ -51,36 +51,36 @@ export default function OrdersPage() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-[#012169] mb-6">Order History</h2>
+      <h2 className="text-2xl font-bold text-[#012169] dark:text-foreground mb-6">Order History</h2>
       
       <div className="grid gap-4">
         {orders.map((order) => (
-          <Card key={order.id} className="p-6 border-[#c4c5d8] hover:border-[#012169] transition-colors">
+          <Card key={order.id} className="p-6 border-border hover:border-foreground/40 transition-colors bg-card">
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-4">
               <div>
                 <div className="flex items-center gap-3 mb-1">
-                  <span className="font-bold text-[#012169]">Order #{order.id}</span>
+                  <span className="font-bold text-[#012169] dark:text-foreground">Order #{order.id}</span>
                   <Badge className={getStatusColor(order.status)} variant="secondary">
                     {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                   </Badge>
                 </div>
-                <p className="text-sm text-[#747687]">
+                <p className="text-sm text-muted-foreground">
                   Placed on {formatDate(order.created_at)}
                 </p>
               </div>
               
               <div className="text-left sm:text-right">
-                <p className="text-sm text-[#747687] mb-1">Total Amount</p>
-                <p className="font-bold text-lg text-[#1a1b24]">{formatCurrency(order.total)}</p>
+                <p className="text-sm text-muted-foreground mb-1">Total Amount</p>
+                <p className="font-bold text-lg text-foreground">{formatCurrency(order.total)}</p>
               </div>
             </div>
 
-            <div className="flex justify-end pt-4 border-t border-[#f3f2ff]">
+            <div className="flex justify-end pt-4 border-t border-border">
               <Link
                 href={`/orders/${order.id}`}
                 className={cn(
                   buttonVariants({ variant: "outline" }),
-                  "border-[#012169] text-[#012169] hover:bg-[#fbf8ff]"
+                  "border-border text-foreground hover:bg-muted"
                 )}
               >
                 View Details
