@@ -1,6 +1,6 @@
 'use client';
 
-import { useSyncExternalStore } from 'react';
+import { useSyncExternalStore, useEffect } from 'react';
 import { Product } from '@/types/catalog';
 
 export interface CartItem {
@@ -32,12 +32,19 @@ function notify() {
   }
 }
 
-// Initialize from local storage on client side
-if (typeof window !== 'undefined') {
+let isInitialized = false;
+
+function initFromStorage() {
+  if (typeof window === 'undefined' || isInitialized) return;
+  isInitialized = true;
   try {
     const saved = localStorage.getItem(CART_STORAGE_KEY);
     if (saved) {
-      state.items = JSON.parse(saved);
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        state = { ...state, items: parsed };
+        notify();
+      }
     }
   } catch (e) {
     console.error('Failed to parse cart state from local storage', e);
@@ -45,12 +52,14 @@ if (typeof window !== 'undefined') {
 }
 
 export const cartStore = {
+  init: () => initFromStorage(),
   getState: () => state,
   subscribe: (listener: () => void) => {
     listeners.add(listener);
     return () => listeners.delete(listener);
   },
   addItem: (product: Product, options?: { quantity?: number; color?: string; size?: string }) => {
+    initFromStorage();
     const color = options?.color;
     const size = options?.size;
     const qty = options?.quantity || 1;
@@ -82,6 +91,7 @@ export const cartStore = {
     notify();
   },
   updateQuantity: (itemId: string, newQty: number) => {
+    initFromStorage();
     if (newQty <= 0) {
       cartStore.removeItem(itemId);
       return;
@@ -93,10 +103,12 @@ export const cartStore = {
     notify();
   },
   removeItem: (itemId: string) => {
+    initFromStorage();
     state = { ...state, items: state.items.filter((i) => i.id !== itemId) };
     notify();
   },
   clearCart: () => {
+    initFromStorage();
     state = { ...state, items: [] };
     notify();
   },
@@ -114,6 +126,10 @@ export function useCartStore() {
     cartStore.getState, 
     () => emptyServerState // Server side fallback
   );
+
+  useEffect(() => {
+    initFromStorage();
+  }, []);
   
   const totalItemsCount = storeState.items.reduce((sum, i) => sum + i.quantity, 0);
   const subtotal = storeState.items.reduce((sum, i) => {

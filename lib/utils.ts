@@ -1,4 +1,4 @@
-﻿import { type ClassValue, clsx } from "clsx";
+import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -13,6 +13,23 @@ export function formatCurrency(amount: string | number, currency = "ETB"): strin
     currency: currency,
     minimumFractionDigits: 2,
   }).format(isNaN(numericAmount) ? 0 : numericAmount);
+}
+
+export function formatDate(
+  date: string | number | Date | null | undefined,
+  options?: Intl.DateTimeFormatOptions
+): string {
+  if (!date) return "";
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return "";
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+    ...options,
+  }).format(d);
 }
 
 export function getImageUrl(path: string | undefined): string {

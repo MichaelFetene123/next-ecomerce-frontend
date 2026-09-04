@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useOrders } from '@/hooks/use-orders'; 
-import { formatCurrency } from '@/lib/utils';
+import { formatCurrency, formatDate } from '@/lib/utils';
 import { Loader2, Download, ArrowLeft, MapPin, CreditCard } from 'lucide-react';
 
 export default function OrderDetailsPage({ params }: { params: Promise<{ id: string }> }) {
@@ -62,7 +62,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
             </span>
           </div>
           <div className="text-sm text-[#747687] flex gap-4">
-            <span>{new Date(order.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+            <span>{formatDate(order.created_at, { month: 'long', day: 'numeric', year: 'numeric' })}</span>
             <span>tx_ref: {order.transaction_id || 'N/A'}</span>
           </div>
         </div>
@@ -101,20 +101,20 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
             </div>
 
             <div className="p-6 bg-white border-t border-[#c4c5d8] flex flex-col items-end gap-3">
-              <div className="flex justify-between w-full max-w-[240px] text-[13px] text-[#434655]">
+              <div className="flex justify-between w-full max-w-60 text-[13px] text-[#434655]">
                 <span>Subtotal</span>
                 <span className="font-medium text-[#1a1b24]">{formatCurrency(order.total)}</span>
               </div>
-              <div className="flex justify-between w-full max-w-[240px] text-[13px] text-[#434655]">
+              <div className="flex justify-between w-full max-w-60 text-[13px] text-[#434655]">
                 <span>Shipping</span>
                 <span className="font-medium text-[#1a1b24]">Free</span>
               </div>
-              <div className="flex justify-between w-full max-w-[240px] text-[13px] text-[#434655]">
+              <div className="flex justify-between w-full max-w-60 text-[13px] text-[#434655]">
                 <span>Tax</span>
                 <span className="font-medium text-[#1a1b24]">{formatCurrency(0)}</span>
               </div>
-              <div className="w-full max-w-[240px] border-t border-dashed border-[#c4c5d8] my-1" />
-              <div className="flex justify-between w-full max-w-[240px]">
+              <div className="w-full max-w-60 border-t border-dashed border-[#c4c5d8] my-1" />
+              <div className="flex justify-between w-full max-w-60">
                 <span className="font-bold text-[15px] text-[#012169]">Total</span>
                 <span className="font-bold text-[17px] text-[#1a1b24]">{formatCurrency(order.total)}</span>
               </div>
@@ -155,21 +155,21 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
             <h3 className="font-bold text-[15px] text-[#012169] mb-4">Tracking Timeline</h3>
             <div className="relative border-l border-[#c4c5d8] ml-2 pl-4 space-y-6">
               <div className="relative">
-                <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-[#00875A]" />
+                <div className="absolute -left-5.25 top-1 w-2.5 h-2.5 rounded-full bg-[#00875A]" />
                 <p className="text-[13px] font-bold text-[#1a1b24]">Order Placed</p>
-                <p className="text-[11px] text-[#747687]">{new Date(order.created_at).toLocaleDateString()}</p>
+                <p className="text-[11px] text-[#747687]">{formatDate(order.created_at)}</p>
               </div>
               <div className="relative">
-                <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-[#FDD79A]" />
+                <div className="absolute -left-5.25 top-1 w-2.5 h-2.5 rounded-full bg-[#FDD79A]" />
                 <p className="text-[13px] font-bold text-[#1a1b24]">Processing</p>
                 <p className="text-[11px] text-[#747687]">We are preparing your items.</p>
               </div>
               <div className="relative">
-                <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-[#c4c5d8]" />
+                <div className="absolute -left-5.25 top-1 w-2.5 h-2.5 rounded-full bg-[#c4c5d8]" />
                 <p className="text-[13px] font-medium text-[#434655]">Shipped</p>
               </div>
               <div className="relative">
-                <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-[#c4c5d8]" />
+                <div className="absolute -left-5.25 top-1 w-2.5 h-2.5 rounded-full bg-[#c4c5d8]" />
                 <p className="text-[13px] font-medium text-[#434655]">Delivered</p>
               </div>
             </div>

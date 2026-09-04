@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { CheckCircle2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function CheckoutCallbackPage() {
+function CheckoutCallbackContent() {
   const searchParams = useSearchParams();
   const tx_ref = searchParams.get('trx_ref');
   const status = searchParams.get('status');
@@ -61,5 +61,19 @@ export default function CheckoutCallbackPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function CheckoutCallbackPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-[60vh] flex items-center justify-center p-4">
+          <Loader2 className="w-8 h-8 animate-spin text-[#012169]" />
+        </div>
+      }
+    >
+      <CheckoutCallbackContent />
+    </Suspense>
   );
 }

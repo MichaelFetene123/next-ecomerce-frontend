@@ -13,7 +13,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen bg-background text-foreground antialiased">
+      <head suppressHydrationWarning />
+      <body
+        className="min-h-screen bg-background text-foreground antialiased"
+        suppressHydrationWarning
+      >
         <QueryClientProvider client={queryClient}>
           {children}
           <Toaster richColors position="top-right" />

@@ -6,9 +6,10 @@ import { useOrders } from '@/hooks/use-orders';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { formatCurrency } from '@/lib/utils';
-import { Loader2, PackageOpen } from 'lucide-react';
+import { formatCurrency, formatDate } from '@/lib/utils';
+import { PackageOpen } from 'lucide-react';
 import { OrderStatus } from '@/types/order';
+import { OrdersSkeleton } from '@/components/skeletons/orders-skeleton';
 
 export default function OrdersPage() {
   const { data: response, isLoading } = useOrders();
@@ -24,11 +25,7 @@ export default function OrdersPage() {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-12">
-        <Loader2 className="w-8 h-8 animate-spin text-[#012169]" />
-      </div>
-    );
+    return <OrdersSkeleton />;
   }
 
   if (orders.length === 0) {
@@ -64,7 +61,7 @@ export default function OrdersPage() {
                   </Badge>
                 </div>
                 <p className="text-sm text-[#747687]">
-                  Placed on {new Date(order.created_at).toLocaleDateString()}
+                  Placed on {formatDate(order.created_at)}
                 </p>
               </div>
               
