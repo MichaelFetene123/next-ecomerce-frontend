@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { useOrders } from '@/hooks/use-orders';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { formatCurrency, formatDate } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button';
+import { cn, formatCurrency, formatDate } from '@/lib/utils';
 import { PackageOpen } from 'lucide-react';
 import { OrderStatus } from '@/types/order';
 import { OrdersSkeleton } from '@/components/skeletons/orders-skeleton';
@@ -36,10 +36,14 @@ export default function OrdersPage() {
         <p className="text-[#434655] mb-6 max-w-md">
           You haven't placed any orders. Browse our catalog to find what you need.
         </p>
-        <Link href="/">
-          <Button className="bg-[#012169] text-white hover:bg-[#012169]/90">
-            Start Shopping
-          </Button>
+        <Link
+          href="/"
+          className={cn(
+            buttonVariants({ variant: "default" }),
+            "bg-[#012169] text-white hover:bg-[#012169]/90"
+          )}
+        >
+          Start Shopping
         </Link>
       </Card>
     );
@@ -72,10 +76,14 @@ export default function OrdersPage() {
             </div>
 
             <div className="flex justify-end pt-4 border-t border-[#f3f2ff]">
-              <Link href={`/orders/${order.id}`}>
-                <Button variant="outline" className="border-[#012169] text-[#012169] hover:bg-[#fbf8ff]">
-                  View Details
-                </Button>
+              <Link
+                href={`/orders/${order.id}`}
+                className={cn(
+                  buttonVariants({ variant: "outline" }),
+                  "border-[#012169] text-[#012169] hover:bg-[#fbf8ff]"
+                )}
+              >
+                View Details
               </Link>
             </div>
           </Card>

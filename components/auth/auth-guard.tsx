@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useUser } from '@/hooks/use-auth';
 import { Loader2 } from 'lucide-react';
@@ -14,18 +14,23 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const { data: user, isLoading } = useUser();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (!isLoading && !user) {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted && !isLoading && !user) {
       const redirectUrl = encodeURIComponent(pathname);
       router.push(`/login?redirect=${redirectUrl}`);
     }
-  }, [user, isLoading, router, pathname]);
+  }, [user, isLoading, router, pathname, mounted]);
 
-  if (isLoading || !user) {
+  if (!mounted || isLoading || !user) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <Loader2 className="w-8 h-8 text-[#012169] animate-spin" />
+        <Loader2 className="w-8 h-8 text-[#012169] dark:text-primary animate-spin" />
       </div>
     );
   }

@@ -1,11 +1,11 @@
-"use client";
-
-import { QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { queryClient } from "@/lib/query-client";
-import { Toaster } from "sonner";
+import type { Metadata } from "next";
 import "@/app/globals.css";
-import { ThemeProvider } from "@/components/theme-provider"
+import { Providers } from "@/components/providers";
+
+export const metadata: Metadata = {
+  title: "Storefront - Next.js Ecommerce",
+  description: "Modern full-stack ecommerce application",
+};
 
 export default function RootLayout({
   children,
@@ -19,12 +19,9 @@ export default function RootLayout({
         className="min-h-screen bg-background text-foreground antialiased"
         suppressHydrationWarning
       >
-        
-        <QueryClientProvider client={queryClient}>
+        <Providers>
           {children}
-          <Toaster richColors position="top-right" />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+        </Providers>
       </body>
     </html>
   );
