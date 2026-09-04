@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Search, ShoppingCart, User } from 'lucide-react';
+import { Search, ShoppingCart, User, Package } from 'lucide-react';
 import { useCartStore } from '@/hooks/use-cart';
 
 export const Header: React.FC = () => {
@@ -28,7 +28,7 @@ export const Header: React.FC = () => {
   if (pathname?.startsWith('/checkout')) {
     return (
       <header className="fixed top-0 w-full z-40 bg-[#012169] text-white shadow-xs">
-        <div className="flex justify-between items-center w-full px-4 md:px-8 max-w-[1280px] mx-auto h-20">
+        <div className="flex justify-between items-center w-full px-4 md:px-8 max-w-7xl mx-auto h-20">
           <Link
             href="/"
             className="font-bold text-2xl tracking-tight text-white hover:opacity-90 transition-opacity"
@@ -96,10 +96,21 @@ export const Header: React.FC = () => {
 
         {/* Icons / Actions */}
         <div className="flex items-center gap-2 md:gap-4 text-white">
-          {/* Profile */}
+          {/* Orders */}
           <Link
             href="/orders"
+            aria-label="Order History"
+            title="Orders"
+            className="p-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center"
+          >
+            <Package className="w-5 h-5" />
+          </Link>
+
+          {/* Account */}
+          <Link
+            href="/account"
             aria-label="User Account"
+            title="My Account"
             className="p-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center"
           >
             <User className="w-5 h-5" />
