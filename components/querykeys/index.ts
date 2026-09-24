@@ -8,3 +8,6 @@ export const productDetailQueryKey = (slug: string) => [...PRODUCTS_QUERY_KEY, '
 
 export const ordersListQueryKey = (page: number) => [...ORDERS_QUERY_KEY, { page }] as const;
 export const orderDetailQueryKey = (orderNumber: string) => [...ORDERS_QUERY_KEY, orderNumber] as const;
+
+export const ADDRESSES_QUERY_KEY = ['addresses'] as const;
+export const addressesListQueryKey = () => [...ADDRESSES_QUERY_KEY] as const;
