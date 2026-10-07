@@ -7,8 +7,9 @@ export function useCategories() {
   return useQuery({
     queryKey: CATEGORIES_QUERY_KEY,
     queryFn: async (): Promise<Category[]> => {
-      const response = await apiClient.get('/api/categories');
-      return response.data?.data ?? response.data ?? [];
+      const response = await apiClient.get<{ data: Category[] } | Category[]>('/api/categories');
+      const payload = response.data;
+      return Array.isArray(payload) ? payload : payload?.data ?? [];
     },
   });
 }

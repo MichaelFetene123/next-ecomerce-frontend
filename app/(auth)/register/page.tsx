@@ -51,70 +51,70 @@ function RegisterForm() {
   };
 
   return (
-    <Card className="border-[#c4c5d8] shadow-sm">
+    <Card className="shadow-sm">
       <CardContent className="pt-8 px-8 pb-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="name" className="text-[#012169] font-semibold">Full Name</Label>
+            <Label htmlFor="name" className="font-semibold">Full Name</Label>
             <Input 
               id="name" 
               required 
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="border-[#c4c5d8] focus-visible:ring-[#012169] h-12" 
+              className="h-12" 
               placeholder="John Doe"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-[#012169] font-semibold">Email address</Label>
+            <Label htmlFor="email" className="font-semibold">Email address</Label>
             <Input 
               id="email" 
               type="email" 
               required 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="border-[#c4c5d8] focus-visible:ring-[#012169] h-12" 
+              className="h-12" 
               placeholder="you@company.com"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password" className="text-[#012169] font-semibold">Password</Label>
+            <Label htmlFor="password" className="font-semibold">Password</Label>
             <Input 
               id="password" 
               type="password" 
               required 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="border-[#c4c5d8] focus-visible:ring-[#012169] h-12" 
+              className="h-12" 
             />
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="password_confirmation" className="text-[#012169] font-semibold">Confirm Password</Label>
+            <Label htmlFor="password_confirmation" className="font-semibold">Confirm Password</Label>
             <Input 
               id="password_confirmation" 
               type="password" 
               required 
               value={passwordConfirmation}
               onChange={(e) => setPasswordConfirmation(e.target.value)}
-              className="border-[#c4c5d8] focus-visible:ring-[#012169] h-12" 
+              className="h-12" 
             />
           </div>
 
           <Button 
             type="submit" 
-            className="w-full bg-[#012169] hover:bg-[#012169]/90 text-white font-bold h-12"
+            className="w-full font-bold h-12"
             disabled={isLoading}
           >
             {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Create Account'}
           </Button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-[#434655]">
+        <div className="mt-6 text-center text-sm text-muted-foreground">
           Already have an account?{' '}
-          <Link href="/login" className="font-medium text-[#012169] hover:underline">
+          <Link href="/login" className="font-medium text-primary dark:text-sidebar-primary hover:underline">
             Sign in
           </Link>
         </div>
@@ -125,7 +125,7 @@ function RegisterForm() {
 
 export default function RegisterPage() {
   return (
-    <Suspense fallback={<div className="flex justify-center p-8"><Loader2 className="w-8 h-8 animate-spin text-[#012169]" /></div>}>
+    <Suspense fallback={<div className="flex justify-center p-8"><Loader2 className="w-8 h-8 animate-spin text-primary dark:text-sidebar-primary" /></div>}>
       <RegisterForm />
     </Suspense>
   );
