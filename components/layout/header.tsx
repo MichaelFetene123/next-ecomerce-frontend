@@ -21,9 +21,10 @@ export const Header: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { label: 'Electronics', href: '/categories/electronics' },
-    { label: 'Fashion', href: '/categories/fashion' },
-    { label: 'Home', href: '/categories/home' },
+    { label: 'Shop', href: '/' },
+    { label: 'Orders', href: '/orders' },
+    { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
   ];
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -100,8 +101,9 @@ export const Header: React.FC = () => {
         <nav className="hidden md:flex items-center gap-6 h-full">
           {navLinks.map((link) => {
             const isActive =
-              pathname === link.href ||
-              (link.label === 'Fashion' && (pathname === '/' || pathname.includes('fashion') || pathname.includes('products')));
+              link.href === '/'
+                ? pathname === '/' || pathname?.startsWith('/categories') || pathname?.startsWith('/products')
+                : pathname === link.href || pathname?.startsWith(`${link.href}/`);
 
             return (
               <Link
@@ -123,7 +125,7 @@ export const Header: React.FC = () => {
         <div className="flex items-center gap-2 md:gap-4 text-white">
           {/* Theme Toggle */}
           {mounted && (
-            <button
+            <button 
               type="button"
               onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
               aria-label="Toggle theme"
@@ -138,15 +140,7 @@ export const Header: React.FC = () => {
             </button>
           )}
 
-          {/* Orders */}
-          <Link
-            href="/orders"
-            aria-label="Order History"
-            title="Orders"
-            className="p-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center"
-          >
-            <Package className="w-5 h-5" />
-          </Link>
+
 
           {/* Account */}
           <Link
