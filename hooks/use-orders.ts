@@ -13,6 +13,7 @@ export function useOrders(page: number = 1) {
       });
       return response.data;
     },
+    staleTime: 60 * 1000,
   });
 }
 

@@ -15,6 +15,7 @@ export function useUser() {
       }
     },
     retry: false,
+    staleTime: 5 * 60 * 1000,
   });
 }
 
