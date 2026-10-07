@@ -46,15 +46,6 @@ export default function AccountLayout({
                 Account Center
               </span>
             </div>
-
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 text-sm sm:text-base font-medium px-2.5 sm:px-3 h-8 rounded-lg border border-white/20 bg-white/10 text-white hover:bg-white/20 hover:text-white transition-colors shrink-0"
-            >
-              <Store className="w-4 h-4 shrink-0 text-[#FDD79A]" />
-              <span className="hidden sm:inline">Return to Store</span>
-              <span className="sm:hidden">Store</span>
-            </Link>
           </div>
         </header>
 
