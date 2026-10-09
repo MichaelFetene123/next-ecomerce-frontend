@@ -7,6 +7,18 @@ import { Search, ShoppingCart, User, Package, Sun, Moon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useCartStore } from '@/hooks/use-cart';
 import { useUser, useLogout } from '@/hooks/use-auth';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Skeleton } from '@/components/ui/skeleton';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export const Header: React.FC = () => {
   const pathname = usePathname();
@@ -14,28 +26,14 @@ export const Header: React.FC = () => {
   const { totalItemsCount, setIsOpen } = useCartStore();
   const [searchQuery, setSearchQuery] = useState('');
 
-  const { data: currentUser } = useUser();
+  const { data: currentUser, isLoading: isUserLoading } = useUser();
   const logoutMutation = useLogout();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = React.useRef<HTMLDivElement>(null);
 
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   React.useEffect(() => {
     setMounted(true);
-  }, []);
-
-  React.useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsMenuOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
   }, []);
 
   const navLinks = [
@@ -64,19 +62,20 @@ export const Header: React.FC = () => {
           </Link>
           <div className="flex items-center gap-4 text-white/80">
             {mounted && (
-              <button
-                type="button"
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
                 aria-label="Toggle theme"
                 title={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode (hotkey: D)`}
-                className="p-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center cursor-pointer text-white"
+                className="text-white hover:bg-white/10 hover:text-white rounded-full"
               >
                 {resolvedTheme === 'dark' ? (
                   <Sun className="w-5 h-5 text-[#FDD79A]" />
                 ) : (
                   <Moon className="w-5 h-5" />
                 )}
-              </button>
+              </Button>
             )}
             <div className="flex items-center gap-2">
               <span className="font-geist text-sm">Secure Checkout</span>
@@ -102,15 +101,15 @@ export const Header: React.FC = () => {
 
           <form
             onSubmit={handleSearchSubmit}
-            className="hidden md:flex items-center bg-white/10 rounded-full px-3 py-1.5 border border-white/20 ml-4 focus-within:border-white/50 transition-colors"
+            className="hidden md:flex items-center relative ml-4"
           >
-            <Search className="w-4 h-4 text-white/70 mr-2 shrink-0" />
-            <input
+            <Search className="w-4 h-4 text-white/70 absolute left-3" />
+            <Input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search products..."
-              className="bg-transparent border-none outline-none text-xs w-56 placeholder-white/70 text-white focus:ring-0"
+              className="w-56 pl-9 bg-white/10 border-white/20 text-white placeholder:text-white/70 focus-visible:ring-white/50 rounded-full h-9"
             />
           </form>
         </div>
@@ -143,112 +142,98 @@ export const Header: React.FC = () => {
         <div className="flex items-center gap-2 md:gap-4 text-white">
           {/* Theme Toggle */}
           {mounted && (
-            <button 
-              type="button"
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
               aria-label="Toggle theme"
               title={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode (hotkey: D)`}
-              className="p-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center cursor-pointer"
+              className="text-white hover:bg-white/10 hover:text-white rounded-full"
             >
               {resolvedTheme === 'dark' ? (
                 <Sun className="w-5 h-5 text-[#FDD79A]" />
               ) : (
                 <Moon className="w-5 h-5" />
               )}
-            </button>
+            </Button>
           )}
 
 
 
           {/* Account */}
-          {currentUser ? (
-            <div className="relative" ref={menuRef}>
-              <button
-                type="button"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                aria-label="User Menu"
-                title="My Account"
-                className="p-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center cursor-pointer"
-              >
+          {isUserLoading ? (
+            <Skeleton className="w-10 h-10 rounded-full bg-white/10" />
+          ) : currentUser ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white rounded-full" />}>
                 <div className="w-6 h-6 rounded-full bg-[#FDD79A] text-[#012169] flex items-center justify-center text-xs font-bold uppercase">
                   {currentUser.name?.[0] || 'U'}
                 </div>
-              </button>
-              
-              {isMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 text-sm text-gray-700 dark:text-gray-200 ring-1 ring-black/5 z-50">
-                  <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
-                    <p className="font-semibold text-gray-900 dark:text-white truncate">
-                      {currentUser.name}
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                      {currentUser.email}
-                    </p>
-                  </div>
-                  <Link
-                    href="/account"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    My account
-                  </Link>
-                  <Link
-                    href="/orders"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Orders
-                  </Link>
-                  <button
-                    type="button"
-                    className="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-red-600 dark:text-red-400"
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      logoutMutation.mutate();
-                    }}
-                  >
-                    Sign out
-                  </button>
-                </div>
-              )}
-            </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">{currentUser.name}</p>
+                      <p className="text-xs leading-none text-muted-foreground">{currentUser.email}</p>
+                    </div>
+                  </DropdownMenuLabel>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem render={<Link href="/account" />}>
+                  My account
+                </DropdownMenuItem>
+                <DropdownMenuItem render={<Link href="/orders" />}>
+                  Orders
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  className="text-red-600 focus:bg-red-50 dark:focus:bg-red-950 cursor-pointer"
+                  onClick={() => logoutMutation.mutate()}
+                >
+                  Sign out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
-            <Link
-              href="/login"
-              aria-label="Login"
-              title="Sign In"
-              className="p-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center"
+            <Button
+              variant="ghost"
+              size="icon"
+              render={<Link href="/login" aria-label="Login" title="Sign In" />}
+              className="text-white hover:bg-white/10 hover:text-white rounded-full"
             >
               <User className="w-5 h-5" />
-            </Link>
+            </Button>
           )}
 
           {/* Cart Button */}
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setIsOpen(true)}
             aria-label="Shopping Cart"
-            className="p-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center relative group cursor-pointer"
+            className="text-white hover:bg-white/10 hover:text-white rounded-full relative group"
           >
             <ShoppingCart className="w-5 h-5 group-active:scale-[0.98] transition-transform" />
             {totalItemsCount > 0 && (
-              <span className="absolute top-0.5 right-0.5 -mt-1 -mr-1 font-bold font-geist text-[10px] w-4 h-4 flex items-center justify-center rounded-full bg-[#FDD79A] text-[#012169]">
+              <span className="absolute top-0.5 right-0.5 font-bold font-geist text-[10px] w-4 h-4 flex items-center justify-center rounded-full bg-[#FDD79A] text-[#012169]">
                 {totalItemsCount}
               </span>
             )}
-          </button>
+          </Button>
         </div>
       </div>
 
       {/* Mobile Search Bar */}
-      <div className="md:hidden flex items-center bg-[#012169] border-t border-white/20 px-4 py-2">
-        <Search className="w-4 h-4 text-white/70 mr-2 shrink-0" />
-        <input
+      <div className="md:hidden flex items-center bg-[#012169] border-t border-white/20 px-4 py-2 relative">
+        <Search className="w-4 h-4 text-white/70 absolute left-6" />
+        <Input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSearchSubmit(e)}
           placeholder="Search products..."
-          className="bg-transparent border-none outline-none text-xs w-full placeholder-white/70 text-white focus:ring-0"
+          className="w-full pl-9 bg-white/10 border-white/20 text-white placeholder:text-white/70 focus-visible:ring-white/50 rounded-full h-9"
         />
       </div>
     </header>
