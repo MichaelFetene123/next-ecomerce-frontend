@@ -22,11 +22,44 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
+const SearchForm = ({ 
+  className, 
+  inputClassName, 
+  iconClassName 
+}: { 
+  className?: string;
+  inputClassName?: string;
+  iconClassName?: string;
+}) => {
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const query = searchQuery.trim();
+    if (query) {
+      router.push(`/?search=${encodeURIComponent(query)}`);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSearchSubmit} className={className}>
+      <Search className={iconClassName} />
+      <Input
+        type="text"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        placeholder="Search products..."
+        className={inputClassName}
+      />
+    </form>
+  );
+};
+
 export const Header: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { totalItemsCount, setIsOpen } = useCartStore();
-  const [searchQuery, setSearchQuery] = useState('');
 
   const { data: currentUser, isLoading: isUserLoading } = useUser();
   const logoutMutation = useLogout();
@@ -47,12 +80,6 @@ export const Header: React.FC = () => {
     { label: 'Contact', href: '/contact' },
   ];
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/?search=${encodeURIComponent(searchQuery)}`);
-    }
-  };
 
   if (pathname?.startsWith('/checkout')) {
     return (
@@ -148,19 +175,11 @@ export const Header: React.FC = () => {
             Storefront
           </Link>
 
-          <form
-            onSubmit={handleSearchSubmit}
+          <SearchForm
             className="hidden md:flex items-center relative ml-4"
-          >
-            <Search className="w-4 h-4 text-white/70 absolute left-3" />
-            <Input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search products..."
-              className="w-56 pl-9 bg-white/10 border-white/20 text-white placeholder:text-white/70 focus-visible:ring-white/50 rounded-full h-9"
-            />
-          </form>
+            iconClassName="w-4 h-4 text-white/70 absolute left-3"
+            inputClassName="w-56 pl-9 bg-white/10 border-white/20 text-white placeholder:text-white/70 focus-visible:ring-white/50 rounded-full h-9"
+          />
         </div>
 
         {/* Nav Categories */}
@@ -274,15 +293,11 @@ export const Header: React.FC = () => {
       </div>
 
       {/* Mobile Search Bar */}
-      <div className="md:hidden flex items-center bg-[#012169] border-t border-white/20 px-4 py-2 relative">
-        <Search className="w-4 h-4 text-white/70 absolute left-6" />
-        <Input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSearchSubmit(e)}
-          placeholder="Search products..."
-          className="w-full pl-9 bg-white/10 border-white/20 text-white placeholder:text-white/70 focus-visible:ring-white/50 rounded-full h-9"
+      <div className="md:hidden bg-[#012169] border-t border-white/20 px-4 py-2">
+        <SearchForm
+          className="flex items-center relative w-full"
+          iconClassName="w-4 h-4 text-white/70 absolute left-3"
+          inputClassName="w-full pl-9 bg-white/10 border-white/20 text-white placeholder:text-white/70 focus-visible:ring-white/50 rounded-full h-9"
         />
       </div>
     </header>
