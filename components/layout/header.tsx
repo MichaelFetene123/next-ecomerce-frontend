@@ -193,8 +193,8 @@ export const Header: React.FC = () => {
                 key={link.label}
                 href={link.href}
                 className={`h-full flex items-center text-xs font-semibold px-2 transition-all duration-200 ${isActive
-                    ? 'text-[#FDD79A] border-b-2 border-[#FDD79A]'
-                    : 'text-white/75 hover:text-white hover:bg-white/5'
+                  ? 'text-[#FDD79A] border-b-2 border-[#FDD79A]'
+                  : 'text-white/75 hover:text-white hover:bg-white/5'
                   }`}
               >
                 {link.label}
