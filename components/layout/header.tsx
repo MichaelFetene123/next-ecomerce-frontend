@@ -8,7 +8,8 @@ import { useTheme } from 'next-themes';
 import { useCartStore } from '@/hooks/use-cart';
 import { useUser, useLogout } from '@/hooks/use-auth';
 import { useCategories } from '@/hooks/use-categories';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
@@ -74,6 +75,28 @@ const ThemeToggle = () => {
   );
 };
 
+export const CheckoutHeader = () => {
+  return (
+    <header className="fixed top-0 w-full z-40 bg-[#012169] text-white shadow-xs">
+      <div className="flex justify-between items-center w-full px-4 md:px-8 max-w-7xl mx-auto h-20">
+        <Link
+          href="/"
+          className="font-bold text-2xl tracking-tight text-white hover:opacity-90 transition-opacity"
+        >
+          Storefront
+        </Link>
+        <div className="flex items-center gap-4 text-white/80">
+          <ThemeToggle />
+          <div className="flex items-center gap-2">
+            <span className="font-geist text-sm">Secure Checkout</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};
+
 export const Header: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
@@ -93,28 +116,6 @@ export const Header: React.FC = () => {
     { label: 'Contact', href: '/contact' },
   ];
 
-
-  if (pathname?.startsWith('/checkout')) {
-    return (
-      <header className="fixed top-0 w-full z-40 bg-[#012169] text-white shadow-xs">
-        <div className="flex justify-between items-center w-full px-4 md:px-8 max-w-7xl mx-auto h-20">
-          <Link
-            href="/"
-            className="font-bold text-2xl tracking-tight text-white hover:opacity-90 transition-opacity"
-          >
-            Storefront
-          </Link>
-          <div className="flex items-center gap-4 text-white/80">
-            <ThemeToggle />
-            <div className="flex items-center gap-2">
-              <span className="font-geist text-sm">Secure Checkout</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-            </div>
-          </div>
-        </div>
-      </header>
-    );
-  }
 
   return (
     <header className="fixed top-0 w-full z-40 bg-[#012169] text-white shadow-xs">
@@ -244,14 +245,14 @@ export const Header: React.FC = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button
-              variant="ghost"
-              size="icon"
-              render={<Link href="/login" aria-label="Login" title="Sign In" />}
-              className="text-white hover:bg-white/10 hover:text-white rounded-full"
+            <Link 
+              href="/login" 
+              aria-label="Login" 
+              title="Sign In"
+              className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "text-white hover:bg-white/10 hover:text-white rounded-full")}
             >
               <User className="w-5 h-5" />
-            </Button>
+            </Link>
           )}
 
           {/* Cart Button */}
