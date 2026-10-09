@@ -3,13 +3,15 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Search, ShoppingCart, User, Package, Sun, Moon } from 'lucide-react';
+import { Search, ShoppingCart, User, Package, Sun, Moon, Menu } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useCartStore } from '@/hooks/use-cart';
 import { useUser, useLogout } from '@/hooks/use-auth';
+import { useCategories } from '@/hooks/use-categories';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,6 +30,8 @@ export const Header: React.FC = () => {
 
   const { data: currentUser, isLoading: isUserLoading } = useUser();
   const logoutMutation = useLogout();
+  const { data: categories = [] } = useCategories();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -92,6 +96,51 @@ export const Header: React.FC = () => {
       <div className="flex justify-between items-center w-full px-4 md:px-8 max-w-7xl mx-auto h-16">
         {/* Logo & Search */}
         <div className="flex items-center gap-4">
+          <div className="md:hidden flex items-center">
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+              <SheetTrigger render={<Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white rounded-full -ml-2" />}>
+                <Menu className="w-5 h-5" />
+              </SheetTrigger>
+              <SheetContent side="left" className="w-75 sm:w-100">
+                <SheetHeader>
+                  <SheetTitle className="text-left text-lg font-bold">Menu</SheetTitle>
+                </SheetHeader>
+                <div className="flex flex-col gap-4 mt-6">
+                  <nav className="flex flex-col gap-2">
+                    {navLinks.map((link) => (
+                      <Link
+                        key={link.label}
+                        href={link.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="text-base font-semibold px-4 py-2 hover:bg-accent rounded-md"
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </nav>
+                  
+                  {categories.length > 0 && (
+                    <div className="mt-4 border-t pt-4">
+                      <h3 className="font-semibold text-sm text-muted-foreground px-4 mb-2">Categories</h3>
+                      <div className="flex flex-col gap-1">
+                        {categories.map((cat) => (
+                          <Link
+                            key={cat.id}
+                            href={`/categories/${cat.slug}`}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="text-sm px-4 py-2 hover:bg-accent rounded-md"
+                          >
+                            {cat.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+
           <Link
             href="/"
             className="font-bold text-2xl tracking-tight text-white hover:opacity-90 transition-opacity"
