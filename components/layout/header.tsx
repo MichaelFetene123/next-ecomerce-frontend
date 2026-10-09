@@ -56,6 +56,24 @@ const SearchForm = ({
   );
 };
 
+const ThemeToggle = () => {
+  const { theme, setTheme } = useTheme();
+  
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      aria-label="Toggle theme"
+      title="Toggle theme"
+      className="text-white hover:bg-white/10 hover:text-white rounded-full"
+    >
+      <Sun className="w-5 h-5 text-[#FDD79A] hidden dark:block" />
+      <Moon className="w-5 h-5 block dark:hidden" />
+    </Button>
+  );
+};
+
 export const Header: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
@@ -66,12 +84,7 @@ export const Header: React.FC = () => {
   const { data: categories = [] } = useCategories();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const navLinks = [
     { label: 'Shop', href: '/' },
@@ -92,22 +105,7 @@ export const Header: React.FC = () => {
             Storefront
           </Link>
           <div className="flex items-center gap-4 text-white/80">
-            {mounted && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-                aria-label="Toggle theme"
-                title={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode (hotkey: D)`}
-                className="text-white hover:bg-white/10 hover:text-white rounded-full"
-              >
-                {resolvedTheme === 'dark' ? (
-                  <Sun className="w-5 h-5 text-[#FDD79A]" />
-                ) : (
-                  <Moon className="w-5 h-5" />
-                )}
-              </Button>
-            )}
+            <ThemeToggle />
             <div className="flex items-center gap-2">
               <span className="font-geist text-sm">Secure Checkout</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
@@ -209,25 +207,7 @@ export const Header: React.FC = () => {
         {/* Icons / Actions */}
         <div className="flex items-center gap-2 md:gap-4 text-white">
           {/* Theme Toggle */}
-          {mounted && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-              aria-label="Toggle theme"
-              title={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode (hotkey: D)`}
-              className="text-white hover:bg-white/10 hover:text-white rounded-full"
-            >
-              {resolvedTheme === 'dark' ? (
-                <Sun className="w-5 h-5 text-[#FDD79A]" />
-              ) : (
-                <Moon className="w-5 h-5" />
-              )}
-            </Button>
-          )}
-
-
-
+          <ThemeToggle />
           {/* Account */}
           {isUserLoading ? (
             <Skeleton className="w-10 h-10 rounded-full bg-white/10" />
