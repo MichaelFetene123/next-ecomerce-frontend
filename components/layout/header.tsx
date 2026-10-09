@@ -75,6 +75,27 @@ const ThemeToggle = () => {
   );
 };
 
+const CartButton = () => {
+  const { totalItemsCount, setIsOpen } = useCartStore();
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={() => setIsOpen(true)}
+      aria-label={`Shopping Cart, ${totalItemsCount} items`}
+      className="text-white hover:bg-white/10 hover:text-white rounded-full relative group"
+    >
+      <ShoppingCart className="w-5 h-5 group-active:scale-[0.98] transition-transform" />
+      {totalItemsCount > 0 && (
+        <span className="absolute top-0.5 right-0.5 font-bold font-geist text-[10px] w-4 h-4 flex items-center justify-center rounded-full bg-[#FDD79A] text-[#012169]">
+          {totalItemsCount > 99 ? '99+' : totalItemsCount}
+        </span>
+      )}
+    </Button>
+  );
+};
+
 export const CheckoutHeader = () => {
   return (
     <header className="sticky top-0 w-full z-40 bg-[#012169] text-white shadow-xs">
@@ -100,7 +121,6 @@ export const CheckoutHeader = () => {
 export const Header: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const { totalItemsCount, setIsOpen } = useCartStore();
 
   const { data: currentUser, isLoading: isUserLoading } = useUser();
   const logoutMutation = useLogout();
@@ -254,20 +274,7 @@ export const Header: React.FC = () => {
           )}
 
           {/* Cart Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setIsOpen(true)}
-            aria-label="Shopping Cart"
-            className="text-white hover:bg-white/10 hover:text-white rounded-full relative group"
-          >
-            <ShoppingCart className="w-5 h-5 group-active:scale-[0.98] transition-transform" />
-            {totalItemsCount > 0 && (
-              <span className="absolute top-0.5 right-0.5 font-bold font-geist text-[10px] w-4 h-4 flex items-center justify-center rounded-full bg-[#FDD79A] text-[#012169]">
-                {totalItemsCount}
-              </span>
-            )}
-          </Button>
+          <CartButton />
         </div>
       </div>
 
