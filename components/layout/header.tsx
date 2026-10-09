@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Search, ShoppingCart, User, Package, Sun, Moon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useCartStore } from '@/hooks/use-cart';
+import { useUser, useLogout } from '@/hooks/use-auth';
 
 export const Header: React.FC = () => {
   const pathname = usePathname();
@@ -13,11 +14,28 @@ export const Header: React.FC = () => {
   const { totalItemsCount, setIsOpen } = useCartStore();
   const [searchQuery, setSearchQuery] = useState('');
 
+  const { data: currentUser } = useUser();
+  const logoutMutation = useLogout();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = React.useRef<HTMLDivElement>(null);
+
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   React.useEffect(() => {
     setMounted(true);
+  }, []);
+
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const navLinks = [
@@ -143,14 +161,67 @@ export const Header: React.FC = () => {
 
 
           {/* Account */}
-          <Link
-            href="/account"
-            aria-label="User Account"
-            title="My Account"
-            className="p-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center"
-          >
-            <User className="w-5 h-5" />
-          </Link>
+          {currentUser ? (
+            <div className="relative" ref={menuRef}>
+              <button
+                type="button"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-label="User Menu"
+                title="My Account"
+                className="p-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center cursor-pointer"
+              >
+                <div className="w-6 h-6 rounded-full bg-[#FDD79A] text-[#012169] flex items-center justify-center text-xs font-bold uppercase">
+                  {currentUser.name?.[0] || 'U'}
+                </div>
+              </button>
+              
+              {isMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 text-sm text-gray-700 dark:text-gray-200 ring-1 ring-black/5 z-50">
+                  <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+                    <p className="font-semibold text-gray-900 dark:text-white truncate">
+                      {currentUser.name}
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                      {currentUser.email}
+                    </p>
+                  </div>
+                  <Link
+                    href="/account"
+                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    My account
+                  </Link>
+                  <Link
+                    href="/orders"
+                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Orders
+                  </Link>
+                  <button
+                    type="button"
+                    className="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-red-600 dark:text-red-400"
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      logoutMutation.mutate();
+                    }}
+                  >
+                    Sign out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              aria-label="Login"
+              title="Sign In"
+              className="p-2 rounded-full hover:bg-white/10 transition-colors flex items-center justify-center"
+            >
+              <User className="w-5 h-5" />
+            </Link>
+          )}
 
           {/* Cart Button */}
           <button
