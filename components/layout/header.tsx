@@ -23,11 +23,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-const SearchForm = ({ 
-  className, 
-  inputClassName, 
-  iconClassName 
-}: { 
+const SearchForm = ({
+  className,
+  inputClassName,
+  iconClassName
+}: {
   className?: string;
   inputClassName?: string;
   iconClassName?: string;
@@ -59,7 +59,7 @@ const SearchForm = ({
 
 const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
-  
+
   return (
     <Button
       variant="ghost"
@@ -77,8 +77,8 @@ const ThemeToggle = () => {
 
 export const CheckoutHeader = () => {
   return (
-    <header className="fixed top-0 w-full z-40 bg-[#012169] text-white shadow-xs">
-      <div className="flex justify-between items-center w-full px-4 md:px-8 max-w-7xl mx-auto h-20">
+    <header className="sticky top-0 w-full z-40 bg-[#012169] text-white shadow-xs">
+      <div className="flex justify-between items-center w-full px-4 md:px-8 max-w-7xl mx-auto h-16">
         <Link
           href="/"
           className="font-bold text-2xl tracking-tight text-white hover:opacity-90 transition-opacity"
@@ -111,14 +111,13 @@ export const Header: React.FC = () => {
 
   const navLinks = [
     { label: 'Shop', href: '/' },
-    { label: 'Orders', href: '/orders' },
     { label: 'About', href: '/about' },
     { label: 'Contact', href: '/contact' },
   ];
 
 
   return (
-    <header className="fixed top-0 w-full z-40 bg-[#012169] text-white shadow-xs">
+    <header className="sticky top-0 w-full z-40 bg-[#012169] text-white shadow-xs">
       <div className="flex justify-between items-center w-full px-4 md:px-8 max-w-7xl mx-auto h-16">
         {/* Logo & Search */}
         <div className="flex items-center gap-4">
@@ -144,7 +143,7 @@ export const Header: React.FC = () => {
                       </Link>
                     ))}
                   </nav>
-                  
+
                   {categories.length > 0 && (
                     <div className="mt-4 border-t pt-4">
                       <h3 className="font-semibold text-sm text-muted-foreground px-4 mb-2">Categories</h3>
@@ -193,11 +192,10 @@ export const Header: React.FC = () => {
               <Link
                 key={link.label}
                 href={link.href}
-                className={`h-full flex items-center text-xs font-semibold px-2 transition-all duration-200 ${
-                  isActive
+                className={`h-full flex items-center text-xs font-semibold px-2 transition-all duration-200 ${isActive
                     ? 'text-[#FDD79A] border-b-2 border-[#FDD79A]'
                     : 'text-white/75 hover:text-white hover:bg-white/5'
-                }`}
+                  }`}
               >
                 {link.label}
               </Link>
@@ -245,9 +243,9 @@ export const Header: React.FC = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Link 
-              href="/login" 
-              aria-label="Login" 
+            <Link
+              href="/login"
+              aria-label="Login"
               title="Sign In"
               className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "text-white hover:bg-white/10 hover:text-white rounded-full")}
             >
