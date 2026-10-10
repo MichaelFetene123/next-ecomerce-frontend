@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
 import { Providers } from "@/components/providers";
+import { CartDrawer } from "@/components/cart/cart-drawer";
 
 export const metadata: Metadata = {
   title: "Storefront - Next.js Ecommerce",
@@ -21,6 +22,7 @@ export default function RootLayout({
       >
         <Providers>
           {children}
+          <CartDrawer />
         </Providers>
       </body>
     </html>
