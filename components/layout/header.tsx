@@ -138,7 +138,7 @@ export const Header: React.FC = () => {
   ];
 
   return (
-    <header className="sticky top-0 w-full z-40 bg-[#002167] text-white shadow-sm border-b border-white/10">
+    <header className="sticky top-0 w-full z-40 bg-[#012169] text-white shadow-sm border-b border-white/10">
         <div className="flex justify-between items-center w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto h-16 gap-3">
           {/* Logo & Mobile Menu */}
           <div className="flex items-center gap-3">
@@ -151,7 +151,7 @@ export const Header: React.FC = () => {
                 <SheetContent side="left" className="w-72 sm:w-80 bg-background text-foreground">
                   <SheetHeader>
                     <SheetTitle className="text-left text-lg font-bold flex items-center gap-2">
-                      <Store className="w-5 h-5 text-[#002167] dark:text-[#FDD79A]" />
+                      <Store className="w-5 h-5 text-[#012169] dark:text-[#FDD79A]" />
                       <span>Storefront</span>
                     </SheetTitle>
                   </SheetHeader>
@@ -234,7 +234,7 @@ export const Header: React.FC = () => {
             <SearchForm
               className="relative w-full"
               iconClassName="w-3.5 h-3.5 text-white/60 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
-              inputClassName="w-full pl-9 pr-4 py-1.5 bg-[#0d2f76]/80 text-white placeholder:text-white/60 border border-white/15 rounded-full text-xs font-medium focus:outline-hidden focus:ring-1 focus:ring-white/40 shadow-inner"
+              inputClassName="w-full pl-9 pr-4 py-1.5 bg-white/10 text-white placeholder:text-white/60 border border-white/15 rounded-full text-xs font-medium focus:outline-hidden focus:ring-1 focus:ring-white/40 shadow-inner"
             />
           </div>
 
@@ -296,7 +296,7 @@ export const Header: React.FC = () => {
         </div>
 
         {/* Mobile Search Bar Row */}
-        <div className="lg:hidden bg-[#001c54] border-t border-white/10 px-4 py-2">
+        <div className="lg:hidden bg-[#012169] border-t border-white/10 px-4 py-2">
           <SearchForm
             className="relative w-full"
             iconClassName="w-3.5 h-3.5 text-white/60 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"

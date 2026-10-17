@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Store, CreditCard, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Store } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const pathname = usePathname();
@@ -17,7 +17,7 @@ export const Footer: React.FC = () => {
   }
 
   return (
-    <footer className="w-full bg-[#001744] text-white border-t border-white/10 mt-auto">
+    <footer className="w-full bg-[#012169] text-white border-t border-white/10 mt-auto">
       {/* Main Footer Links */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
