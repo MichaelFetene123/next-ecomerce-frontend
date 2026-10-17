@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Star } from 'lucide-react';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 
 const TESTIMONIALS = [
   {
@@ -45,62 +46,51 @@ const TESTIMONIALS = [
 export const TestimonialsSection: React.FC = () => {
   return (
     <section className="w-full space-y-8 sm:space-y-10">
-      {/* Header */}
-      <div className="text-center space-y-2 max-w-2xl mx-auto">
+      <div className="mx-auto max-w-2xl space-y-2 text-center">
         <span className="text-[11px] font-bold tracking-[0.2em] text-muted-foreground uppercase">
           Client Voices
         </span>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#002167] dark:text-foreground tracking-tight">
+        <h2 className="text-2xl font-extrabold tracking-tight text-[#002167] sm:text-3xl lg:text-4xl dark:text-foreground">
           TRUSTED BY COMMERCE LEADERS
         </h2>
-        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-          Over 15,000 verified Ethiopian and pan-African professionals depend on Storefront for reliable daily dressing.
+        <p className="text-xs leading-relaxed text-muted-foreground sm:text-sm">
+          Over 15,000 verified Ethiopian and pan-African professionals depend on Storefront for
+          reliable daily dressing.
         </p>
       </div>
 
-      {/* 4 Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-        {TESTIMONIALS.map((item, idx) => (
-          <div
-            key={idx}
-            className="bg-white dark:bg-card border border-border/80 rounded-2xl p-6 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between gap-5 group"
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+        {TESTIMONIALS.map((item) => (
+          <Card
+            key={item.name}
+            className="h-full justify-between gap-5 rounded-2xl border-border/80 py-0 shadow-xs transition-all duration-300 hover:shadow-lg"
           >
-            {/* Top row: Stars & Date */}
-            <div className="space-y-3">
+            <CardContent className="space-y-3 p-6 pb-0">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1 text-[#F5A623]">
-                  {[...Array(item.rating)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                  {Array.from({ length: item.rating }).map((_, i) => (
+                    <Star key={i} className="size-3.5 fill-current" />
                   ))}
                 </div>
-                <span className="text-[11px] font-medium text-muted-foreground">
-                  {item.date}
-                </span>
+                <span className="text-[11px] font-medium text-muted-foreground">{item.date}</span>
               </div>
-
-              {/* Quote text */}
-              <p className="text-xs sm:text-[13px] text-foreground/80 dark:text-foreground/90 leading-relaxed font-normal italic">
+              <p className="text-xs leading-relaxed font-normal text-foreground/80 italic sm:text-[13px] dark:text-foreground/90">
                 {item.quote}
               </p>
-            </div>
+            </CardContent>
 
-            {/* Author info */}
-            <div className="flex items-center gap-3 pt-3 border-t border-border/50">
-              {/* Circular Avatar with Initials */}
-              <div className="w-9 h-9 rounded-full bg-[#002167] text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+            <CardFooter className="gap-3 border-t border-border/50 bg-transparent p-6 pt-3">
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#002167] text-xs font-bold text-white shadow-xs">
                 {item.initials}
               </div>
-
               <div className="min-w-0">
-                <h4 className="text-xs font-bold text-[#012169] dark:text-foreground truncate">
+                <h4 className="truncate text-xs font-bold text-[#012169] dark:text-foreground">
                   {item.name}
                 </h4>
-                <p className="text-[11px] text-muted-foreground truncate">
-                  {item.title}
-                </p>
+                <p className="truncate text-[11px] text-muted-foreground">{item.title}</p>
               </div>
-            </div>
-          </div>
+            </CardFooter>
+          </Card>
         ))}
       </div>
     </section>

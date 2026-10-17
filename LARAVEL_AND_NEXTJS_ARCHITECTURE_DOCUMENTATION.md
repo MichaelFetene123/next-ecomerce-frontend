@@ -88,7 +88,7 @@ All routes are prefixed with `/api` and return standardized JSON responses.
 - **Styling & Design System:** Tailwind CSS + **shadcn/ui**
 - **Icons:** Lucide React (`lucide-react`)
 - **Server State & Data Fetching:** **TanStack Query v5 (`@tanstack/react-query`)**
-- **HTTP Client:** Axios / Fetch API client configured with `baseURL` and `withCredentials: true`
+- **HTTP Client:** Fetch API client configured with `baseURL` and `withCredentials: true`
 
 ---
 

@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
+import { Check, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { Check, Mail } from 'lucide-react';
 
 export const NewsletterSection: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -24,47 +25,49 @@ export const NewsletterSection: React.FC = () => {
   };
 
   return (
-    <section className="w-full rounded-[24px] sm:rounded-[32px] bg-[#001c54] text-white p-8 sm:p-12 lg:p-14 border border-white/10 shadow-2xl relative overflow-hidden">
-      {/* Decorative ambient background accents */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#FDD79A]/10 rounded-full blur-3xl pointer-events-none" />
+    <section className="relative w-full overflow-hidden rounded-[24px] border border-white/10 bg-[#001c54] p-8 text-white shadow-2xl sm:rounded-[32px] sm:p-12 lg:p-14">
+      <div className="pointer-events-none absolute top-0 right-0 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-[#FDD79A]/10 blur-3xl" />
 
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        {/* Left Column: Heading and info */}
-        <div className="lg:col-span-7 space-y-2.5 max-w-xl">
-          <span className="text-[11px] font-bold tracking-[0.25em] text-[#FDD79A] uppercase block">
+      <div className="relative z-10 grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
+        <div className="max-w-xl space-y-2.5 lg:col-span-7">
+          <span className="block text-[11px] font-bold tracking-[0.25em] text-[#FDD79A] uppercase">
             Join The Private Roster
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight">
+          <h2 className="text-2xl leading-tight font-extrabold tracking-tight text-white sm:text-3xl lg:text-4xl">
             Receive Private Runway Invitations
           </h2>
-          <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-normal">
-            Subscribers receive early access to seasonal allocations, capsule previews, and private concierge appointments.
+          <p className="text-xs leading-relaxed font-normal text-white/80 sm:text-sm">
+            Subscribers receive early access to seasonal allocations, capsule previews, and private
+            concierge appointments.
           </p>
         </div>
 
-        {/* Right Column: Input and Join Button */}
-        <div className="lg:col-span-5 w-full">
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-stretch gap-2.5">
+        <div className="w-full lg:col-span-5">
+          <form onSubmit={handleSubmit} className="flex flex-col items-stretch gap-2.5 sm:flex-row">
             <div className="relative flex-1">
-              <Mail className="w-4 h-4 text-white/40 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-              <input
+              <Label htmlFor="roster-email" className="sr-only">
+                Corporate email address
+              </Label>
+              <Mail className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-slate-400" />
+              <Input
+                id="roster-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your corporate email address..."
-                className="w-full h-12 pl-10 pr-4 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 text-xs sm:text-sm font-medium focus:outline-hidden focus:ring-2 focus:ring-[#FDD79A] shadow-inner"
                 required
+                className="h-12 rounded-xl border-transparent bg-white pl-10 text-xs font-medium text-slate-900 shadow-inner md:text-sm dark:bg-white"
               />
             </div>
 
             <Button
               type="submit"
-              className="h-12 bg-[#FDD79A] hover:bg-[#FCD082] text-[#012169] hover:text-[#012169] font-extrabold text-xs tracking-wider uppercase px-7 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 cursor-pointer shrink-0"
+              className="h-12 shrink-0 cursor-pointer rounded-xl bg-[#FDD79A] px-7 text-xs font-extrabold tracking-wider text-[#012169] uppercase shadow-lg hover:bg-[#FCD082] hover:text-[#012169] hover:shadow-xl"
             >
               {isSubmitted ? (
                 <span className="flex items-center gap-1.5">
-                  <Check className="w-4 h-4 stroke-[3]" />
+                  <Check className="size-4 stroke-[3]" />
                   Joined
                 </span>
               ) : (
@@ -73,7 +76,7 @@ export const NewsletterSection: React.FC = () => {
             </Button>
           </form>
 
-          <p className="text-[10px] text-white/50 mt-2.5 text-center sm:text-left">
+          <p className="mt-2.5 text-center text-[10px] text-white/50 sm:text-left">
             We respect discretion. Unsubscribe with one click anytime.
           </p>
         </div>
