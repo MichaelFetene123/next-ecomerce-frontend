@@ -3,14 +3,13 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Search, ShoppingCart, User, Package, Sun, Moon, Menu } from 'lucide-react';
+import { Search, ShoppingCart, User, Sun, Moon, Menu, Store, Lock } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useCartStore } from '@/hooks/use-cart';
 import { useUser, useLogout } from '@/hooks/use-auth';
 import { useCategories } from '@/hooks/use-categories';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import {
@@ -23,10 +22,21 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
+const AnnouncementBar = () => {
+  return (
+    <div className="w-full bg-[#001744] text-[11px] sm:text-xs font-medium text-white/90 py-2 px-4 text-center tracking-wide border-b border-white/10 select-none">
+      <span className="text-[#FDD79A] font-extrabold tracking-wider uppercase mr-1.5">
+        EXCELLENCE IN MOTION •
+      </span>
+      <span>Complimentary nationwide express delivery on orders over ETB 4,500</span>
+    </div>
+  );
+};
+
 const SearchForm = ({
   className,
   inputClassName,
-  iconClassName
+  iconClassName,
 }: {
   className?: string;
   inputClassName?: string;
@@ -46,11 +56,11 @@ const SearchForm = ({
   return (
     <form onSubmit={handleSearchSubmit} className={className}>
       <Search className={iconClassName} />
-      <Input
+      <input
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        placeholder="Search products..."
+        placeholder="Search products, categories..."
         className={inputClassName}
       />
     </form>
@@ -67,10 +77,10 @@ const ThemeToggle = () => {
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       aria-label="Toggle theme"
       title="Toggle theme"
-      className="text-white hover:bg-white/10 hover:text-white rounded-full"
+      className="text-white hover:bg-white/10 hover:text-white rounded-full w-9 h-9"
     >
-      <Sun className="w-5 h-5 text-[#FDD79A] hidden dark:block" />
-      <Moon className="w-5 h-5 block dark:hidden" />
+      <Sun className="w-4 h-4 text-[#FDD79A] hidden dark:block" />
+      <Moon className="w-4 h-4 block dark:hidden" />
     </Button>
   );
 };
@@ -84,14 +94,12 @@ const CartButton = () => {
       size="icon"
       onClick={() => setIsOpen(true)}
       aria-label={`Shopping Cart, ${totalItemsCount} items`}
-      className="text-white hover:bg-white/10 hover:text-white rounded-full relative group"
+      className="text-white hover:bg-white/10 hover:text-white rounded-full relative group w-9 h-9"
     >
-      <ShoppingCart className="w-5 h-5 group-active:scale-[0.98] transition-transform" />
-      {totalItemsCount > 0 && (
-        <span className="absolute top-0.5 right-0.5 font-bold font-geist text-[10px] w-4 h-4 flex items-center justify-center rounded-full bg-[#FDD79A] text-[#012169]">
-          {totalItemsCount > 99 ? '99+' : totalItemsCount}
-        </span>
-      )}
+      <ShoppingCart className="w-4 h-4 group-active:scale-95 transition-transform" />
+      <span className="absolute -top-0.5 -right-0.5 font-bold font-geist text-[9px] w-4 h-4 flex items-center justify-center rounded-full bg-[#FDD79A] text-[#012169] shadow-xs">
+        {totalItemsCount > 99 ? '99+' : totalItemsCount}
+      </span>
     </Button>
   );
 };
@@ -102,15 +110,20 @@ export const CheckoutHeader = () => {
       <div className="flex justify-between items-center w-full px-4 md:px-8 max-w-7xl mx-auto h-16">
         <Link
           href="/"
-          className="font-bold text-2xl tracking-tight text-white hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2.5 font-bold text-xl tracking-tight text-white hover:opacity-90 transition-opacity"
         >
-          Storefront
+          <div className="w-7 h-7 rounded-md bg-white/10 flex items-center justify-center text-[#FDD79A] border border-white/20">
+            <Store className="w-4 h-4" />
+          </div>
+          <span>Storefront</span>
         </Link>
         <div className="flex items-center gap-4 text-white/80">
           <ThemeToggle />
           <div className="flex items-center gap-2">
-            <span className="font-geist text-sm">Secure Checkout</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <span className="font-geist text-xs font-semibold tracking-wider uppercase text-white/90">
+              Secure Checkout
+            </span>
+            <Lock className="w-4 h-4 text-[#FDD79A]" />
           </div>
         </div>
       </div>
@@ -127,165 +140,185 @@ export const Header: React.FC = () => {
   const { data: categories = [] } = useCategories();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-
-
   const navLinks = [
-    { label: 'Shop', href: '/' },
+    { label: 'Electronics', href: '/categories/electronics' },
+    { label: 'Fashion', href: '/categories/fashion', defaultActive: true },
+    { label: 'Home', href: '/categories/home' },
     { label: 'About', href: '/about' },
-    { label: 'Contact', href: '/contact' },
   ];
 
-
   return (
-    <header className="sticky top-0 w-full z-40 bg-[#012169] text-white shadow-xs">
-      <div className="flex justify-between items-center w-full px-4 md:px-8 max-w-7xl mx-auto h-16">
-        {/* Logo & Search */}
-        <div className="flex items-center gap-4">
-          <div className="md:hidden flex items-center">
-            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-              <SheetTrigger render={<Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white rounded-full -ml-2" />}>
-                <Menu className="w-5 h-5" />
-              </SheetTrigger>
-              <SheetContent side="left" className="w-75 sm:w-100">
-                <SheetHeader>
-                  <SheetTitle className="text-left text-lg font-bold">Menu</SheetTitle>
-                </SheetHeader>
-                <div className="flex flex-col gap-4 mt-6">
-                  <nav className="flex flex-col gap-2">
-                    {navLinks.map((link) => (
-                      <Link
-                        key={link.label}
-                        href={link.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="text-base font-semibold px-4 py-2 hover:bg-accent rounded-md"
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
-                  </nav>
+    <div className="w-full z-40 sticky top-0">
+      {/* Top Announcement Bar */}
+      <AnnouncementBar />
 
-                  {categories.length > 0 && (
-                    <div className="mt-4 border-t pt-4">
-                      <h3 className="font-semibold text-sm text-muted-foreground px-4 mb-2">Categories</h3>
-                      <div className="flex flex-col gap-1">
-                        {categories.map((cat) => (
-                          <Link
-                            key={cat.id}
-                            href={`/categories/${cat.slug}`}
-                            onClick={() => setIsMobileMenuOpen(false)}
-                            className="text-sm px-4 py-2 hover:bg-accent rounded-md"
-                          >
-                            {cat.name}
-                          </Link>
-                        ))}
+      {/* Main Header Navbar */}
+      <header className="w-full bg-[#002167] text-white shadow-sm border-b border-white/10">
+        <div className="flex justify-between items-center w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto h-16 gap-3">
+          {/* Logo & Mobile Menu */}
+          <div className="flex items-center gap-3">
+            {/* Mobile Sheet Trigger */}
+            <div className="md:hidden flex items-center">
+              <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+                <SheetTrigger render={<Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white rounded-full -ml-2" />}>
+                  <Menu className="w-5 h-5" />
+                </SheetTrigger>
+                <SheetContent side="left" className="w-72 sm:w-80 bg-background text-foreground">
+                  <SheetHeader>
+                    <SheetTitle className="text-left text-lg font-bold flex items-center gap-2">
+                      <Store className="w-5 h-5 text-[#002167] dark:text-[#FDD79A]" />
+                      <span>Storefront</span>
+                    </SheetTitle>
+                  </SheetHeader>
+                  <div className="flex flex-col gap-4 mt-6">
+                    <nav className="flex flex-col gap-1">
+                      {navLinks.map((link) => (
+                        <Link
+                          key={link.label}
+                          href={link.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="text-sm font-semibold px-4 py-2.5 hover:bg-accent rounded-lg transition-colors"
+                        >
+                          {link.label}
+                        </Link>
+                      ))}
+                    </nav>
+
+                    {categories.length > 0 && (
+                      <div className="mt-4 border-t pt-4">
+                        <h4 className="font-semibold text-xs tracking-wider uppercase text-muted-foreground px-4 mb-2">
+                          All Categories
+                        </h4>
+                        <div className="flex flex-col gap-1">
+                          {categories.map((cat) => (
+                            <Link
+                              key={cat.id}
+                              href={`/categories/${cat.slug}`}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className="text-sm px-4 py-2 hover:bg-accent rounded-lg"
+                            >
+                              {cat.name}
+                            </Link>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              </SheetContent>
-            </Sheet>
+                    )}
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+
+            {/* Storefront Logo */}
+            <Link
+              href="/"
+              className="flex items-center gap-2 font-extrabold text-xl sm:text-2xl tracking-tight text-white hover:opacity-95 transition-opacity"
+            >
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/15 flex items-center justify-center text-[#FDD79A] border border-white/20 shadow-xs">
+                <Store className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+              </div>
+              <span>Storefront</span>
+            </Link>
           </div>
 
-          <Link
-            href="/"
-            className="font-bold text-2xl tracking-tight text-white hover:opacity-90 transition-opacity"
-          >
-            Storefront
-          </Link>
+          {/* Desktop Nav Links */}
+          <nav className="hidden md:flex items-center gap-1.5 h-full">
+            {navLinks.map((link) => {
+              const isSelected =
+                pathname === link.href ||
+                (link.defaultActive && (pathname === '/' || pathname.includes('fashion')));
 
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className={cn(
+                    'text-xs font-semibold px-3 py-1.5 rounded-full transition-all duration-200',
+                    isSelected
+                      ? 'bg-white/15 text-[#FDD79A] font-bold shadow-xs'
+                      : 'text-white/80 hover:text-white hover:bg-white/10'
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Center-Right Search Input */}
+          <div className="hidden lg:flex items-center flex-1 max-w-xs xl:max-w-sm mx-2">
+            <SearchForm
+              className="relative w-full"
+              iconClassName="w-3.5 h-3.5 text-white/60 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
+              inputClassName="w-full pl-9 pr-4 py-1.5 bg-[#0d2f76]/80 text-white placeholder:text-white/60 border border-white/15 rounded-full text-xs font-medium focus:outline-hidden focus:ring-1 focus:ring-white/40 shadow-inner"
+            />
+          </div>
+
+          {/* Actions: Theme, Cart, Account */}
+          <div className="flex items-center gap-1.5 sm:gap-2.5 text-white">
+            <ThemeToggle />
+
+            {/* Cart Button */}
+            <CartButton />
+
+            {/* Account / User */}
+            {isUserLoading ? (
+              <Skeleton className="w-8 h-8 rounded-full bg-white/10" />
+            ) : currentUser ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger render={<Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white rounded-full w-9 h-9" />}>
+                  <div className="w-7 h-7 rounded-full bg-[#FDD79A] text-[#012169] flex items-center justify-center text-xs font-bold uppercase shadow-xs">
+                    {currentUser.name?.[0] || 'U'}
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 bg-card text-card-foreground">
+                  <DropdownMenuGroup>
+                    <DropdownMenuLabel className="font-normal">
+                      <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-semibold leading-none">{currentUser.name}</p>
+                        <p className="text-xs leading-none text-muted-foreground">{currentUser.email}</p>
+                      </div>
+                    </DropdownMenuLabel>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem render={<Link href="/account" />}>
+                    My account
+                  </DropdownMenuItem>
+                  <DropdownMenuItem render={<Link href="/orders" />}>
+                    Orders
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="text-red-600 focus:bg-red-50 dark:focus:bg-red-950 cursor-pointer"
+                    onClick={() => logoutMutation.mutate()}
+                  >
+                    Sign out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link
+                href="/login"
+                className={cn(
+                  buttonVariants({ variant: 'ghost', size: 'sm' }),
+                  'text-white hover:bg-white/10 hover:text-white rounded-lg text-xs font-semibold px-2.5 sm:px-3 h-8 gap-1.5'
+                )}
+              >
+                <User className="w-4 h-4" />
+                <span className="hidden sm:inline">Account</span>
+              </Link>
+            )}
+          </div>
+        </div>
+
+        {/* Mobile Search Bar Row */}
+        <div className="lg:hidden bg-[#001c54] border-t border-white/10 px-4 py-2">
           <SearchForm
-            className="hidden md:flex items-center relative ml-4"
-            iconClassName="w-4 h-4 text-white/70 absolute left-3"
-            inputClassName="w-56 pl-9 bg-white/10 border-white/20 text-white placeholder:text-white/70 focus-visible:ring-white/50 rounded-full h-9"
+            className="relative w-full"
+            iconClassName="w-3.5 h-3.5 text-white/60 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+            inputClassName="w-full pl-9 pr-3 py-1.5 bg-white/10 text-white placeholder:text-white/60 border border-white/15 rounded-full text-xs font-medium focus:outline-hidden focus:ring-1 focus:ring-white/40"
           />
         </div>
-
-        {/* Nav Categories */}
-        <nav className="hidden md:flex items-center gap-6 h-full">
-          {navLinks.map((link) => {
-            const isActive =
-              link.href === '/'
-                ? pathname === '/' || pathname?.startsWith('/categories') || pathname?.startsWith('/products')
-                : pathname === link.href || pathname?.startsWith(`${link.href}/`);
-
-            return (
-              <Link
-                key={link.label}
-                href={link.href}
-                className={`h-full flex items-center text-xs font-semibold px-2 transition-all duration-200 ${isActive
-                  ? 'text-[#FDD79A] border-b-2 border-[#FDD79A]'
-                  : 'text-white/75 hover:text-white hover:bg-white/5'
-                  }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* Icons / Actions */}
-        <div className="flex items-center gap-2 md:gap-4 text-white">
-          {/* Theme Toggle */}
-          <ThemeToggle />
-          {/* Account */}
-          {isUserLoading ? (
-            <Skeleton className="w-10 h-10 rounded-full bg-white/10" />
-          ) : currentUser ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger render={<Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white rounded-full" />}>
-                <div className="w-6 h-6 rounded-full bg-[#FDD79A] text-[#012169] flex items-center justify-center text-xs font-bold uppercase">
-                  {currentUser.name?.[0] || 'U'}
-                </div>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuGroup>
-                  <DropdownMenuLabel className="font-normal">
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">{currentUser.name}</p>
-                      <p className="text-xs leading-none text-muted-foreground">{currentUser.email}</p>
-                    </div>
-                  </DropdownMenuLabel>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem render={<Link href="/account" />}>
-                  My account
-                </DropdownMenuItem>
-                <DropdownMenuItem render={<Link href="/orders" />}>
-                  Orders
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  className="text-red-600 focus:bg-red-50 dark:focus:bg-red-950 cursor-pointer"
-                  onClick={() => logoutMutation.mutate()}
-                >
-                  Sign out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <Link
-              href="/login"
-              aria-label="Login"
-              title="Sign In"
-              className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "text-white hover:bg-white/10 hover:text-white rounded-full")}
-            >
-              <User className="w-5 h-5" />
-            </Link>
-          )}
-
-          {/* Cart Button */}
-          <CartButton />
-        </div>
-      </div>
-
-      {/* Mobile Search Bar */}
-      <div className="md:hidden bg-[#012169] border-t border-white/20 px-4 py-2">
-        <SearchForm
-          className="flex items-center relative w-full"
-          iconClassName="w-4 h-4 text-white/70 absolute left-3"
-          inputClassName="w-full pl-9 bg-white/10 border-white/20 text-white placeholder:text-white/70 focus-visible:ring-white/50 rounded-full h-9"
-        />
-      </div>
-    </header>
+      </header>
+    </div>
   );
 };
