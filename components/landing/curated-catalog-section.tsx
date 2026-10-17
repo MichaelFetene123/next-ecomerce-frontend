@@ -334,7 +334,7 @@ export const CuratedCatalogSection: React.FC = () => {
               className="group cursor-pointer bg-white dark:bg-card rounded-2xl border border-border/80 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col h-full"
             >
               {/* Product Image Container */}
-              <div className="relative aspect-[3/4] w-full overflow-hidden bg-muted">
+              <div className="relative aspect-3/4 w-full overflow-hidden bg-muted">
                 <img
                   src={item.image}
                   alt={item.title}
@@ -405,7 +405,7 @@ export const CuratedCatalogSection: React.FC = () => {
                     onClick={(e) => handleQuickAdd(item, e)}
                     className="bg-[#FDD79A] hover:bg-[#FCD082] text-[#012169] hover:text-[#012169] font-bold text-xs px-3.5 py-1.5 h-8 rounded-lg shadow-none cursor-pointer flex items-center gap-1 shrink-0 transition-transform active:scale-95"
                   >
-                    <Plus className="w-3.5 h-3.5 stroke-[3]" />
+                    <Plus className="w-3.5 h-3.5 stroke-3" />
                     <span>Add</span>
                   </Button>
                 </div>

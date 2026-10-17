@@ -22,16 +22,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-const AnnouncementBar = () => {
-  return (
-    <div className="w-full bg-[#001744] text-[11px] sm:text-xs font-medium text-white/90 py-2 px-4 text-center tracking-wide border-b border-white/10 select-none">
-      <span className="text-[#FDD79A] font-extrabold tracking-wider uppercase mr-1.5">
-        EXCELLENCE IN MOTION •
-      </span>
-      <span>Complimentary nationwide express delivery on orders over ETB 4,500</span>
-    </div>
-  );
-};
 
 const SearchForm = ({
   className,
@@ -148,12 +138,7 @@ export const Header: React.FC = () => {
   ];
 
   return (
-    <div className="w-full z-40 sticky top-0">
-      {/* Top Announcement Bar */}
-      <AnnouncementBar />
-
-      {/* Main Header Navbar */}
-      <header className="w-full bg-[#002167] text-white shadow-sm border-b border-white/10">
+    <header className="sticky top-0 w-full z-40 bg-[#002167] text-white shadow-sm border-b border-white/10">
         <div className="flex justify-between items-center w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto h-16 gap-3">
           {/* Logo & Mobile Menu */}
           <div className="flex items-center gap-3">
@@ -319,6 +304,5 @@ export const Header: React.FC = () => {
           />
         </div>
       </header>
-    </div>
   );
 };

@@ -126,33 +126,6 @@ export const Footer: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Bottom Bar: Copyright & Security Badges */}
-      <div className="border-t border-white/10 bg-[#001235]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
-          <div>
-            © 2025 Storefront Inc. All rights reserved.
-          </div>
-
-          {/* Trust Badges matching design */}
-          <div className="flex items-center flex-wrap gap-4 sm:gap-6 text-[11px] font-semibold text-white/80">
-            <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded-md">
-              <CreditCard className="w-3.5 h-3.5 text-[#FDD79A]" />
-              <span>Card Payments</span>
-            </div>
-
-            <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded-md">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>256-Bit Encrypted</span>
-            </div>
-
-            <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded-md">
-              <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />
-              <span>PCI Compliant</span>
-            </div>
-          </div>
-        </div>
-      </div>
     </footer>
   );
 };
