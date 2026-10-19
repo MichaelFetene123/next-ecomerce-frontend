@@ -33,7 +33,7 @@ export const LookbookBanner: React.FC = () => {
           <div className="absolute inset-0 bg-radial-at-c from-transparent via-black/15 to-black/45" />
         </div>
 
-        <div className="relative z-10 flex min-h-95 w-full flex-col items-center justify-between px-6 py-12 text-center sm:min-h-[440px] sm:px-12 sm:py-16">
+        <div className="relative z-10 flex min-h-95 w-full flex-col items-center justify-between px-6 py-12 text-center sm:min-h-110 sm:px-12 sm:py-16">
           <div className="pointer-events-auto absolute bottom-8 left-8 hidden flex-col items-start text-left text-white/60 lg:flex">
             <span className="text-[11px] font-semibold tracking-widest text-white/70 uppercase">
               Model Wardrobe

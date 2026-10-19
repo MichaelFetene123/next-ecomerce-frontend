@@ -49,7 +49,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="pointer-events-none absolute inset-0 bg-radial-at-c from-transparent via-black/5 to-black/20" />
       </div>
 
-      <div className="relative z-10 flex min-h-155 w-full flex-col justify-between px-6 py-12 sm:min-h-[680px] sm:px-10 sm:py-16 md:px-14 lg:min-h-[740px] lg:px-16 lg:py-20">
+      <div className="relative z-10 flex min-h-155 w-full flex-col justify-between px-6 py-12 sm:min-h-170 sm:px-10 sm:py-16 md:px-14 lg:min-h-185 lg:px-16 lg:py-20">
         <div className="flex items-center gap-2.5">
           <span className="h-px w-6 bg-[#FDD79A]" />
           <span className="text-[11px] font-bold tracking-[0.2em] text-[#FDD79A] uppercase sm:text-xs">
