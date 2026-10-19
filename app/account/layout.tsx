@@ -30,7 +30,7 @@ export default function AccountLayout({
       <div className="min-h-screen bg-background text-foreground flex flex-col">
         {/* Dedicated Account Topbar matching Shop Header */}
         <header className="sticky top-0 z-30 bg-[#012169] text-white shadow-xs">
-          <div className="max-w-360 mx-auto px-4 sm:px-6 md:px-8 h-16 flex items-center justify-between gap-3">
+          <div className="max-w-360 mx-auto px-4 sm:px-6 md:px-8 h-18 sm:h-20 flex items-center justify-between gap-3">
             <div className="flex items-center gap-3 sm:gap-4 min-w-0">
               <Link
                 href="/"
