@@ -8,6 +8,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { useCartStore } from '@/hooks/use-cart';
 import { useProducts } from '@/hooks/use-products';
 import { ProductCard } from '@/components/catalog/product-card';
+import { ProductCardSkeleton } from '@/components/skeletons/product-card-skeleton';
 import { SHOWCASE_PRODUCTS } from '@/lib/landing-showcase';
 import { Product } from '@/types/catalog';
 import { cn } from '@/lib/utils';
@@ -16,17 +17,34 @@ import { toast } from 'sonner';
 export const CuratedCatalogSection: React.FC = () => {
   const router = useRouter();
   const { addItem, setIsOpen } = useCartStore();
-  const { data: apiResponse } = useProducts({ per_page: 8 });
+  const { data: apiResponse, isLoading } = useProducts({ per_page: 8 });
 
   const products: Product[] = useMemo(() => {
-    const liveProducts = apiResponse?.data || [];
-    if (liveProducts.length >= 4) {
-      return liveProducts.slice(0, 4);
-    }
-    if (liveProducts.length > 0) {
-      return liveProducts;
-    }
-    return SHOWCASE_PRODUCTS.map((item) => item.productData);
+    const rawLiveProducts = apiResponse?.data || [];
+    const sourceList =
+      rawLiveProducts.length > 0
+        ? rawLiveProducts
+        : SHOWCASE_PRODUCTS.map((item) => item.productData);
+
+    // Deduplicate products strictly by product ID
+    const uniqueMap = new Map<number, Product>();
+    sourceList.forEach((product) => {
+      if (product && product.id && !uniqueMap.has(product.id)) {
+        uniqueMap.set(product.id, product);
+      }
+    });
+
+    const uniqueProducts = Array.from(uniqueMap.values());
+
+    // Sort by created_at in descending order (most recently created first)
+    uniqueProducts.sort((a, b) => {
+      const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
+      const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
+      return dateB - dateA;
+    });
+
+    // Display two rows (8 products in a 4-column desktop layout)
+    return uniqueProducts.slice(0, 8);
   }, [apiResponse?.data]);
 
   const handleSelectProduct = (product: Product) => {
@@ -53,7 +71,7 @@ export const CuratedCatalogSection: React.FC = () => {
         </div>
 
         <Link
-          href="/categories/fashion"
+          href="/products"
           className={cn(
             buttonVariants({ size: 'sm' }),
             'h-auto self-start rounded-lg bg-[#FDD79A] px-5 py-2.5 text-xs font-bold tracking-wider text-[#012169] uppercase shadow-xs hover:bg-[#FCD082] hover:text-[#012169] hover:shadow-md sm:self-auto'
@@ -64,16 +82,24 @@ export const CuratedCatalogSection: React.FC = () => {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            onQuickAdd={handleQuickAdd}
-            onSelectProduct={handleSelectProduct}
-          />
-        ))}
-      </div>
+      {isLoading && products.length === 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <ProductCardSkeleton key={index} />
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onQuickAdd={handleQuickAdd}
+              onSelectProduct={handleSelectProduct}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 };
