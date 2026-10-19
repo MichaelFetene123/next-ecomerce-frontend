@@ -1,8 +1,5 @@
-'use client';
-
-import React from 'react';
-import { CatalogView } from '@/components/catalog/catalog-view';
+import { redirect } from 'next/navigation';
 
 export default function CategoriesPage() {
-  return <CatalogView />;
+  redirect('/products');
 }

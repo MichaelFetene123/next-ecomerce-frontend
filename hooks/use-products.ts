@@ -21,5 +21,6 @@ export function useProducts(filters: ProductFilters = {}) {
       });
       return response.data;
     },
+    staleTime: 0,
   });
 }

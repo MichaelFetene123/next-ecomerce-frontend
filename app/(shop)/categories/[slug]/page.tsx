@@ -1,9 +1,6 @@
-'use client';
+import { redirect } from 'next/navigation';
 
-import React from 'react';
-import { CatalogView } from '@/components/catalog/catalog-view';
-
-export default function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = React.use(params);
-  return <CatalogView slug={slug} />;
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  redirect(`/products?category=${encodeURIComponent(slug)}`);
 }

@@ -11,5 +11,6 @@ export function useCategories() {
       const payload = response.data;
       return Array.isArray(payload) ? payload : payload?.data ?? [];
     },
+    staleTime: 0,
   });
 }

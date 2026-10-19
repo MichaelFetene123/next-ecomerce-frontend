@@ -90,14 +90,14 @@ export const DepartmentsSection: React.FC = () => {
             title="FORMAL WOMAN"
             description="Executive suiting, silk blouses & tailored skirts"
             image="/images/landing/dept-formal-woman.jpg"
-            href="/categories/fashion"
+            href="/categories"
           />
           <DepartmentCard
             tag="TAILORED CRAFT"
             title="FORMAL MEN"
             description="Peak lapel blazers, dress trousers & oxford footwear"
             image="/images/landing/dept-formal-men.jpg"
-            href="/categories/fashion"
+            href="/categories"
           />
         </div>
 
@@ -107,7 +107,7 @@ export const DepartmentsSection: React.FC = () => {
             title="CASUAL STYLE"
             description="Refined knits, breathable poplin shirts, and elevated minimalist lounge essentials."
             image="/images/landing/dept-casual-style.jpg"
-            href="/categories/fashion"
+            href="/categories"
             isTall
           />
         </div>

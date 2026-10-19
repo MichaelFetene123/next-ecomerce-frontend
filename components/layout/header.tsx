@@ -132,7 +132,7 @@ export const Header: React.FC = () => {
 
   const navLinks = [
     { label: 'Home', href: '/' },
-    { label: 'Shop', href: '/categories' },
+    { label: 'Shop', href: '/products' },
     { label: 'About', href: '/about' },
   ];
 
@@ -161,7 +161,7 @@ export const Header: React.FC = () => {
                           link.href === '/'
                             ? pathname === '/'
                             : pathname.startsWith(link.href) ||
-                              (link.href === '/categories' && pathname.startsWith('/products'));
+                              (link.href === '/products' && pathname.startsWith('/categories'));
 
                         return (
                           <Link
@@ -224,7 +224,7 @@ export const Header: React.FC = () => {
                 link.href === '/'
                   ? pathname === '/'
                   : pathname.startsWith(link.href) ||
-                    (link.href === '/categories' && pathname.startsWith('/products'));
+                    (link.href === '/products' && pathname.startsWith('/categories'));
 
               return (
                 <Link
