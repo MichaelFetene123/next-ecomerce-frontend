@@ -20,7 +20,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         {children}
         {mounted && (
           <>
-            <Toaster richColors position="top-right" />
+            <Toaster richColors position="bottom-right" />
             <ReactQueryDevtools initialIsOpen={false} />
           </>
         )}
