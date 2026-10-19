@@ -83,7 +83,7 @@ export const CuratedCatalogSection: React.FC = () => {
             <Card
               key={item.id}
               onClick={() => router.push(`/products/${item.slug}`)}
-              className="h-full cursor-pointer gap-0 overflow-hidden rounded-2xl border-border/80 py-0 shadow-xs transition-all duration-300 hover:shadow-xl"
+              className="h-full cursor-pointer gap-0 overflow-hidden rounded-xl border-border/80 py-0 shadow-xs transition-all duration-300 hover:shadow-xl"
             >
               <div className="relative aspect-3/4 w-full overflow-hidden bg-muted">
                 <img

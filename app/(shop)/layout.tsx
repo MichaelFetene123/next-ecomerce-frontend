@@ -20,7 +20,7 @@ export default function ShopLayout({
       <main
         className={cn(
           'flex-1 flex flex-col w-full',
-          !isHome && 'py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto'
+          !isHome && 'py-8 px-4 sm:px-6 lg:px-8 max-w-360 mx-auto'
         )}
       >
         {children}

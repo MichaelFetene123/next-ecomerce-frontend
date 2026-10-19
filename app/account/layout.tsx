@@ -30,7 +30,7 @@ export default function AccountLayout({
       <div className="min-h-screen bg-background text-foreground flex flex-col">
         {/* Dedicated Account Topbar matching Shop Header */}
         <header className="sticky top-0 z-30 bg-[#012169] text-white shadow-xs">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-16 flex items-center justify-between gap-3">
+          <div className="max-w-360 mx-auto px-4 sm:px-6 md:px-8 h-16 flex items-center justify-between gap-3">
             <div className="flex items-center gap-3 sm:gap-4 min-w-0">
               <Link
                 href="/"
@@ -50,7 +50,7 @@ export default function AccountLayout({
         </header>
 
         {/* Main Layout Area with Sidebar */}
-        <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 md:px-8 py-5 sm:py-7 md:py-10">
+        <div className="flex-1 max-w-360 w-full mx-auto px-4 sm:px-6 md:px-8 py-5 sm:py-7 md:py-10">
           <div className="flex flex-col md:flex-row gap-5 md:gap-8 items-start">
             {/* Sidebar Navigation */}
             <aside className="w-full md:w-64 shrink-0 space-y-3 sm:space-y-4 md:space-y-6 md:bg-[#012169] md:text-white md:p-5 md:rounded-2xl md:shadow-xs md:border md:border-[#012169]/20">

@@ -21,7 +21,7 @@ export const LookbookBanner: React.FC = () => {
     <Dialog>
       <section
         id="film-lookbook"
-        className="group relative w-full overflow-hidden rounded-[28px] border border-white/10 bg-[#03132e] text-white shadow-2xl sm:rounded-[36px]"
+        className="group relative w-full overflow-hidden rounded-xl border border-white/10 bg-[#03132e] text-white shadow-2xl sm:rounded-2xl"
       >
         <div className="absolute inset-0 h-full w-full">
           <img
@@ -33,7 +33,7 @@ export const LookbookBanner: React.FC = () => {
           <div className="absolute inset-0 bg-radial-at-c from-transparent via-black/15 to-black/45" />
         </div>
 
-        <div className="relative z-10 flex min-h-[380px] w-full flex-col items-center justify-between px-6 py-12 text-center sm:min-h-[440px] sm:px-12 sm:py-16">
+        <div className="relative z-10 flex min-h-95 w-full flex-col items-center justify-between px-6 py-12 text-center sm:min-h-[440px] sm:px-12 sm:py-16">
           <div className="pointer-events-auto absolute bottom-8 left-8 hidden flex-col items-start text-left text-white/60 lg:flex">
             <span className="text-[11px] font-semibold tracking-widest text-white/70 uppercase">
               Model Wardrobe
@@ -93,7 +93,7 @@ export const LookbookBanner: React.FC = () => {
 
       <DialogContent
         showCloseButton={false}
-        className="max-w-[calc(100%-2rem)] gap-0 overflow-hidden rounded-2xl bg-slate-950 p-0 text-white ring-white/10 sm:max-w-4xl sm:rounded-3xl"
+        className="max-w-[calc(100%-2rem)] gap-0 overflow-hidden rounded-xl bg-slate-950 p-0 text-white ring-white/10 sm:max-w-4xl sm:rounded-2xl"
       >
         <DialogHeader className="flex-row items-center justify-between border-b border-white/10 p-4 sm:p-6">
           <div className="flex items-center gap-2">

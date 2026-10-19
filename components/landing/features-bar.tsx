@@ -36,10 +36,10 @@ export const FeaturesBar: React.FC = () => {
           return (
             <Card
               key={feature.title}
-              className="rounded-2xl border-border/80 py-0 shadow-xs transition-all duration-200 hover:shadow-md"
+              className="rounded-xl border-border/80 py-0 shadow-xs transition-all duration-200 hover:shadow-md"
             >
               <CardContent className="flex items-start gap-4 p-5 sm:p-6">
-                <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[#002167]/10 text-[#002167] transition-all duration-300 group-hover/card:scale-105 group-hover/card:bg-[#002167] group-hover/card:text-white dark:bg-primary/20 dark:text-[#FDD79A]">
+                <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-[#002167]/10 text-[#002167] transition-all duration-300 group-hover/card:scale-105 group-hover/card:bg-[#002167] group-hover/card:text-white dark:bg-primary/20 dark:text-[#FDD79A]">
                   <Icon className="size-5 stroke-[2.2]" />
                 </div>
                 <div className="min-w-0 space-y-1">

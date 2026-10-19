@@ -43,7 +43,7 @@ function StorefrontLandingContent() {
   // If a search is active in the URL, display dedicated search results view
   if (searchQuery) {
     return (
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <div className="w-full max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border">
           <div className="space-y-1">
             <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -83,7 +83,7 @@ function StorefrontLandingContent() {
             ))}
           </div>
         ) : (
-          <div className="py-20 text-center space-y-4 bg-card rounded-2xl border border-dashed border-border p-8">
+          <div className="py-20 text-center space-y-4 bg-card rounded-xl border border-dashed border-border p-8">
             <Search className="w-12 h-12 text-muted-foreground/40 mx-auto" />
             <h3 className="text-lg font-bold text-foreground">No matches found</h3>
             <p className="text-sm text-muted-foreground max-w-md mx-auto">
@@ -103,7 +103,7 @@ function StorefrontLandingContent() {
 
   // Primary Landing Page Experience matching the reference design exactly
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7 space-y-12 sm:space-y-16 lg:space-y-20">
+    <div className="w-full max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7 space-y-12 sm:space-y-16 lg:space-y-20">
       {/* 1. Hero Section */}
       <HeroSection />
 

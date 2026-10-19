@@ -25,7 +25,7 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
   return (
     <Link
       href={href}
-      className={`group relative block overflow-hidden rounded-[24px] border border-white/10 bg-slate-900 shadow-lg transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl sm:rounded-[28px] ${
+      className={`group relative block overflow-hidden rounded-xl border border-white/10 bg-slate-900 shadow-lg transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl sm:rounded-2xl ${
         isTall ? 'h-125 min-h-120 sm:h-140 lg:h-full' : 'h-62.5 sm:h-67.5'
       }`}
     >

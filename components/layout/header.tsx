@@ -97,7 +97,7 @@ const CartButton = () => {
 export const CheckoutHeader = () => {
   return (
     <header className="sticky top-0 w-full z-40 bg-[#012169] text-white shadow-xs">
-      <div className="flex justify-between items-center w-full px-4 md:px-8 max-w-7xl mx-auto h-16">
+      <div className="flex justify-between items-center w-full px-4 md:px-8 max-w-360 mx-auto h-16">
         <Link
           href="/"
           className="flex items-center gap-2.5 font-bold text-xl tracking-tight text-white hover:opacity-90 transition-opacity"
@@ -139,7 +139,7 @@ export const Header: React.FC = () => {
 
   return (
     <header className="sticky top-0 w-full z-40 bg-[#012169] text-white shadow-sm border-b border-white/10">
-        <div className="flex justify-between items-center w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto h-16 gap-3">
+        <div className="flex justify-between items-center w-full px-4 sm:px-6 lg:px-8 max-w-360 mx-auto h-16 gap-3">
           {/* Logo & Mobile Menu */}
           <div className="flex items-center gap-3">
             {/* Mobile Sheet Trigger */}

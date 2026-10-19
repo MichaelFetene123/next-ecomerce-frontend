@@ -63,7 +63,7 @@ export const TestimonialsSection: React.FC = () => {
         {TESTIMONIALS.map((item) => (
           <Card
             key={item.name}
-            className="h-full justify-between gap-5 rounded-2xl border-border/80 py-0 shadow-xs transition-all duration-300 hover:shadow-lg"
+            className="h-full justify-between gap-5 rounded-xl border-border/80 py-0 shadow-xs transition-all duration-300 hover:shadow-lg"
           >
             <CardContent className="space-y-3 p-6 pb-0">
               <div className="flex items-center justify-between">
