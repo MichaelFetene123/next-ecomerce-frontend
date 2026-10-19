@@ -144,6 +144,7 @@ export const LookbookBanner: React.FC = () => {
           </p>
           <div className="flex items-center gap-3">
             <DialogClose
+              nativeButton={false}
               render={
                 <Link
                   href="/categories/fashion"
