@@ -12,12 +12,13 @@ import { VariantMatrix } from '@/components/catalog/variant-matrix';
 import { formatCurrency } from '@/lib/utils';
 import { ChevronRight, Star, Minus, Plus, ChevronDown, ChevronUp } from 'lucide-react';
 import { ProductVariant } from '@/types/catalog';
+import { toast } from 'sonner';
 
 export default function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = React.use(params);
   const router = useRouter();
   const { data: product, isLoading } = useProduct(slug);
-  const { addItem, setIsOpen } = useCartStore();
+  const { addItem } = useCartStore();
   
   const requireAuth = useRequireAuth();
   
@@ -46,7 +47,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         color: selectedVariant?.attribute_values?.find((o: any) => o.attribute?.name === 'Color')?.value,
         size: selectedVariant?.attribute_values?.find((o: any) => o.attribute?.name === 'Size')?.value,
       });
-      setIsOpen(true);
+      toast.success(`Added "${product.title}" to Cart`);
     });
   };
 
@@ -59,7 +60,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         color: selectedVariant?.attribute_values?.find((o: any) => o.attribute?.name === 'Color')?.value,
         size: selectedVariant?.attribute_values?.find((o: any) => o.attribute?.name === 'Size')?.value,
       });
-      setIsOpen(true);
       router.push('/checkout');
     });
   };

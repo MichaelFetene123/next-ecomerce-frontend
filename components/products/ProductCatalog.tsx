@@ -22,6 +22,7 @@ import {
   RotateCcw,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { toast } from 'sonner';
 
 type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'name-asc';
 
@@ -30,7 +31,7 @@ function ProductCatalogInner() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const requireAuth = useRequireAuth();
-  const { addItem, setIsOpen } = useCartStore();
+  const { addItem } = useCartStore();
 
   const categoryParam = searchParams.get('category') || '';
   const searchParam = searchParams.get('search') || '';
@@ -134,7 +135,7 @@ function ProductCatalogInner() {
     e.stopPropagation();
     requireAuth(() => {
       addItem(product, { quantity: 1 });
-      setIsOpen(true);
+      toast.success(`Added "${product.title}" to Cart`);
     });
   };
 

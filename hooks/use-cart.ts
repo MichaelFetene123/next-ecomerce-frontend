@@ -58,11 +58,12 @@ export const cartStore = {
     listeners.add(listener);
     return () => listeners.delete(listener);
   },
-  addItem: (product: Product, options?: { quantity?: number; color?: string; size?: string }) => {
+  addItem: (product: Product, options?: { quantity?: number; color?: string; size?: string; openCart?: boolean }) => {
     initFromStorage();
     const color = options?.color;
     const size = options?.size;
     const qty = options?.quantity || 1;
+    const openCart = options?.openCart ?? false;
 
     const existingIndex = state.items.findIndex(
       (i) => i.product.id === product.id && i.selectedColor === color && i.selectedSize === size
@@ -71,7 +72,7 @@ export const cartStore = {
     if (existingIndex > -1) {
       const newItems = [...state.items];
       newItems[existingIndex].quantity += qty;
-      state = { ...state, items: newItems, isOpen: true };
+      state = { ...state, items: newItems, ...(openCart ? { isOpen: true } : {}) };
     } else {
       state = {
         ...state,
@@ -85,7 +86,7 @@ export const cartStore = {
             selectedSize: size,
           },
         ],
-        isOpen: true,
+        ...(openCart ? { isOpen: true } : {}),
       };
     }
     notify();

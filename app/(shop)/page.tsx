@@ -16,12 +16,13 @@ import { CategoryGridSkeleton } from '@/components/skeletons/category-grid-skele
 import { Product } from '@/types/catalog';
 import { ArrowLeft, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 function StorefrontLandingContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get('search');
-  const { addItem, setIsOpen } = useCartStore();
+  const { addItem } = useCartStore();
 
   // Search results query when search param is active
   const { data: searchResponse, isLoading: isSearchLoading } = useProducts({
@@ -37,7 +38,7 @@ function StorefrontLandingContent() {
   const handleQuickAdd = (product: Product, e: React.MouseEvent) => {
     e.stopPropagation();
     addItem(product, { quantity: 1 });
-    setIsOpen(true);
+    toast.success(`Added "${product.title}" to Cart`);
   };
 
   // If a search is active in the URL, display dedicated search results view

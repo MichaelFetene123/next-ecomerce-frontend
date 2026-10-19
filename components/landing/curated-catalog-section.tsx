@@ -16,7 +16,7 @@ import { toast } from 'sonner';
 
 export const CuratedCatalogSection: React.FC = () => {
   const router = useRouter();
-  const { addItem, setIsOpen } = useCartStore();
+  const { addItem } = useCartStore();
   const { data: apiResponse, isLoading } = useProducts({ per_page: 8 });
 
   const products: Product[] = useMemo(() => {
@@ -54,7 +54,6 @@ export const CuratedCatalogSection: React.FC = () => {
   const handleQuickAdd = (product: Product, e: React.MouseEvent) => {
     e.stopPropagation();
     addItem(product, { quantity: 1 });
-    setIsOpen(true);
     toast.success(`Added "${product.title}" to bag`);
   };
 
