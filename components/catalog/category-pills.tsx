@@ -1,18 +1,16 @@
 import React from 'react';
 
-type PillCategory = 'All' | 'Electronics' | 'Fashion' | 'Home' | 'Sports';
-
 interface CategoryPillsProps {
   selectedCategory: string;
-  onSelectCategory: (category: PillCategory) => void;
+  onSelectCategory: (category: string) => void;
+  categories?: string[];
 }
 
 export const CategoryPills: React.FC<CategoryPillsProps> = ({
   selectedCategory,
   onSelectCategory,
+  categories = ['All', 'Electronics', 'Fashion', 'Sports'],
 }) => {
-  const categories: PillCategory[] = ['All', 'Electronics', 'Fashion', 'Home', 'Sports'];
-
   return (
     <div className="flex flex-wrap gap-2">
       {categories.map((cat) => {

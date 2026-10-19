@@ -132,7 +132,7 @@ export const Header: React.FC = () => {
 
   const navLinks = [
     { label: 'Home', href: '/' },
-    { label: 'Shop', href: '/categories', },
+    { label: 'Shop', href: '/categories' },
     { label: 'About', href: '/about' },
   ];
 
@@ -156,16 +156,29 @@ export const Header: React.FC = () => {
                   </SheetHeader>
                   <div className="flex flex-col gap-4 mt-6">
                     <nav className="flex flex-col gap-1">
-                      {navLinks.map((link) => (
-                        <Link
-                          key={link.label}
-                          href={link.href}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className="text-sm font-semibold px-4 py-2.5 hover:bg-accent rounded-lg transition-colors"
-                        >
-                          {link.label}
-                        </Link>
-                      ))}
+                      {navLinks.map((link) => {
+                        const isSelected =
+                          link.href === '/'
+                            ? pathname === '/'
+                            : pathname.startsWith(link.href) ||
+                              (link.href === '/categories' && pathname.startsWith('/products'));
+
+                        return (
+                          <Link
+                            key={link.label}
+                            href={link.href}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className={cn(
+                              'text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors',
+                              isSelected
+                                ? 'bg-[#012169]/10 text-[#012169] dark:bg-white/10 dark:text-[#FDD79A] font-bold'
+                                : 'text-foreground/80 hover:bg-accent hover:text-foreground'
+                            )}
+                          >
+                            {link.label}
+                          </Link>
+                        );
+                      })}
                     </nav>
 
                     {categories.length > 0 && (
@@ -208,8 +221,10 @@ export const Header: React.FC = () => {
           <nav className="hidden md:flex items-center gap-1.5 h-full">
             {navLinks.map((link) => {
               const isSelected =
-                pathname === link.href ||
-                (link.defaultActive && (pathname === '/' || pathname.includes('fashion')));
+                link.href === '/'
+                  ? pathname === '/'
+                  : pathname.startsWith(link.href) ||
+                    (link.href === '/categories' && pathname.startsWith('/products'));
 
               return (
                 <Link
