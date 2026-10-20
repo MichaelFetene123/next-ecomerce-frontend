@@ -5,9 +5,26 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Store, ShieldCheck, Lock } from 'lucide-react';
 
+const TelegramIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+    aria-hidden="true"
+  >
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
+  </svg>
+);
+
 export const Footer: React.FC = () => {
   const pathname = usePathname();
   const currentYear = new Date().getFullYear();
+
+  // You can set NEXT_PUBLIC_TELEGRAM_URL or NEXT_PUBLIC_TELEGRAM_USERNAME in .env
+  const telegramUsername = process.env.NEXT_PUBLIC_TELEGRAM_USERNAME || 'StorefrontOfficial';
+  const telegramUrl =
+    process.env.NEXT_PUBLIC_TELEGRAM_URL ||
+    `https://t.me/${telegramUsername.replace(/^@/, '')}`;
 
   if (pathname?.startsWith('/checkout')) {
     return (
@@ -43,9 +60,24 @@ export const Footer: React.FC = () => {
               Curated marketplace offering verified goods, premium textiles, and everyday essentials with seamless digital checkout.
             </p>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-white/90 text-xs font-medium border border-white/15">
-              <ShieldCheck className="w-4 h-4 text-[#FDD79A]" />
-              <span>Secure Transactions powered by Chapa</span>
+            <div className="flex flex-wrap items-center gap-2.5 pt-1">
+              {/* Trust Badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-white/90 text-xs font-medium border border-white/15">
+                <ShieldCheck className="w-4 h-4 text-[#FDD79A]" />
+                <span>Secure Payments via Chapa</span>
+              </div>
+
+              {/* Telegram Channel Link */}
+              <a
+                href={telegramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#229ED9]/20 hover:bg-[#229ED9]/35 text-white text-xs font-semibold border border-[#229ED9]/40 hover:border-[#229ED9] transition-all group shadow-xs"
+                title={`Join ${telegramUsername} on Telegram`}
+              >
+                <TelegramIcon className="w-4 h-4 text-[#229ED9] group-hover:scale-110 transition-transform" />
+                <span>Telegram Channel</span>
+              </a>
             </div>
           </div>
 
@@ -118,9 +150,22 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright & Verified Badges */}
+        {/* Bottom Bar: Copyright, Telegram Username & Verified Badges */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
-          <p>© {currentYear} Storefront. All rights reserved.</p>
+          <div className="flex flex-wrap items-center gap-4">
+            <p>© {currentYear} Storefront. All rights reserved.</p>
+            <a
+              href={telegramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-white/75 hover:text-white transition-colors"
+              title="Connect on Telegram"
+            >
+              <TelegramIcon className="w-3.5 h-3.5 text-[#229ED9]" />
+              <span>@{telegramUsername.replace(/^@/, '')}</span>
+            </a>
+          </div>
+
           <div className="flex items-center gap-3">
             <span className="text-[11px] font-semibold text-white/80 bg-white/10 px-2.5 py-1 rounded border border-white/10">
               Chapa Pay
