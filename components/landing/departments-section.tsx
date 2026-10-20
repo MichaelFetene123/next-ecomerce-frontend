@@ -25,14 +25,14 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
   return (
     <Link
       href={href}
-      className={`group relative block overflow-hidden rounded-xl border border-white/10 bg-slate-900 shadow-lg transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl sm:rounded-2xl ${
+      className={`group relative block overflow-hidden rounded-xl border border-white/10 bg-slate-900 shadow-lg transition-shadow duration-500 hover:shadow-2xl hover:border-white/20 sm:rounded-2xl ${
         isTall ? 'h-125 min-h-120 sm:h-140 lg:h-full' : 'h-62.5 sm:h-67.5'
       }`}
     >
       <img
         src={image}
         alt={title}
-        className="absolute inset-0 h-full w-full object-cover object-center brightness-100 transition-transform duration-700 ease-out group-hover:scale-108"
+        className="absolute inset-0 h-full w-full object-cover object-center brightness-100 transition-transform duration-1000 ease-out group-hover:scale-[1.01] will-change-transform"
       />
       <div className="absolute inset-0 bg-linear-to-t from-[#020b1e]/75 via-[#020b1e]/35 to-transparent" />
       <div className="absolute inset-0 bg-linear-to-r from-[#020b1e]/35 via-transparent to-transparent" />
@@ -53,11 +53,11 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
 
           <Button
             size="icon"
-            className="size-11 shrink-0 rounded-full bg-white text-[#012169] shadow-lg pointer-events-none hover:bg-white sm:size-12 group-hover:scale-110 group-hover:bg-[#FDD79A] group-hover:text-[#012169] group-hover:shadow-xl"
+            className="size-11 shrink-0 rounded-full bg-white text-[#012169] shadow-lg pointer-events-none hover:bg-white sm:size-12 transition-colors duration-300 group-hover:bg-[#FDD79A] group-hover:text-[#012169] group-hover:shadow-xl"
             tabIndex={-1}
             aria-hidden
           >
-            <ArrowRight className="size-5 transition-transform group-hover:translate-x-0.5" />
+            <ArrowRight className="size-5 transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
           </Button>
         </div>
       </div>
@@ -90,14 +90,14 @@ export const DepartmentsSection: React.FC = () => {
             title="FORMAL WOMAN"
             description="Executive suiting, silk blouses & tailored skirts"
             image="/images/landing/dept-formal-woman.jpg"
-            href="/categories"
+            href="/products"
           />
           <DepartmentCard
             tag="TAILORED CRAFT"
             title="FORMAL MEN"
             description="Peak lapel blazers, dress trousers & oxford footwear"
             image="/images/landing/dept-formal-men.jpg"
-            href="/categories"
+            href="/products"
           />
         </div>
 
@@ -107,7 +107,7 @@ export const DepartmentsSection: React.FC = () => {
             title="CASUAL STYLE"
             description="Refined knits, breathable poplin shirts, and elevated minimalist lounge essentials."
             image="/images/landing/dept-casual-style.jpg"
-            href="/categories"
+            href="/products"
             isTall
           />
         </div>

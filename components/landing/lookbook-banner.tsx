@@ -27,7 +27,7 @@ export const LookbookBanner: React.FC = () => {
           <img
             src="/images/landing/lookbook-artisans.jpg"
             alt="The Anatomy of Motion & Elegance - Artisanal Tailoring in Addis Ababa"
-            className="h-full w-full object-cover object-center brightness-[0.92] transition-transform duration-700 ease-out group-hover:scale-103"
+            className="h-full w-full object-cover object-center brightness-[0.92] transition-transform duration-1000 ease-out group-hover:scale-[1.015]"
           />
           <div className="absolute inset-0 bg-[#051838]/35" />
           <div className="absolute inset-0 bg-radial-at-c from-transparent via-black/15 to-black/45" />
@@ -40,7 +40,7 @@ export const LookbookBanner: React.FC = () => {
             </span>
             <span className="text-sm font-bold text-white/90">New Arrivals Edition</span>
             <Link
-              href="/categories/fashion"
+              href="/products"
               className="mt-1 text-[11px] font-bold text-[#FDD79A] hover:underline"
             >
               Shop Now →
@@ -57,11 +57,11 @@ export const LookbookBanner: React.FC = () => {
                     type="button"
                     size="icon"
                     aria-label="Play lookbook film"
-                    className="relative size-16 cursor-pointer rounded-full bg-[#FDD79A] text-[#012169] shadow-2xl hover:scale-110 hover:bg-[#FDD79A] hover:text-[#012169] sm:size-20"
+                    className="relative size-16 cursor-pointer rounded-full bg-[#FDD79A] text-[#012169] shadow-2xl transition-all duration-300 ease-out hover:scale-105 hover:bg-[#FDD79A] hover:text-[#012169] sm:size-20"
                   />
                 }
               >
-                <span className="pointer-events-none absolute inset-0 rounded-full bg-[#FDD79A]/40 opacity-75 animate-ping" />
+                <span className="pointer-events-none absolute inset-0 rounded-full bg-[#FDD79A]/30 opacity-75 animate-ping [animation-duration:2.5s]" />
                 <Play className="ml-1 size-6 fill-current sm:size-7" />
               </DialogTrigger>
             </div>
@@ -147,7 +147,7 @@ export const LookbookBanner: React.FC = () => {
               nativeButton={false}
               render={
                 <Link
-                  href="/categories/fashion"
+                  href="/products"
                   className={cn(
                     buttonVariants(),
                     'h-auto rounded-lg bg-[#FDD79A] px-5 py-2.5 text-xs font-bold tracking-wider text-[#012169] uppercase hover:bg-[#FCD082] hover:text-[#012169]'

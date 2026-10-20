@@ -1,8 +1,10 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { ArrowRight, ChevronDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface HeroSectionProps {
   onExploreClick?: () => void;
@@ -17,11 +19,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onExploreClick,
   onLookbookClick,
 }) => {
-  const handleExplore = () => {
-    if (onExploreClick) {
-      onExploreClick();
-      return;
-    }
+  const handleScrollDown = () => {
     scrollToId('curated-departments');
     if (!document.getElementById('curated-departments')) {
       scrollToId('curated-catalog');
@@ -70,14 +68,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </p>
 
           <div className="flex flex-wrap items-center gap-3.5 pt-2">
-            <Button
-              size="lg"
-              onClick={handleExplore}
-              className="h-auto cursor-pointer rounded-lg bg-[#FDD79A] px-7 py-6 text-xs font-bold tracking-wider text-[#012169] uppercase shadow-lg transition-all duration-200 hover:scale-[1.02] hover:bg-[#FCD082] hover:text-[#012169] hover:shadow-xl sm:text-sm"
+            <Link
+              href="/products"
+              onClick={onExploreClick}
+              className={cn(
+                buttonVariants({ size: 'lg' }),
+                'h-auto cursor-pointer rounded-lg bg-[#FDD79A] px-7 py-6 text-xs font-bold tracking-wider text-[#012169] uppercase shadow-lg transition-all duration-200 hover:scale-[1.02] hover:bg-[#FCD082] hover:text-[#012169] hover:shadow-xl sm:text-sm'
+              )}
             >
               Explore Collection
               <ArrowRight className="ml-1.5 size-4 transition-transform group-hover/button:translate-x-1" />
-            </Button>
+            </Link>
 
             <Button
               variant="outline"
@@ -88,12 +89,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               A/W Lookbook
             </Button>
           </div>
+
         </div>
 
         <div className="flex items-center justify-between border-t border-white/10 pt-4">
           <Button
             variant="ghost"
-            onClick={handleExplore}
+            onClick={handleScrollDown}
             className="h-auto cursor-pointer gap-1.5 px-0 text-[11px] font-bold tracking-widest text-white/70 uppercase hover:bg-transparent hover:text-white"
           >
             Scroll Down
