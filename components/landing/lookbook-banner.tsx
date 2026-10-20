@@ -61,7 +61,7 @@ export const LookbookBanner: React.FC = () => {
                   />
                 }
               >
-                <span className="pointer-events-none absolute inset-0 rounded-full bg-[#FDD79A]/30 opacity-75 animate-ping [animation-duration:2.5s]" />
+                <span className="pointer-events-none absolute inset-0 rounded-full bg-[#FDD79A]/30 opacity-75 animate-ping animation-duration-[2.5s]" />
                 <Play className="ml-1 size-6 fill-current sm:size-7" />
               </DialogTrigger>
             </div>
