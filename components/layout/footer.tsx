@@ -146,6 +146,11 @@ export const Footer: React.FC = () => {
                   Appearance & Theme
                 </Link>
               </li>
+              <li>
+                <Link href="/about" className="hover:text-white hover:underline transition-colors">
+                  About Storefront
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
