@@ -9,7 +9,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { cn, formatCurrency, formatDate } from '@/lib/utils';
 import { PackageOpen } from 'lucide-react';
 import { OrderStatus } from '@/types/order';
-import { OrdersSkeleton } from '@/components/skeletons/orders-skeleton';
+import { OrderDetailSkeleton } from '@/components/skeletons/order-detail-skeleton';
 
 export default function OrdersPage() {
   const { data: response, isLoading } = useOrders();
@@ -25,7 +25,7 @@ export default function OrdersPage() {
   };
 
   if (isLoading) {
-    return <OrdersSkeleton />;
+    return <OrderDetailSkeleton variant="list" />;
   }
 
   if (orders.length === 0) {

@@ -17,7 +17,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
   const order = response?.data?.find(o => o.id === orderId);
 
   if (isLoading) {
-    return <OrderDetailSkeleton />;
+    return <OrderDetailSkeleton variant="detail" />;
   }
 
   if (!order) {

@@ -1,6 +1,60 @@
+import React from 'react';
+import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export function OrderDetailSkeleton() {
+export interface OrderDetailSkeletonProps {
+  /**
+   * Layout variant to render:
+   * - 'detail': Full two-column order detail skeleton matching /orders/[id]
+   * - 'list': Order list skeleton with cards matching /orders
+   * @default 'detail'
+   */
+  variant?: 'detail' | 'list';
+  /**
+   * Number of items/cards to render in list mode
+   * @default 3
+   */
+  count?: number;
+}
+
+export function OrderDetailSkeleton({
+  variant = 'detail',
+  count = 3,
+}: OrderDetailSkeletonProps = {}) {
+  if (variant === 'list') {
+    return (
+      <div className="space-y-6">
+        {/* Title */}
+        <Skeleton className="h-8 w-40 rounded-lg mb-6" />
+
+        <div className="grid gap-4">
+          {Array.from({ length: count }).map((_, index) => (
+            <Card key={index} className="p-6 border-border bg-card">
+              <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-4">
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-3 mb-1">
+                    <Skeleton className="h-5 w-24 rounded-md" />
+                    <Skeleton className="h-5 w-16 rounded-full" />
+                  </div>
+                  <Skeleton className="h-4 w-36 rounded-md" />
+                </div>
+
+                <div className="text-left sm:text-right space-y-1">
+                  <Skeleton className="h-4 w-20 rounded-md sm:ml-auto" />
+                  <Skeleton className="h-6 w-24 rounded-md sm:ml-auto" />
+                </div>
+              </div>
+
+              <div className="flex justify-end pt-4 border-t border-border">
+                <Skeleton className="h-9 w-28 rounded-md" />
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full">
       {/* Top Header */}
@@ -117,3 +171,8 @@ export function OrderDetailSkeleton() {
   );
 }
 
+export const OrdersSkeleton = (props: { count?: number }) => (
+  <OrderDetailSkeleton variant="list" {...props} />
+);
+
+export const OrderListSkeleton = OrdersSkeleton;

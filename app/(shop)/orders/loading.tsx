@@ -1,6 +1,5 @@
-import { OrdersSkeleton } from '@/components/skeletons/orders-skeleton';
+import { OrderDetailSkeleton } from '@/components/skeletons/order-detail-skeleton';
 
 export default function Loading() {
-  return <OrdersSkeleton />;
+  return <OrderDetailSkeleton variant="list" />;
 }
-
