@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useOrders } from '@/hooks/use-orders';
-import { OrdersSkeleton } from '@/components/skeletons/orders-skeleton';
+import { RecentOrdersSkeleton } from '@/components/skeletons/recent-orders-skeleton';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Package, ChevronRight } from 'lucide-react';
@@ -15,12 +15,7 @@ export function OrderHistory() {
   const { data: response, isLoading, error } = useOrders(1);
 
   if (isLoading) {
-    return (
-      <div className="space-y-4">
-        <h2 className="text-lg sm:text-xl font-semibold">Recent Orders</h2>
-        <OrdersSkeleton count={2} />
-      </div>
-    );
+    return <RecentOrdersSkeleton count={2} />;
   }
 
   const orders = response?.data || [];

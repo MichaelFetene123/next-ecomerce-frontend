@@ -1,14 +1,16 @@
 import React from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export function CategoryPillsSkeleton() {
+export function CategoryPillsSkeleton({ count = 5 }: { count?: number }) {
+  const widths = ['w-24', 'w-28', 'w-20', 'w-32', 'w-24'];
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <Skeleton className="h-8 w-24 rounded-full" />
-      <Skeleton className="h-8 w-28 rounded-full" />
-      <Skeleton className="h-8 w-20 rounded-full" />
-      <Skeleton className="h-8 w-24 rounded-full" />
-      <Skeleton className="h-8 w-20 rounded-full" />
+    <div className="flex items-center gap-2 overflow-x-auto pb-1 pt-1">
+      {Array.from({ length: count }).map((_, i) => (
+        <Skeleton
+          key={i}
+          className={`h-[30px] ${widths[i % widths.length]} rounded-full shrink-0 border border-border/40`}
+        />
+      ))}
     </div>
   );
 }

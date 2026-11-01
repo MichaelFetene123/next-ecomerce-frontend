@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useOrders } from '@/hooks/use-orders'; 
 import { formatCurrency, formatDate } from '@/lib/utils';
-import { Loader2, Download, ArrowLeft, MapPin, CreditCard } from 'lucide-react';
+import { Download, ArrowLeft, MapPin, CreditCard } from 'lucide-react';
+import { OrderDetailSkeleton } from '@/components/skeletons/order-detail-skeleton';
 
 export default function OrderDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -16,11 +17,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
   const order = response?.data?.find(o => o.id === orderId);
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-20 w-full">
-        <Loader2 className="w-8 h-8 animate-spin text-[#012169]" />
-      </div>
-    );
+    return <OrderDetailSkeleton />;
   }
 
   if (!order) {

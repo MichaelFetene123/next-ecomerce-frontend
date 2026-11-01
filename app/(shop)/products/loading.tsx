@@ -1,10 +1,5 @@
-import { ProductGridSkeleton } from '@/components/skeletons/product-grid-skeleton';
+import { ProductCatalogSkeleton } from '@/components/skeletons/product-catalog-skeleton';
 
 export default function Loading() {
-  return (
-    <div className="space-y-8">
-      <ProductGridSkeleton />
-    </div>
-  );
+  return <ProductCatalogSkeleton />;
 }
-
