@@ -3,14 +3,48 @@
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes"
 
-// Suppress false-positive React 19 development warning for next-themes inline theme script
+// Suppress false-positive React 19 development warnings caused by third-party scripts or extensions
 if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
   const origError = console.error;
+  const isIgnorable = (...args: unknown[]): boolean => {
+    for (const arg of args) {
+      if (typeof arg === "string") {
+        if (
+          arg.includes("Encountered a script tag while rendering React component") ||
+          arg.includes("bis_skin_checked") ||
+          arg.includes("kiilhncajadbgbmdbdcopdpnmdhlbdle")
+        ) {
+          return true;
+        }
+      } else if (arg instanceof Error) {
+        if (
+          arg.message.includes("bis_skin_checked") ||
+          (arg.stack && (arg.stack.includes("bis_skin_checked") || arg.stack.includes("kiilhncajadbgbmdbdcopdpnmdhlbdle")))
+        ) {
+          return true;
+        }
+      } else if (typeof arg === "object" && arg !== null) {
+        try {
+          const str = JSON.stringify(arg);
+          if (str.includes("bis_skin_checked") || str.includes("kiilhncajadbgbmdbdcopdpnmdhlbdle")) {
+            return true;
+          }
+        } catch {
+          // ignore circular JSON errors
+        }
+      }
+    }
+
+    const stack = new Error().stack;
+    if (stack && (stack.includes("kiilhncajadbgbmdbdcopdpnmdhlbdle") || stack.includes("bis_skin_checked"))) {
+      return true;
+    }
+
+    return false;
+  };
+
   console.error = (...args: unknown[]) => {
-    if (
-      typeof args[0] === "string" &&
-      args[0].includes("Encountered a script tag while rendering React component")
-    ) {
+    if (isIgnorable(...args)) {
       return;
     }
     origError.apply(console, args);
