@@ -16,9 +16,15 @@ const TelegramIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
   </svg>
 );
 
+const CURRENT_YEAR = 2026;
+
 export const Footer: React.FC = () => {
   const pathname = usePathname();
-  const currentYear = new Date().getFullYear();
+  const [currentYear, setCurrentYear] = React.useState(CURRENT_YEAR);
+
+  React.useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
 
   // You can set NEXT_PUBLIC_TELEGRAM_URL or NEXT_PUBLIC_TELEGRAM_USERNAME in .env
   const telegramUsername = process.env.NEXT_PUBLIC_TELEGRAM_USERNAME || 'StorefrontOfficial';
