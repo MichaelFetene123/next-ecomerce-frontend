@@ -8,7 +8,6 @@ import { DepartmentsSection } from '@/components/landing/departments-section';
 import { CuratedCatalogSection } from '@/components/landing/curated-catalog-section';
 import { LookbookBanner } from '@/components/landing/lookbook-banner';
 import { TestimonialsSection } from '@/components/landing/testimonials-section';
-import { NewsletterSection } from '@/components/landing/newsletter-section';
 import { useProducts } from '@/hooks/use-products';
 import { useCartStore } from '@/hooks/use-cart';
 import { ProductCard } from '@/components/catalog/product-card';
@@ -122,9 +121,6 @@ function StorefrontLandingContent() {
 
       {/* 6. Client Voices / Verified Reviews */}
       <TestimonialsSection />
-
-      {/* 7. Join The Private Roster Email Subscription */}
-      <NewsletterSection />
     </div>
   );
 }
