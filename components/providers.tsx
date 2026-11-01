@@ -7,23 +7,29 @@ import { queryClient } from "@/lib/query-client";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
-export function Providers({ children }: { children: React.ReactNode }) {
+function ClientMountedUtilities() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  if (!mounted) return null;
+
+  return (
+    <>
+      <Toaster richColors position="bottom-right" />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </>
+  );
+}
+
+export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         {children}
-        {mounted && (
-          <>
-            <Toaster richColors position="bottom-right" />
-            <ReactQueryDevtools initialIsOpen={false} />
-          </>
-        )}
+        <ClientMountedUtilities />
       </ThemeProvider>
     </QueryClientProvider>
   );

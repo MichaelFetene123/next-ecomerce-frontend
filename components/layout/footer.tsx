@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Store, ShieldCheck, Lock } from 'lucide-react';
@@ -16,15 +16,12 @@ const TelegramIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
   </svg>
 );
 
-const CURRENT_YEAR = 2026;
+const CurrentYear: React.FC = () => {
+  return <span suppressHydrationWarning>{new Date().getFullYear()}</span>;
+};
 
 export const Footer: React.FC = () => {
   const pathname = usePathname();
-  const [currentYear, setCurrentYear] = React.useState(CURRENT_YEAR);
-
-  React.useEffect(() => {
-    setCurrentYear(new Date().getFullYear());
-  }, []);
 
   // You can set NEXT_PUBLIC_TELEGRAM_URL or NEXT_PUBLIC_TELEGRAM_USERNAME in .env
   const telegramUsername = process.env.NEXT_PUBLIC_TELEGRAM_USERNAME || 'StorefrontOfficial';
@@ -36,7 +33,7 @@ export const Footer: React.FC = () => {
     return (
       <footer className="w-full py-6 bg-card border-t border-border mt-auto text-center">
         <div className="max-w-360 mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
-          <p>© {currentYear} Storefront Inc. All rights reserved.</p>
+          <p>© <Suspense fallback={<span></span>}><CurrentYear /></Suspense> Storefront Inc. All rights reserved.</p>
           <div className="flex items-center gap-1.5 text-xs font-medium">
             <Lock className="w-3.5 h-3.5 text-[#012169] dark:text-[#FDD79A]" />
             <span>256-Bit SSL Encrypted Checkout</span>
@@ -164,7 +161,7 @@ export const Footer: React.FC = () => {
         {/* Bottom Bar: Copyright, Telegram Username & Verified Badges */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
           <div className="flex flex-wrap items-center gap-4">
-            <p>© {currentYear} Storefront. All rights reserved.</p>
+            <p>© <Suspense fallback={<span></span>}><CurrentYear /></Suspense> Storefront. All rights reserved.</p>
             <a
               href={telegramUrl}
               target="_blank"
