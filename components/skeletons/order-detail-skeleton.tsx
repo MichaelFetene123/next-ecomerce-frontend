@@ -12,14 +12,14 @@ export interface OrderDetailSkeletonProps {
   variant?: 'detail' | 'list';
   /**
    * Number of items/cards to render in list mode
-   * @default 3
+   * @default 2
    */
   count?: number;
 }
 
 export function OrderDetailSkeleton({
   variant = 'detail',
-  count = 3,
+  count = 2,
 }: OrderDetailSkeletonProps = {}) {
   if (variant === 'list') {
     return (
