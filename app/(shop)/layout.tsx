@@ -16,7 +16,7 @@ export default function ShopLayout({
 
   return (
     <div
-      className="flex flex-col min-h-screen bg-[#F8F9FA] dark:bg-background text-foreground transition-colors"
+      className="flex flex-col min-h-screen bg-background text-foreground transition-colors"
       suppressHydrationWarning
     >
       <Header />

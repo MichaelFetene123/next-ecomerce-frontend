@@ -29,7 +29,7 @@ export function OrderDetailSkeleton({
 
         <div className="grid gap-4">
           {Array.from({ length: count }).map((_, index) => (
-            <Card key={index} className="p-6 border-border bg-card">
+            <Card key={index} className="p-6 border-border bg-card shadow-xs">
               <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-4">
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-3 mb-1">
@@ -82,7 +82,7 @@ export function OrderDetailSkeleton({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Items */}
         <div className="lg:col-span-8">
-          <div className="bg-card border border-border rounded-xl overflow-hidden shadow-none">
+          <div className="bg-card border border-border rounded-xl overflow-hidden shadow-xs">
             <div className="p-5 border-b border-border bg-muted/50">
               <Skeleton className="h-5 w-32 rounded-md" />
             </div>
@@ -128,7 +128,7 @@ export function OrderDetailSkeleton({
         {/* Right Column: Info Cards */}
         <div className="lg:col-span-4 flex flex-col gap-6">
           {/* Delivery Address Card */}
-          <div className="bg-card border border-border rounded-xl p-5 shadow-none space-y-3">
+          <div className="bg-card border border-border rounded-xl p-5 shadow-xs space-y-3">
             <div className="flex items-center gap-3">
               <Skeleton className="w-8 h-8 rounded-md shrink-0" />
               <Skeleton className="h-5 w-32 rounded-md" />
@@ -141,7 +141,7 @@ export function OrderDetailSkeleton({
           </div>
 
           {/* Payment Method Card */}
-          <div className="bg-card border border-border rounded-xl p-5 shadow-none space-y-3">
+          <div className="bg-card border border-border rounded-xl p-5 shadow-xs space-y-3">
             <div className="flex items-center gap-3">
               <Skeleton className="w-8 h-8 rounded-md shrink-0" />
               <Skeleton className="h-5 w-32 rounded-md" />
@@ -153,7 +153,7 @@ export function OrderDetailSkeleton({
           </div>
 
           {/* Tracking Timeline Card */}
-          <div className="bg-card border border-border rounded-xl p-5 shadow-none space-y-4">
+          <div className="bg-card border border-border rounded-xl p-5 shadow-xs space-y-4">
             <Skeleton className="h-5 w-36 rounded-md mb-4" />
             <div className="border-l border-border ml-2 pl-4 space-y-6">
               {[1, 2, 3, 4].map((step) => (

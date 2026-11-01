@@ -5,7 +5,7 @@ function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="skeleton"
       suppressHydrationWarning
-      className={cn("animate-pulse rounded-md bg-muted-foreground/15 dark:bg-muted-foreground/25", className)}
+      className={cn("animate-pulse rounded-md bg-muted-foreground/20 dark:bg-muted-foreground/25", className)}
       {...props}
     />
   )
