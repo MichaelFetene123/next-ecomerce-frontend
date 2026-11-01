@@ -7,11 +7,13 @@ import { AddressList } from './components/address-list';
 import { OrderHistory } from './components/order-history';
 import { Separator } from '@/components/ui/separator';
 
-export default function AccountProfilePage() {
-  const { data: user } = useUser();
+import { AccountCenterSkeleton } from '@/components/skeletons/account-skeleton';
 
-  if (!user) {
-    return null;
+export default function AccountProfilePage() {
+  const { data: user, isLoading } = useUser();
+
+  if (isLoading || !user) {
+    return <AccountCenterSkeleton />;
   }
 
   return (

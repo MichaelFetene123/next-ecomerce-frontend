@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useProduct } from '@/hooks/use-product';
@@ -14,7 +14,7 @@ import { ChevronRight, Star, Minus, Plus, ChevronDown, ChevronUp } from 'lucide-
 import { ProductVariant } from '@/types/catalog';
 import { toast } from 'sonner';
 
-export default function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+function ProductDetailContent({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = React.use(params);
   const router = useRouter();
   const { data: product, isLoading } = useProduct(slug);
@@ -106,14 +106,14 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
   if (isLoading || !product) {
     return (
-      <div className="w-full">
+      <div className="w-full" suppressHydrationWarning>
         <ProductDetailSkeleton />
       </div>
     );
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full" suppressHydrationWarning>
       {/* Breadcrumbs */}
       <nav className="flex items-center text-xs text-muted-foreground mb-8">
         <ol className="inline-flex items-center space-x-2">
@@ -279,5 +279,13 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  return (
+    <Suspense fallback={<ProductDetailSkeleton />}>
+      <ProductDetailContent params={params} />
+    </Suspense>
   );
 }

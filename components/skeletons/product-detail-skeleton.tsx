@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export function ProductDetailSkeleton() {
   return (
-    <div className="w-full">
+    <div className="w-full" suppressHydrationWarning>
       {/* Breadcrumbs Skeleton */}
       <div className="flex items-center gap-2 mb-8">
         <Skeleton className="h-4 w-12 rounded" />

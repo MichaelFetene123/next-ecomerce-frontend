@@ -12,13 +12,14 @@ import { formatCurrency } from '@/lib/utils';
 import { ShoppingBag, ArrowRight, ShieldCheck } from 'lucide-react';
 
 import { AuthGuard } from '@/components/auth/auth-guard';
+import { CartSkeleton } from '@/components/skeletons/cart-skeleton';
 
 export default function CartPage() {
   const router = useRouter();
   const { items, totalItemsCount, subtotal, updateQuantity, removeItem } = useCartStore();
 
   return (
-    <AuthGuard>
+    <AuthGuard fallback={<CartSkeleton />}>
       <div className="container mx-auto px-4 py-8 md:py-12 max-w-6xl">
         <h1 className="text-3xl font-bold text-[#012169] dark:text-foreground mb-8 tracking-tight">
           Shopping Cart

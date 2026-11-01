@@ -138,12 +138,12 @@ export const Header: React.FC = () => {
   ];
 
   return (
-    <header className="sticky top-0 w-full z-40 bg-[#012169] text-white shadow-sm border-b border-white/10">
+    <header className="sticky top-0 w-full z-40 bg-[#012169] text-white shadow-sm border-b border-white/10" suppressHydrationWarning>
         <div className="flex justify-between items-center w-full px-4 sm:px-6 lg:px-8 max-w-360 mx-auto h-18 sm:h-20 gap-3">
           {/* Logo & Mobile Menu */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3" suppressHydrationWarning>
             {/* Mobile Sheet Trigger */}
-            <div className="md:hidden flex items-center">
+            <div className="md:hidden flex items-center" suppressHydrationWarning>
               <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                 <SheetTrigger render={<Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white rounded-full -ml-2" />}>
                   <Menu className="w-5 h-5" />

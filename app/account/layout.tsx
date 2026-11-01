@@ -9,12 +9,28 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { AuthGuard } from '@/components/auth/auth-guard';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const navItems = [
   { name: 'Profile', href: '/account', icon: User, exact: true },
   { name: 'Appearance', href: '/account/appearance', icon: Palette, exact: false },
   { name: 'Settings', href: '/account/settings', icon: Settings, exact: false },
 ];
+
+const AccountLayoutFallback = (
+  <div className="min-h-screen bg-background text-foreground flex flex-col">
+    <div className="h-18 sm:h-20 bg-[#012169] w-full" />
+    <div className="flex-1 max-w-360 w-full mx-auto px-4 sm:px-6 md:px-8 py-5 sm:py-7 md:py-10">
+      <div className="flex flex-col md:flex-row gap-5 md:gap-8 items-start">
+        <Skeleton className="w-full md:w-64 h-64 rounded-2xl" />
+        <div className="flex-1 w-full space-y-6">
+          <Skeleton className="h-8 w-48 rounded" />
+          <Skeleton className="h-48 w-full rounded-xl" />
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 export default function AccountLayout({
   children,
@@ -26,7 +42,7 @@ export default function AccountLayout({
   const { data: user } = useUser();
 
   return (
-    <AuthGuard>
+    <AuthGuard fallback={AccountLayoutFallback}>
       <div className="min-h-screen bg-background text-foreground flex flex-col">
         {/* Dedicated Account Topbar matching Shop Header */}
         <header className="sticky top-0 z-30 bg-[#012169] text-white shadow-xs">

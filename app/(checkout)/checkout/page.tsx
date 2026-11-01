@@ -33,6 +33,7 @@ const MOCK_ADDRESSES: Address[] = [
 ];
 
 import { AuthGuard } from '@/components/auth/auth-guard';
+import { CheckoutSkeleton } from '@/components/skeletons/checkout-skeleton';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -77,7 +78,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <AuthGuard>
+    <AuthGuard fallback={<CheckoutSkeleton />}>
       <div className="w-full">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-[#012169] dark:text-foreground mb-1">Checkout</h1>

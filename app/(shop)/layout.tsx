@@ -15,7 +15,10 @@ export default function ShopLayout({
   const isHome = pathname === '/';
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8F9FA] dark:bg-background text-foreground transition-colors">
+    <div
+      className="flex flex-col min-h-screen bg-[#F8F9FA] dark:bg-background text-foreground transition-colors"
+      suppressHydrationWarning
+    >
       <Header />
       <main
         className={cn(

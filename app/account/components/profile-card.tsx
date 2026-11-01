@@ -6,13 +6,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { formatDate } from '@/lib/utils';
 import { User, Mail, Phone, Calendar, ShieldCheck } from 'lucide-react';
-import { Skeleton } from '@/components/ui/skeleton';
+import { ProfileCardSkeleton } from '@/components/skeletons/profile-card-skeleton';
 
 export function ProfileCard() {
   const { data: user, isLoading } = useUser();
 
   if (isLoading) {
-    return <Skeleton className="h-62.5 w-full rounded-xl" />;
+    return <ProfileCardSkeleton />;
   }
 
   if (!user) {

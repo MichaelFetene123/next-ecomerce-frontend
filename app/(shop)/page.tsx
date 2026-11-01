@@ -12,7 +12,7 @@ import { NewsletterSection } from '@/components/landing/newsletter-section';
 import { useProducts } from '@/hooks/use-products';
 import { useCartStore } from '@/hooks/use-cart';
 import { ProductCard } from '@/components/catalog/product-card';
-import { CategoryGridSkeleton } from '@/components/skeletons/category-grid-skeleton';
+import { ProductGridSkeleton } from '@/components/skeletons/product-grid-skeleton';
 import { Product } from '@/types/catalog';
 import { ArrowLeft, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -71,7 +71,7 @@ function StorefrontLandingContent() {
         </div>
 
         {isSearchLoading ? (
-          <CategoryGridSkeleton />
+          <ProductGridSkeleton />
         ) : searchResults.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {searchResults.map((product) => (
