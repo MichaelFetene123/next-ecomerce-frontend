@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useProduct } from '@/hooks/use-product';
@@ -18,13 +18,91 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
   const { slug } = React.use(params);
   const router = useRouter();
   const { data: product, isLoading } = useProduct(slug);
-  const { addItem } = useCartStore();
+  const { addItem, updateQuantity, items } = useCartStore();
   
   const requireAuth = useRequireAuth();
   
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [openAccordion, setOpenAccordion] = useState<string | null>('specifications');
+
+  const activeVariant = selectedVariant || product?.variants?.find((v) => v.is_default) || product?.variants?.[0] || null;
+
+  const currentPrice = activeVariant ? activeVariant.price : (product?.variants?.[0]?.price || 0);
+  const currentStock = activeVariant ? Number(activeVariant.stock_quantity) : Number(product?.variants?.[0]?.stock_quantity || 0);
+  const isOutOfStock = currentStock <= 0;
+
+  const selectedColor = activeVariant?.attribute_values?.find(
+    (o: any) => o.attribute?.name?.toLowerCase() === 'color' || o.attribute?.slug?.toLowerCase() === 'color'
+  )?.value;
+  const selectedSize = activeVariant?.attribute_values?.find(
+    (o: any) => o.attribute?.name?.toLowerCase() === 'size' || o.attribute?.slug?.toLowerCase() === 'size'
+  )?.value;
+
+  const existingCartItem = items.find((item) => {
+    if (!product || item.product.id !== product.id) return false;
+    const itemColor = item.selectedColor || undefined;
+    const itemSize = item.selectedSize || undefined;
+    return itemColor === (selectedColor || undefined) && itemSize === (selectedSize || undefined);
+  });
+
+  useEffect(() => {
+    if (existingCartItem) {
+      setQuantity(existingCartItem.quantity);
+    } else {
+      setQuantity(1);
+    }
+  }, [existingCartItem?.id, existingCartItem?.quantity, activeVariant?.id]);
+
+  const handleQuantityChange = (newQty: number) => {
+    const maxStock = currentStock > 0 ? currentStock : 99;
+    const validQty = Math.max(1, Math.min(newQty, maxStock));
+    setQuantity(validQty);
+    if (existingCartItem) {
+      updateQuantity(existingCartItem.id, validQty);
+    }
+  };
+
+  const handleAddToCart = () => {
+    requireAuth(() => {
+      if (!product) return;
+      if ((product.variants?.length || 0) > 0 && !activeVariant) return;
+      
+      if (existingCartItem) {
+        updateQuantity(existingCartItem.id, quantity);
+        toast.success(`Updated "${product.title}" quantity in Cart`);
+      } else {
+        addItem(product, {
+          quantity,
+          color: selectedColor,
+          size: selectedSize,
+        });
+        toast.success(`Added "${product.title}" to Cart`);
+      }
+    });
+  };
+
+  const handleBuyNow = () => {
+    requireAuth(() => {
+      if (!product) return;
+      if ((product.variants?.length || 0) > 0 && !activeVariant) return;
+      
+      if (existingCartItem) {
+        updateQuantity(existingCartItem.id, quantity);
+      } else {
+        addItem(product, {
+          quantity,
+          color: selectedColor,
+          size: selectedSize,
+        });
+      }
+      router.push('/checkout');
+    });
+  };
+
+  const toggleAccordion = (section: string) => {
+    setOpenAccordion(openAccordion === section ? null : section);
+  };
 
   if (isLoading || !product) {
     return (
@@ -33,40 +111,6 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
       </div>
     );
   }
-
-  const currentPrice = selectedVariant ? selectedVariant.price : (product.variants?.[0]?.price || 0);
-  const currentStock = selectedVariant ? selectedVariant.stock_quantity : (product.variants?.[0]?.stock_quantity || 0);
-  const isOutOfStock = currentStock === 0;
-
-  const handleAddToCart = () => {
-    requireAuth(() => {
-      if (!selectedVariant && (product.variants?.length || 0) > 0) return;
-      
-      addItem(product, {
-        quantity,
-        color: selectedVariant?.attribute_values?.find((o: any) => o.attribute?.name === 'Color')?.value,
-        size: selectedVariant?.attribute_values?.find((o: any) => o.attribute?.name === 'Size')?.value,
-      });
-      toast.success(`Added "${product.title}" to Cart`);
-    });
-  };
-
-  const handleBuyNow = () => {
-    requireAuth(() => {
-      if (!selectedVariant && (product.variants?.length || 0) > 0) return;
-      
-      addItem(product, {
-        quantity,
-        color: selectedVariant?.attribute_values?.find((o: any) => o.attribute?.name === 'Color')?.value,
-        size: selectedVariant?.attribute_values?.find((o: any) => o.attribute?.name === 'Size')?.value,
-      });
-      router.push('/checkout');
-    });
-  };
-
-  const toggleAccordion = (section: string) => {
-    setOpenAccordion(openAccordion === section ? null : section);
-  };
 
   return (
     <div className="w-full">
@@ -100,7 +144,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         <div className="flex flex-col">
           <div className="mb-6">
             <div className="text-xs font-bold text-muted-foreground tracking-wider mb-3">
-              SKU: {selectedVariant ? selectedVariant.sku : product.variants?.[0]?.sku || 'N/A'}
+              SKU: {activeVariant ? activeVariant.sku : 'N/A'}
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-[#012169] dark:text-foreground mb-4 tracking-tight leading-tight">
               {product.title}
@@ -136,26 +180,42 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
           {/* Actions */}
           <div className="flex flex-col sm:flex-row gap-4 mb-10">
             {/* Quantity */}
-            <div className="flex items-center border border-border rounded-lg h-12 w-32 bg-card shrink-0">
+            <div className="flex items-center border border-border rounded-lg h-12 w-32 bg-card shrink-0 overflow-hidden">
               <button
                 type="button"
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="w-10 h-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors rounded-l-lg cursor-pointer"
+                onClick={() => handleQuantityChange(quantity - 1)}
+                disabled={quantity <= 1 || isOutOfStock}
+                aria-label="Decrease quantity"
+                className="w-10 h-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors border-0 bg-transparent cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent"
               >
                 <Minus className="w-4 h-4" />
               </button>
               <input
                 type="text"
-                readOnly
+                inputMode="numeric"
+                pattern="[0-9]*"
                 value={quantity}
-                className="flex-1 h-full border-none text-center text-sm font-semibold text-foreground bg-transparent p-0 focus:ring-0 outline-none"
-              >
-              </input>
+                onChange={(e) => {
+                  const raw = e.target.value.replace(/\D/g, '');
+                  if (raw === '') {
+                    setQuantity(1);
+                    return;
+                  }
+                  const val = parseInt(raw, 10);
+                  handleQuantityChange(val);
+                }}
+                onBlur={() => {
+                  if (quantity < 1) handleQuantityChange(1);
+                }}
+                aria-label="Quantity"
+                className="min-w-0 flex-1 h-full border-0 text-center text-sm font-semibold text-foreground bg-transparent p-0 focus:outline-none focus:ring-0"
+              />
               <button
                 type="button"
-                onClick={() => setQuantity(quantity + 1)}
-                disabled={quantity >= currentStock}
-                className="w-10 h-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors rounded-r-lg disabled:opacity-50 cursor-pointer"
+                onClick={() => handleQuantityChange(quantity + 1)}
+                disabled={quantity >= currentStock || isOutOfStock}
+                aria-label="Increase quantity"
+                className="w-10 h-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors border-0 bg-transparent cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent"
               >
                 <Plus className="w-4 h-4" />
               </button>
@@ -165,14 +225,14 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             <div className="flex-1 flex gap-3">
               <button
                 onClick={handleAddToCart}
-                disabled={isOutOfStock || ((product.variants?.length || 0) > 0 && !selectedVariant)}
+                disabled={isOutOfStock || ((product.variants?.length || 0) > 0 && !activeVariant)}
                 className="flex-1 h-12 bg-[#FDD79A] hover:bg-[#FDD79A]/90 text-[#012169] font-bold rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
               </button>
               <button
                 onClick={handleBuyNow}
-                disabled={isOutOfStock || ((product.variants?.length || 0) > 0 && !selectedVariant)}
+                disabled={isOutOfStock || ((product.variants?.length || 0) > 0 && !activeVariant)}
                 className="flex-1 h-12 bg-[#012169] hover:bg-[#012169]/90 text-white font-bold rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Buy Now
