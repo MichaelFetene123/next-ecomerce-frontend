@@ -59,7 +59,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       </div>
 
       <CardContent className="flex flex-col grow p-4 pb-0">
-        <h3 className="text-[15px] text-[#012169] dark:text-foreground font-medium line-clamp-1 mb-1.5">
+        <h3 className="text-[15px] text-foreground font-medium line-clamp-1 mb-1.5">
           {product.title}
         </h3>
 
@@ -68,8 +68,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               isOutOfStock
                 ? "bg-muted text-muted-foreground"
                 : isLowStock
-                ? "bg-red-500/15 text-red-600 dark:text-red-400"
-                : "bg-[#00875A]/15 text-[#00875A] dark:text-emerald-400"
+                ? "bg-destructive/15 text-destructive"
+                : "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
             }`}>
             {stockStatus}
           </div>
@@ -84,12 +84,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
       <CardFooter className="p-4 pt-3 bg-transparent border-t-0">
         <Button
+          variant="secondary"
           onClick={(e) => {
             e.stopPropagation();
             onQuickAdd(product, e);
           }}
           disabled={isOutOfStock}
-          className="w-full bg-[#FDD79A] hover:bg-[#FDD79A]/90 text-[#012169] font-bold shadow-none"
+          className="w-full font-bold shadow-none"
         >
           <Plus className="w-4 h-4 mr-1.5" /> Quick Add
         </Button>

@@ -32,16 +32,13 @@ export default function OrdersPage() {
     return (
       <Card className="flex flex-col items-center justify-center p-12 text-center border-dashed border-border bg-card">
         <PackageOpen className="w-16 h-16 text-muted-foreground/40 mb-4" />
-        <h2 className="text-xl font-bold text-[#012169] dark:text-foreground mb-2">No orders yet</h2>
+        <h2 className="text-xl font-bold text-foreground mb-2">No orders yet</h2>
         <p className="text-muted-foreground mb-6 max-w-md">
           You haven't placed any orders. Browse our catalog to find what you need.
         </p>
         <Link
           href="/"
-          className={cn(
-            buttonVariants({ variant: "default" }),
-            "bg-[#012169] text-white hover:bg-[#012169]/90"
-          )}
+          className={buttonVariants({ variant: "default" })}
         >
           Start Shopping
         </Link>
@@ -51,7 +48,7 @@ export default function OrdersPage() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-[#012169] dark:text-foreground mb-6">Order History</h2>
+      <h2 className="text-2xl font-bold text-foreground mb-6">Order History</h2>
       
       <div className="grid gap-4">
         {orders.map((order) => (
@@ -59,7 +56,7 @@ export default function OrdersPage() {
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-4">
               <div>
                 <div className="flex items-center gap-3 mb-1">
-                  <span className="font-bold text-[#012169] dark:text-foreground">Order #{order.id}</span>
+                  <span className="font-bold text-foreground">Order #{order.id}</span>
                   <Badge className={getStatusColor(order.status)} variant="secondary">
                     {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                   </Badge>

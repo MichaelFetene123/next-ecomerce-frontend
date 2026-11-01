@@ -38,8 +38,8 @@ export const CartDrawer: React.FC = () => {
       <SheetContent className="flex flex-col h-full sm:max-w-md w-full p-6">
         <SheetHeader className="border-b border-border pb-4">
           <div className="flex items-center gap-2">
-            <ShoppingBag className="w-5 h-5 text-[#012169] dark:text-[#FDD79A]" />
-            <SheetTitle className="text-lg font-bold text-[#012169] dark:text-foreground">
+            <ShoppingBag className="w-5 h-5 text-primary" />
+            <SheetTitle className="text-lg font-bold text-foreground">
               Your Cart ({totalItemsCount})
             </SheetTitle>
           </div>
@@ -85,8 +85,9 @@ export const CartDrawer: React.FC = () => {
                 Shipping & taxes calculated at checkout.
               </p>
               <Button
+                variant="secondary"
                 onClick={handleProceedToCheckout}
-                className="w-full bg-[#FDD79A] hover:bg-[#FDD79A]/90 text-[#012169] font-bold"
+                className="w-full font-bold"
                 size="lg"
               >
                 Proceed to Checkout <ArrowRight className="w-4 h-4 ml-2" />
