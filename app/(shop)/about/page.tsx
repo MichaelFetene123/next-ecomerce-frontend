@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button';
 import {
   ShieldCheck,
   Sparkles,
@@ -38,25 +40,25 @@ export default function AboutPage() {
 
   const values = [
     {
-      icon: <Sparkles className="w-5 h-5 text-[#FDD79A]" />,
+      icon: <Sparkles className="w-5 h-5 text-secondary" />,
       title: 'Curated Excellence',
       description:
         'Every item in our catalog undergoes rigorous inspection for material integrity, craftsmanship, and enduring aesthetic appeal.',
     },
     {
-      icon: <Lock className="w-5 h-5 text-[#FDD79A]" />,
+      icon: <Lock className="w-5 h-5 text-secondary" />,
       title: 'Fintech-Grade Security',
       description:
         'Seamless and safe transactions powered by Chapa, supporting instant payments via Telebirr, CBE Birr, and major debit/credit cards.',
     },
     {
-      icon: <Truck className="w-5 h-5 text-[#FDD79A]" />,
+      icon: <Truck className="w-5 h-5 text-secondary" />,
       title: 'Reliable Fulfillment',
       description:
         'From our regional distribution centers straight to your doorstep, enjoy real-time tracking and dedicated dispatch care.',
     },
     {
-      icon: <HeartHandshake className="w-5 h-5 text-[#FDD79A]" />,
+      icon: <HeartHandshake className="w-5 h-5 text-secondary" />,
       title: 'Customer-Centric Care',
       description:
         'Our support team is always available to assist with inquiries, sizing guidance, and guaranteed post-purchase satisfaction.',
@@ -73,25 +75,25 @@ export default function AboutPage() {
   return (
     <div className="w-full space-y-16 sm:space-y-20 pb-16">
       {/* 1. Hero Banner */}
-      <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-[#012169] text-white shadow-2xl">
+      <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-primary text-primary-foreground shadow-2xl">
         <div className="absolute inset-0">
           <img
             src="/images/landing/lookbook-artisans.jpg"
             alt="Storefront craftsmanship"
             className="w-full h-full object-cover object-center opacity-25 filter brightness-75 scale-105 transition-transform duration-1000"
           />
-          <div className="absolute inset-0 bg-linear-to-r from-[#012169] via-[#012169]/85 to-[#012169]/50" />
+          <div className="absolute inset-0 bg-linear-to-r from-primary via-primary/85 to-primary/50" />
         </div>
 
         <div className="relative z-10 max-w-3xl px-6 py-16 sm:px-12 sm:py-24 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-xs font-bold tracking-wider uppercase text-[#FDD79A] border border-white/15">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-xs font-bold tracking-wider uppercase text-secondary border border-white/15">
             <Store className="w-3.5 h-3.5" />
             <span>Our Heritage & Purpose</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
             Crafted With Care. <br className="hidden sm:inline" />
-            <span className="text-[#FDD79A]">Delivered With Integrity.</span>
+            <span className="text-secondary">Delivered With Integrity.</span>
           </h1>
 
           <p className="text-sm sm:text-base text-white/80 leading-relaxed max-w-2xl">
@@ -103,7 +105,10 @@ export default function AboutPage() {
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#FDD79A] text-[#012169] font-bold text-xs sm:text-sm hover:bg-[#FCD082] transition-all shadow-md active:scale-95"
+              className={cn(
+                buttonVariants({ variant: 'secondary' }),
+                'inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-md active:scale-95'
+              )}
             >
               Explore Collection
               <ArrowRight className="w-4 h-4" />
@@ -125,7 +130,7 @@ export default function AboutPage() {
       {/* 2. Key Pillars / Why Choose Storefront */}
       <section className="space-y-8">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-xs font-bold tracking-widest uppercase text-[#012169] dark:text-[#FDD79A]">
+          <span className="text-xs font-bold tracking-widest uppercase text-primary">
             Core Commitments
           </span>
           <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-foreground">
@@ -142,7 +147,7 @@ export default function AboutPage() {
               key={i}
               className="bg-card text-card-foreground border border-border/70 rounded-2xl p-6 sm:p-7 space-y-4 hover:shadow-lg hover:border-border transition-all duration-300"
             >
-              <div className="w-12 h-12 rounded-xl bg-[#012169] dark:bg-white/10 flex items-center justify-center shadow-xs">
+              <div className="w-12 h-12 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shadow-xs">
                 {v.icon}
               </div>
               <h3 className="text-base font-bold text-foreground">{v.title}</h3>
@@ -157,7 +162,7 @@ export default function AboutPage() {
       {/* 3. Story & Mission Feature */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-card border border-border/60 rounded-3xl p-6 sm:p-10 lg:p-12 overflow-hidden">
         <div className="lg:col-span-7 space-y-6">
-          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#012169] dark:text-[#FDD79A]">
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary">
             <Globe2 className="w-4 h-4" />
             <span>The Vision</span>
           </div>
@@ -188,7 +193,7 @@ export default function AboutPage() {
               'Hassle-free guarantee on all items',
             ].map((bullet, idx) => (
               <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm font-medium text-foreground">
-                <CheckCircle2 className="w-4 h-4 text-[#012169] dark:text-[#FDD79A] shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
                 <span>{bullet}</span>
               </div>
             ))}
@@ -204,7 +209,7 @@ export default function AboutPage() {
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
-              <span className="text-[11px] font-bold uppercase tracking-widest text-[#FDD79A]">
+              <span className="text-[11px] font-bold uppercase tracking-widest text-secondary">
                 Quality Guaranteed
               </span>
               <p className="text-sm font-semibold">
@@ -216,11 +221,11 @@ export default function AboutPage() {
       </section>
 
       {/* 4. Stats Banner */}
-      <section className="rounded-2xl sm:rounded-3xl bg-[#012169] text-white p-8 sm:p-12">
+      <section className="rounded-2xl sm:rounded-3xl bg-primary text-primary-foreground p-8 sm:p-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-white/10">
           {stats.map((s, idx) => (
             <div key={idx} className="pt-4 sm:pt-0 sm:px-4 space-y-1.5">
-              <div className="text-2xl sm:text-4xl font-extrabold text-[#FDD79A] tracking-tight">
+              <div className="text-2xl sm:text-4xl font-extrabold text-secondary tracking-tight">
                 {s.value}
               </div>
               <div className="text-xs sm:text-sm font-medium text-white/75">
@@ -233,7 +238,7 @@ export default function AboutPage() {
 
       {/* 5. Bottom Call to Action */}
       <section className="text-center bg-card border border-border/80 rounded-3xl p-8 sm:p-14 space-y-6 max-w-3xl mx-auto shadow-sm">
-        <div className="w-14 h-14 rounded-2xl bg-[#012169] text-[#FDD79A] flex items-center justify-center mx-auto shadow-md">
+        <div className="w-14 h-14 rounded-2xl bg-primary text-secondary flex items-center justify-center mx-auto shadow-md">
           <Store className="w-7 h-7" />
         </div>
 
@@ -250,7 +255,10 @@ export default function AboutPage() {
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 bg-[#012169] hover:bg-[#012169]/90 text-white font-bold text-xs sm:text-sm px-6 h-11 rounded-xl shadow-xs transition-colors"
+            className={cn(
+              buttonVariants({ variant: 'default' }),
+              'inline-flex items-center gap-2 font-bold text-xs sm:text-sm px-6 h-11 rounded-xl shadow-xs transition-colors'
+            )}
           >
             <span>Browse All Products</span>
             <ArrowRight className="w-4 h-4" />

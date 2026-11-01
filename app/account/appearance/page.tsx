@@ -61,7 +61,7 @@ export default function AppearancePage() {
             </div>
             {mounted && (
               <Badge variant="outline" className="capitalize text-base">
-                Current: <span className="font-semibold text-primary ml-1">{theme}</span>
+                Current: <span className="font-semibold text-primary dark:text-secondary ml-1">{theme}</span>
               </Badge>
             )}
           </div>
@@ -90,8 +90,8 @@ export default function AppearancePage() {
                     {opt.id === 'light' && (
                       <div className="w-full h-full bg-[#fbf8ff] p-2.5 flex flex-col justify-between">
                         <div className="flex items-center justify-between">
-                          <div className="w-12 h-2.5 rounded-sm bg-[#012169]" />
-                          <div className="w-3.5 h-3.5 rounded-full bg-[#012169]/20" />
+                          <div className="w-12 h-2.5 rounded-sm bg-primary" />
+                          <div className="w-3.5 h-3.5 rounded-full bg-primary/20" />
                         </div>
                         <div className="space-y-1.5">
                           <div className="w-full h-7 rounded bg-white border border-[#c4c5d8]/50 shadow-xs" />
@@ -103,7 +103,7 @@ export default function AppearancePage() {
                     {opt.id === 'dark' && (
                       <div className="w-full h-full bg-slate-950 p-2.5 flex flex-col justify-between text-white">
                         <div className="flex items-center justify-between">
-                          <div className="w-12 h-2.5 rounded-sm bg-blue-500" />
+                          <div className="w-12 h-2.5 rounded-sm bg-primary" />
                           <div className="w-3.5 h-3.5 rounded-full bg-slate-800" />
                         </div>
                         <div className="space-y-1.5">
@@ -116,11 +116,11 @@ export default function AppearancePage() {
                     {opt.id === 'system' && (
                       <div className="w-full h-full flex">
                         <div className="w-1/2 h-full bg-[#fbf8ff] p-2.5 flex flex-col justify-between border-r border-border/40">
-                          <div className="w-8 h-2 rounded-sm bg-[#012169]" />
+                          <div className="w-8 h-2 rounded-sm bg-primary" />
                           <div className="w-full h-6 rounded bg-white border border-[#c4c5d8]/50" />
                         </div>
                         <div className="w-1/2 h-full bg-slate-950 p-2.5 flex flex-col justify-between">
-                          <div className="w-8 h-2 rounded-sm bg-blue-500" />
+                          <div className="w-8 h-2 rounded-sm bg-primary" />
                           <div className="w-full h-6 rounded bg-slate-900 border border-slate-800" />
                         </div>
                       </div>

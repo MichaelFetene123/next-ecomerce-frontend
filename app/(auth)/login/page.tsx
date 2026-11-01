@@ -63,7 +63,7 @@ function LoginForm() {
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <Label htmlFor="password" className="font-semibold">Password</Label>
-              <Link href="#" className="text-sm font-medium text-primary dark:text-sidebar-primary hover:underline">
+              <Link href="#" className="text-sm font-medium text-primary dark:text-secondary hover:underline">
                 Forgot password?
               </Link>
             </div>
@@ -88,7 +88,7 @@ function LoginForm() {
 
         <div className="mt-6 text-center text-sm text-muted-foreground">
           Don't have an account?{' '}
-          <Link href="/register" className="font-medium text-primary dark:text-sidebar-primary hover:underline">
+          <Link href="/register" className="font-medium text-primary dark:text-secondary hover:underline">
             Register here
           </Link>
         </div>
@@ -99,7 +99,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="flex justify-center p-8"><Loader2 className="w-8 h-8 animate-spin text-primary dark:text-sidebar-primary" /></div>}>
+    <Suspense fallback={<div className="flex justify-center p-8"><Loader2 className="w-8 h-8 animate-spin text-primary dark:text-secondary" /></div>}>
       <LoginForm />
     </Suspense>
   );

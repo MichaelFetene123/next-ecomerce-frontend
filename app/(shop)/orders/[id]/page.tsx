@@ -23,9 +23,9 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
   if (!order) {
     return (
       <div className="py-20 text-center w-full">
-        <h2 className="text-xl font-bold text-red-600 mb-2">Order not found</h2>
-        <p className="text-[#434655] mb-6">The order you are looking for does not exist.</p>
-        <button onClick={() => router.push('/orders')} className="bg-[#012169] text-white px-4 py-2 rounded">
+        <h2 className="text-xl font-bold text-destructive mb-2">Order not found</h2>
+        <p className="text-muted-foreground mb-6">The order you are looking for does not exist.</p>
+        <button onClick={() => router.push('/orders')} className="bg-primary text-primary-foreground px-4 py-2 rounded">
           Back to Orders
         </button>
       </div>
@@ -53,8 +53,8 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
           <div className="flex items-center gap-3 mb-1">
-            <h1 className="text-2xl md:text-3xl font-bold text-[#012169] dark:text-foreground tracking-tight">Order #ORD-{order.id}</h1>
-            <span className="bg-[#00875A]/10 text-[#00875A] dark:text-emerald-400 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">Order #ORD-{order.id}</h1>
+            <span className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
               {order.status === 'completed' ? 'PAID' : order.status}
             </span>
           </div>
@@ -65,7 +65,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
         </div>
         <Link 
           href="/"
-          className="bg-[#FDD79A] text-[#012169] font-bold text-[13px] px-6 py-3 rounded-lg hover:bg-[#FDD79A]/90 transition-colors text-center w-full md:w-auto"
+          className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-bold text-[13px] px-6 py-3 rounded-lg transition-colors text-center w-full md:w-auto"
         >
           Back to Catalog
         </Link>
@@ -123,7 +123,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
         <div className="lg:col-span-4 flex flex-col gap-6">
           <div className="bg-card border border-border rounded-xl p-5 shadow-none">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 rounded bg-muted flex items-center justify-center text-[#012169] dark:text-[#FDD79A]">
+              <div className="w-8 h-8 rounded bg-muted flex items-center justify-center text-primary">
                 <MapPin className="w-4 h-4" />
               </div>
               <h3 className="font-bold text-[15px] text-foreground">Delivery Address</h3>
@@ -137,7 +137,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
 
           <div className="bg-card border border-border rounded-xl p-5 shadow-none">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 rounded bg-muted flex items-center justify-center text-[#012169] dark:text-[#FDD79A]">
+              <div className="w-8 h-8 rounded bg-muted flex items-center justify-center text-primary">
                 <CreditCard className="w-4 h-4" />
               </div>
               <h3 className="font-bold text-[15px] text-foreground">Payment Method</h3>
@@ -152,12 +152,12 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
             <h3 className="font-bold text-[15px] text-foreground mb-4">Tracking Timeline</h3>
             <div className="relative border-l border-border ml-2 pl-4 space-y-6">
               <div className="relative">
-                <div className="absolute -left-5.25 top-1 w-2.5 h-2.5 rounded-full bg-[#00875A]" />
+                <div className="absolute -left-5.25 top-1 w-2.5 h-2.5 rounded-full bg-emerald-500" />
                 <p className="text-[13px] font-bold text-foreground">Order Placed</p>
                 <p className="text-[11px] text-muted-foreground">{formatDate(order.created_at)}</p>
               </div>
               <div className="relative">
-                <div className="absolute -left-5.25 top-1 w-2.5 h-2.5 rounded-full bg-[#FDD79A]" />
+                <div className="absolute -left-5.25 top-1 w-2.5 h-2.5 rounded-full bg-secondary" />
                 <p className="text-[13px] font-bold text-foreground">Processing</p>
                 <p className="text-[11px] text-muted-foreground">We are preparing your items.</p>
               </div>

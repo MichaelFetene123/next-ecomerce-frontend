@@ -186,10 +186,10 @@ function ProductCatalogInner() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-border">
         <div className="space-y-1.5">
           <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-widest">
-            <ShoppingBag className="w-4 h-4 text-[#012169] dark:text-[#FDD79A]" />
+            <ShoppingBag className="w-4 h-4 text-primary" />
             <span>Store Catalog</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-[#012169] dark:text-foreground">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-foreground">
             {displayTitle}
           </h1>
           <p className="text-xs sm:text-sm text-muted-foreground max-w-xl">
@@ -218,7 +218,7 @@ function ProductCatalogInner() {
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search products by title or description..."
-              className="w-full pl-9 pr-9 py-2 bg-card text-foreground placeholder:text-muted-foreground border border-border rounded-xl text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-[#012169]/20 dark:focus:ring-[#FDD79A]/20 transition-all shadow-xs"
+              className="w-full pl-9 pr-9 py-2 bg-card text-foreground placeholder:text-muted-foreground border border-border rounded-xl text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-ring/20 transition-all shadow-xs"
             />
             {searchInput && (
               <button
@@ -241,7 +241,7 @@ function ProductCatalogInner() {
             <select
               value={sortParam}
               onChange={handleSortChange}
-              className="bg-card text-foreground border border-border rounded-xl px-3 py-2 text-xs font-medium cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-[#012169]/20 shadow-xs"
+              className="bg-card text-foreground border border-border rounded-xl px-3 py-2 text-xs font-medium cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-ring/20 shadow-xs"
             >
               <option value="featured">Featured / Default</option>
               <option value="price-asc">Price: Low to High</option>
@@ -276,7 +276,7 @@ function ProductCatalogInner() {
                 className={cn(
                   'px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer border',
                   !categoryParam
-                    ? 'bg-[#012169] text-white border-[#012169] dark:bg-[#FDD79A] dark:text-[#012169] dark:border-[#FDD79A] shadow-xs'
+                    ? 'bg-primary text-primary-foreground border-primary shadow-xs'
                     : 'bg-card text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground'
                 )}
               >
@@ -296,9 +296,9 @@ function ProductCatalogInner() {
                     className={cn(
                       'px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer border',
                       isRootActive
-                        ? 'bg-[#012169] text-white border-[#012169] dark:bg-[#FDD79A] dark:text-[#012169] dark:border-[#FDD79A] shadow-xs'
+                        ? 'bg-primary text-primary-foreground border-primary shadow-xs'
                         : isFamilyActive
-                        ? 'bg-[#012169]/10 text-[#012169] border-[#012169]/30 dark:bg-[#FDD79A]/15 dark:text-[#FDD79A] dark:border-[#FDD79A]/30'
+                        ? 'bg-primary/10 text-primary border-primary/30'
                         : 'bg-card text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground'
                     )}
                   >
@@ -313,7 +313,7 @@ function ProductCatalogInner() {
           {activeParentCategory &&
             activeParentCategory.children &&
             activeParentCategory.children.length > 0 && (
-              <div className="flex items-center gap-2 overflow-x-auto pt-2 pl-2 border-l-2 border-[#012169]/30 dark:border-[#FDD79A]/40">
+              <div className="flex items-center gap-2 overflow-x-auto pt-2 pl-2 border-l-2 border-primary/30">
                 <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider whitespace-nowrap mr-1">
                   Subcategories:
                 </span>
@@ -324,7 +324,7 @@ function ProductCatalogInner() {
                   className={cn(
                     'px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all cursor-pointer border',
                     !isChildActive
-                      ? 'bg-[#012169] text-white border-[#012169] dark:bg-[#FDD79A] dark:text-[#012169] dark:border-[#FDD79A] shadow-xs'
+                      ? 'bg-primary text-primary-foreground border-primary shadow-xs'
                       : 'bg-card text-muted-foreground border-border hover:text-foreground'
                   )}
                 >
@@ -343,7 +343,7 @@ function ProductCatalogInner() {
                       className={cn(
                         'px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all cursor-pointer border',
                         isChildSelected
-                          ? 'bg-[#012169] text-white border-[#012169] dark:bg-[#FDD79A] dark:text-[#012169] dark:border-[#FDD79A] shadow-xs'
+                          ? 'bg-primary text-primary-foreground border-primary shadow-xs'
                           : 'bg-card text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground'
                       )}
                     >
@@ -418,7 +418,7 @@ function ProductCatalogInner() {
           {hasActiveFilters && (
             <Button
               onClick={handleResetFilters}
-              className="bg-[#012169] text-white hover:bg-[#012169]/90 dark:bg-[#FDD79A] dark:text-[#012169] text-xs font-bold px-6 rounded-lg cursor-pointer"
+              className="text-xs font-bold px-6 rounded-lg cursor-pointer"
             >
               Clear All Filters
             </Button>

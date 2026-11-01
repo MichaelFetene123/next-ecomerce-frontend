@@ -69,7 +69,7 @@ const ThemeToggle = () => {
       title="Toggle theme"
       className="text-white hover:bg-white/10 hover:text-white rounded-full w-9 h-9"
     >
-      <Sun className="w-4 h-4 text-[#FDD79A] hidden dark:block" />
+      <Sun className="w-4 h-4 text-secondary hidden dark:block" />
       <Moon className="w-4 h-4 block dark:hidden" />
     </Button>
   );
@@ -87,7 +87,7 @@ const CartButton = () => {
       className="text-white hover:bg-white/10 hover:text-white rounded-full relative group w-9 h-9"
     >
       <ShoppingCart className="w-4 h-4 group-active:scale-95 transition-transform" />
-      <span className="absolute -top-0.5 -right-0.5 font-bold font-geist text-[9px] w-4 h-4 flex items-center justify-center rounded-full bg-[#FDD79A] text-[#012169] shadow-xs">
+      <span className="absolute -top-0.5 -right-0.5 font-bold font-geist text-[9px] w-4 h-4 flex items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-xs">
         {totalItemsCount > 99 ? '99+' : totalItemsCount}
       </span>
     </Button>
@@ -96,13 +96,13 @@ const CartButton = () => {
 
 export const CheckoutHeader = () => {
   return (
-    <header className="sticky top-0 w-full z-40 bg-[#012169] text-white shadow-xs">
+    <header className="sticky top-0 w-full z-40 bg-primary text-primary-foreground shadow-xs">
       <div className="flex justify-between items-center w-full px-4 md:px-8 max-w-360 mx-auto h-18 sm:h-20">
         <Link
           href="/"
           className="flex items-center gap-2.5 font-bold text-xl tracking-tight text-white hover:opacity-90 transition-opacity"
         >
-          <div className="w-7 h-7 rounded-md bg-white/10 flex items-center justify-center text-[#FDD79A] border border-white/20">
+          <div className="w-7 h-7 rounded-md bg-white/10 flex items-center justify-center text-secondary border border-white/20">
             <Store className="w-4 h-4" />
           </div>
           <span>Storefront</span>
@@ -113,7 +113,7 @@ export const CheckoutHeader = () => {
             <span className="font-geist text-xs font-semibold tracking-wider uppercase text-white/90">
               Secure Checkout
             </span>
-            <Lock className="w-4 h-4 text-[#FDD79A]" />
+            <Lock className="w-4 h-4 text-secondary" />
           </div>
         </div>
       </div>
@@ -138,7 +138,7 @@ export const Header: React.FC = () => {
   ];
 
   return (
-    <header className="sticky top-0 w-full z-40 bg-[#012169] text-white shadow-sm border-b border-white/10" suppressHydrationWarning>
+    <header className="sticky top-0 w-full z-40 bg-primary text-primary-foreground shadow-sm border-b border-primary-foreground/10" suppressHydrationWarning>
         <div className="flex justify-between items-center w-full px-4 sm:px-6 lg:px-8 max-w-360 mx-auto h-18 sm:h-20 gap-3">
           {/* Logo & Mobile Menu */}
           <div className="flex items-center gap-3" suppressHydrationWarning>
@@ -151,7 +151,7 @@ export const Header: React.FC = () => {
                 <SheetContent side="left" className="w-72 sm:w-80 bg-background text-foreground">
                   <SheetHeader>
                     <SheetTitle className="text-left text-lg font-bold flex items-center gap-2">
-                      <Store className="w-5 h-5 text-[#012169] dark:text-[#FDD79A]" />
+                      <Store className="w-5 h-5 text-primary" />
                       <span>Storefront</span>
                     </SheetTitle>
                   </SheetHeader>
@@ -172,7 +172,7 @@ export const Header: React.FC = () => {
                             className={cn(
                               'text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors',
                               isSelected
-                                ? 'bg-[#012169]/10 text-[#012169] dark:bg-white/10 dark:text-[#FDD79A] font-bold'
+                                ? 'bg-primary/10 text-primary dark:bg-white/10 dark:text-secondary font-bold'
                                 : 'text-foreground/80 hover:bg-accent hover:text-foreground'
                             )}
                           >
@@ -211,7 +211,7 @@ export const Header: React.FC = () => {
               href="/"
               className="flex items-center gap-2 font-extrabold text-xl sm:text-2xl tracking-tight text-white hover:opacity-95 transition-opacity"
             >
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/15 flex items-center justify-center text-[#FDD79A] border border-white/20 shadow-xs">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/15 flex items-center justify-center text-secondary border border-white/20 shadow-xs">
                 <Store className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </div>
               <span>Storefront</span>
@@ -234,7 +234,7 @@ export const Header: React.FC = () => {
                   className={cn(
                     'text-xs font-semibold px-3 py-1.5 rounded-full transition-all duration-200',
                     isSelected
-                      ? 'bg-white/15 text-[#FDD79A] font-bold shadow-xs'
+                      ? 'bg-white/15 text-secondary font-bold shadow-xs'
                       : 'text-white/80 hover:text-white hover:bg-white/10'
                   )}
                 >
@@ -266,7 +266,7 @@ export const Header: React.FC = () => {
             ) : currentUser ? (
               <DropdownMenu>
                 <DropdownMenuTrigger render={<Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white rounded-full w-9 h-9" />}>
-                  <div className="w-7 h-7 rounded-full bg-[#FDD79A] text-[#012169] flex items-center justify-center text-xs font-bold uppercase shadow-xs">
+                  <div className="w-7 h-7 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center text-xs font-bold uppercase shadow-xs">
                     {currentUser.name?.[0] || 'U'}
                   </div>
                 </DropdownMenuTrigger>
@@ -311,7 +311,7 @@ export const Header: React.FC = () => {
         </div>
 
         {/* Mobile Search Bar Row */}
-        <div className="lg:hidden bg-[#012169] border-t border-white/10 px-4 py-2">
+        <div className="lg:hidden bg-primary border-t border-primary-foreground/10 px-4 py-2">
           <SearchForm
             className="relative w-full"
             iconClassName="w-3.5 h-3.5 text-white/60 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"

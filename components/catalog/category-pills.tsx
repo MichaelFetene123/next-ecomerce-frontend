@@ -21,7 +21,7 @@ export const CategoryPills: React.FC<CategoryPillsProps> = ({
             onClick={() => onSelectCategory(cat)}
             className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
               isSelected
-                ? 'bg-[#FDD79A] text-[#012169] border border-[#FDD79A]'
+                ? 'bg-secondary text-secondary-foreground border border-secondary shadow-xs'
                 : 'bg-card text-muted-foreground border border-border hover:border-foreground/40 hover:text-foreground'
             }`}
           >

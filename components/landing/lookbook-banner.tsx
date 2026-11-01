@@ -41,7 +41,7 @@ export const LookbookBanner: React.FC = () => {
             <span className="text-sm font-bold text-white/90">New Arrivals Edition</span>
             <Link
               href="/products"
-              className="mt-1 text-[11px] font-bold text-[#FDD79A] hover:underline"
+              className="mt-1 text-[11px] font-bold text-secondary hover:underline"
             >
               Shop Now →
             </Link>
@@ -57,17 +57,17 @@ export const LookbookBanner: React.FC = () => {
                     type="button"
                     size="icon"
                     aria-label="Play lookbook film"
-                    className="relative size-16 cursor-pointer rounded-full bg-[#FDD79A] text-[#012169] shadow-2xl transition-all duration-300 ease-out hover:scale-105 hover:bg-[#FDD79A] hover:text-[#012169] sm:size-20"
+                    className="relative size-16 cursor-pointer rounded-full bg-secondary text-secondary-foreground shadow-2xl transition-all duration-300 ease-out hover:scale-105 hover:bg-secondary/90 sm:size-20"
                   />
                 }
               >
-                <span className="pointer-events-none absolute inset-0 rounded-full bg-[#FDD79A]/30 opacity-75 animate-ping animation-duration-[2.5s]" />
+                <span className="pointer-events-none absolute inset-0 rounded-full bg-secondary/30 opacity-75 animate-ping animation-duration-[2.5s]" />
                 <Play className="ml-1 size-6 fill-current sm:size-7" />
               </DialogTrigger>
             </div>
 
             <div className="space-y-2">
-              <span className="inline-block text-[10px] font-bold tracking-[0.25em] text-[#FDD79A] uppercase drop-shadow-xs sm:text-[11px]">
+              <span className="inline-block text-[10px] font-bold tracking-[0.25em] text-secondary uppercase drop-shadow-xs sm:text-[11px]">
                 Film Lookbook • 2025 Motion Study
               </span>
               <h2 className="text-2xl leading-tight font-extrabold tracking-tight text-white drop-shadow-md sm:text-3xl md:text-4xl">
@@ -123,7 +123,7 @@ export const LookbookBanner: React.FC = () => {
             className="h-full w-full scale-102 object-cover brightness-90"
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4 bg-radial-at-c from-transparent to-black/60 p-6 text-center">
-            <div className="flex size-16 items-center justify-center rounded-full bg-[#FDD79A]/90 text-[#012169] shadow-xl">
+            <div className="flex size-16 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-xl">
               <Play className="ml-0.5 size-6 fill-current" />
             </div>
             <DialogDescription className="max-w-md space-y-1 text-center">
@@ -149,8 +149,8 @@ export const LookbookBanner: React.FC = () => {
                 <Link
                   href="/products"
                   className={cn(
-                    buttonVariants(),
-                    'h-auto rounded-lg bg-[#FDD79A] px-5 py-2.5 text-xs font-bold tracking-wider text-[#012169] uppercase hover:bg-[#FCD082] hover:text-[#012169]'
+                    buttonVariants({ variant: 'secondary' }),
+                    'h-auto rounded-lg px-5 py-2.5 text-xs font-bold tracking-wider uppercase'
                   )}
                 />
               }

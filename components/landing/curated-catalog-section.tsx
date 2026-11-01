@@ -64,7 +64,7 @@ export const CuratedCatalogSection: React.FC = () => {
           <span className="text-[11px] font-bold tracking-[0.2em] text-muted-foreground uppercase">
             Curated Catalog
           </span>
-          <h2 className="text-2xl font-extrabold tracking-tight text-[#002167] sm:text-3xl lg:text-4xl dark:text-foreground">
+          <h2 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
             BEST OUTFIT FOR YOUR HAPPINESS
           </h2>
         </div>
@@ -72,8 +72,8 @@ export const CuratedCatalogSection: React.FC = () => {
         <Link
           href="/products"
           className={cn(
-            buttonVariants({ size: 'sm' }),
-            'h-auto self-start rounded-lg bg-[#FDD79A] px-5 py-2.5 text-xs font-bold tracking-wider text-[#012169] uppercase shadow-xs hover:bg-[#FCD082] hover:text-[#012169] hover:shadow-md sm:self-auto'
+            buttonVariants({ variant: 'secondary', size: 'sm' }),
+            'h-auto self-start rounded-lg px-5 py-2.5 text-xs font-bold tracking-wider uppercase shadow-xs hover:shadow-md sm:self-auto'
           )}
         >
           See More

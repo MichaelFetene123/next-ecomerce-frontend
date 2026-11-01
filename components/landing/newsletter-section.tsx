@@ -27,11 +27,11 @@ export const NewsletterSection: React.FC = () => {
   return (
     <section className="relative w-full overflow-hidden rounded-xl border border-white/10 bg-[#001c54] p-8 text-white shadow-2xl sm:rounded-2xl sm:p-12 lg:p-14">
       <div className="pointer-events-none absolute top-0 right-0 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-[#FDD79A]/10 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-secondary/10 blur-3xl" />
 
       <div className="relative z-10 grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
         <div className="max-w-xl space-y-2.5 lg:col-span-7">
-          <span className="block text-[11px] font-bold tracking-[0.25em] text-[#FDD79A] uppercase">
+          <span className="block text-[11px] font-bold tracking-[0.25em] text-secondary uppercase">
             Join The Private Roster
           </span>
           <h2 className="text-2xl leading-tight font-extrabold tracking-tight text-white sm:text-3xl lg:text-4xl">
@@ -63,7 +63,8 @@ export const NewsletterSection: React.FC = () => {
 
             <Button
               type="submit"
-              className="h-12 shrink-0 cursor-pointer rounded-xl bg-[#FDD79A] px-7 text-xs font-extrabold tracking-wider text-[#012169] uppercase shadow-lg hover:bg-[#FCD082] hover:text-[#012169] hover:shadow-xl"
+              variant="secondary"
+              className="h-12 shrink-0 cursor-pointer rounded-xl px-7 text-xs font-extrabold tracking-wider uppercase shadow-lg hover:shadow-xl"
             >
               {isSubmitted ? (
                 <span className="flex items-center gap-1.5">

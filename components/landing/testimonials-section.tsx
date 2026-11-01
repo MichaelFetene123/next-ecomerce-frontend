@@ -50,7 +50,7 @@ export const TestimonialsSection: React.FC = () => {
         <span className="text-[11px] font-bold tracking-[0.2em] text-muted-foreground uppercase">
           Client Voices
         </span>
-        <h2 className="text-2xl font-extrabold tracking-tight text-[#002167] sm:text-3xl lg:text-4xl dark:text-foreground">
+        <h2 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
           TRUSTED BY COMMERCE LEADERS
         </h2>
         <p className="text-xs leading-relaxed text-muted-foreground sm:text-sm">
@@ -80,11 +80,11 @@ export const TestimonialsSection: React.FC = () => {
             </CardContent>
 
             <CardFooter className="gap-3 border-t border-border/50 bg-transparent p-6 pt-3">
-              <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#002167] text-xs font-bold text-white shadow-xs">
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground shadow-xs">
                 {item.initials}
               </div>
               <div className="min-w-0">
-                <h4 className="truncate text-xs font-bold text-[#012169] dark:text-foreground">
+                <h4 className="truncate text-xs font-bold text-foreground">
                   {item.name}
                 </h4>
                 <p className="truncate text-[11px] text-muted-foreground">{item.title}</p>

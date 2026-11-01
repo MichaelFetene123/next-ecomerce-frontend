@@ -71,8 +71,8 @@ export default function CheckoutPage() {
   if (items.length === 0) {
     return (
       <div className="w-full py-16 text-center">
-        <h1 className="text-2xl font-bold text-[#012169] dark:text-foreground mb-4">Your cart is empty</h1>
-        <Link href="/" className="text-[#012169] dark:text-[#FDD79A] underline">Return to shop</Link>
+        <h1 className="text-2xl font-bold text-foreground mb-4">Your cart is empty</h1>
+        <Link href="/" className="text-primary dark:text-secondary underline">Return to shop</Link>
       </div>
     );
   }
@@ -81,7 +81,7 @@ export default function CheckoutPage() {
     <AuthGuard fallback={<CheckoutSkeleton />}>
       <div className="w-full">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-[#012169] dark:text-foreground mb-1">Checkout</h1>
+          <h1 className="text-3xl font-bold text-foreground mb-1">Checkout</h1>
           <p className="text-sm text-muted-foreground">Please review your order details below.</p>
         </div>
 
@@ -106,7 +106,7 @@ export default function CheckoutPage() {
           {/* Right: Summary */}
           <div className="lg:col-span-4">
             <Card className="p-6 sticky top-24 border-border shadow-sm bg-card rounded-xl">
-              <h2 className="text-[17px] font-bold text-[#012169] dark:text-foreground mb-6">Order Summary</h2>
+              <h2 className="text-[17px] font-bold text-foreground mb-6">Order Summary</h2>
               
               <div className="space-y-4 mb-6">
                 {items.map(item => (

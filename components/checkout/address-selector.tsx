@@ -23,7 +23,7 @@ export const AddressSelector: React.FC<AddressSelectorProps> = ({
     <Card className="p-6 sm:p-8 bg-card border-border shadow-none rounded-xl">
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
-        <div className="w-7 h-7 rounded-full bg-[#FDD79A] text-[#012169] font-bold text-xs flex items-center justify-center">
+        <div className="w-7 h-7 rounded-full bg-secondary text-secondary-foreground font-bold text-xs flex items-center justify-center">
           1
         </div>
         <h2 className="text-xl font-bold text-foreground">Shipping Address</h2>
@@ -50,16 +50,16 @@ export const AddressSelector: React.FC<AddressSelectorProps> = ({
                 className={cn(
                   'p-5 rounded-lg border transition-all duration-200 cursor-pointer relative flex flex-col justify-between min-h-35 w-full',
                   isSelected
-                    ? 'border-[#FDD79A] bg-muted/40 shadow-sm ring-1 ring-[#FDD79A]'
+                    ? 'border-secondary bg-secondary/10 shadow-sm ring-1 ring-secondary'
                     : 'border-border bg-card hover:border-foreground/40'
                 )}
               >
                 <div className="flex justify-between items-start mb-2">
-                  <span className="font-bold text-[13px] text-[#012169] dark:text-foreground">
+                  <span className="font-bold text-[13px] text-foreground">
                     {address.full_name}
                   </span>
                   {isSelected && (
-                    <CheckCircle2 className="w-4.5 h-4.5 text-[#FDD79A] fill-[#FDD79A]/20" />
+                    <CheckCircle2 className="w-4.5 h-4.5 text-secondary fill-secondary/20" />
                   )}
                 </div>
 

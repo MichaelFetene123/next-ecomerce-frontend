@@ -54,17 +54,17 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
                 className={cn(
                   'h-22 rounded-lg border flex flex-col items-center justify-center relative cursor-pointer transition-all w-full',
                   isSelected
-                    ? 'border-[#FDD79A] bg-muted/40 shadow-sm ring-1 ring-[#FDD79A]'
+                    ? 'border-secondary bg-secondary/10 shadow-sm ring-1 ring-secondary'
                     : 'border-border bg-card hover:border-foreground/40'
                 )}
               >
                 {isSelected && (
                   <div className="absolute top-2.5 right-2.5">
-                    <CheckCircle2 className="w-4.5 h-4.5 text-[#FDD79A] fill-[#FDD79A]/20" />
+                    <CheckCircle2 className="w-4.5 h-4.5 text-secondary fill-secondary/20" />
                   </div>
                 )}
                 <div className="flex flex-col items-center gap-0.5">
-                  <span className={cn('text-[13px] font-bold tracking-tight', isSelected ? 'text-[#012169] dark:text-[#FDD79A]' : 'text-foreground')}>
+                  <span className={cn('text-[13px] font-bold tracking-tight', isSelected ? 'text-primary' : 'text-foreground')}>
                     {opt.name}
                   </span>
                   <span className="text-[10px] text-muted-foreground font-medium">
@@ -80,9 +80,10 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
       {/* Action Button */}
       <div className="mt-8 flex justify-end">
         <Button
+          variant="secondary"
           onClick={onSubmitPayment}
           disabled={isProcessing}
-          className="w-full bg-[#FDD79A] hover:bg-[#FDD79A]/90 text-[#012169] font-bold text-[13px] h-12 rounded-lg shadow-none"
+          className="w-full font-bold text-[13px] h-12 rounded-lg shadow-none"
         >
           {isProcessing ? (
             <>

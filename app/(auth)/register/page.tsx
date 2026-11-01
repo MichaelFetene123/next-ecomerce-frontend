@@ -114,7 +114,7 @@ function RegisterForm() {
 
         <div className="mt-6 text-center text-sm text-muted-foreground">
           Already have an account?{' '}
-          <Link href="/login" className="font-medium text-primary dark:text-sidebar-primary hover:underline">
+          <Link href="/login" className="font-medium text-primary dark:text-secondary hover:underline">
             Sign in
           </Link>
         </div>
@@ -125,7 +125,7 @@ function RegisterForm() {
 
 export default function RegisterPage() {
   return (
-    <Suspense fallback={<div className="flex justify-center p-8"><Loader2 className="w-8 h-8 animate-spin text-primary dark:text-sidebar-primary" /></div>}>
+    <Suspense fallback={<div className="flex justify-center p-8"><Loader2 className="w-8 h-8 animate-spin text-primary dark:text-secondary" /></div>}>
       <RegisterForm />
     </Suspense>
   );

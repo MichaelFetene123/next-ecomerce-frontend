@@ -12,14 +12,14 @@ export function NotFoundView() {
       <div className="max-w-xl w-full text-center space-y-8">
         {/* Visual Badge & 404 Graphic */}
         <div className="relative inline-flex flex-col items-center">
-          <div className="absolute -top-6 -right-6 w-24 h-24 bg-[#FDD79A]/30 dark:bg-[#FDD79A]/10 rounded-full blur-2xl pointer-events-none" />
-          <div className="absolute -bottom-6 -left-6 w-28 h-28 bg-[#012169]/20 dark:bg-[#012169]/40 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute -top-6 -right-6 w-24 h-24 bg-secondary/30 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute -bottom-6 -left-6 w-28 h-28 bg-primary/20 rounded-full blur-2xl pointer-events-none" />
 
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-[#012169]/10 dark:bg-white/10 border border-[#012169]/20 dark:border-white/15 flex items-center justify-center text-[#012169] dark:text-[#FDD79A] shadow-inner mb-4">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-inner mb-4">
             <Store className="w-8 h-8 sm:w-10 sm:h-10" />
           </div>
 
-          <div className="font-extrabold text-7xl sm:text-8xl md:text-9xl tracking-tighter text-[#012169] dark:text-[#FDD79A] leading-none select-none">
+          <div className="font-extrabold text-7xl sm:text-8xl md:text-9xl tracking-tighter text-primary leading-none select-none">
             404
           </div>
 
@@ -43,8 +43,8 @@ export function NotFoundView() {
           <Link
             href="/"
             className={cn(
-              buttonVariants({ size: 'default' }),
-              'h-11 px-8 rounded-xl bg-[#012169] text-white hover:bg-[#012169]/90 dark:bg-[#FDD79A] dark:text-[#012169] font-bold text-xs sm:text-sm shadow-md gap-2 active:scale-95 transition-all'
+              buttonVariants({ variant: 'default', size: 'default' }),
+              'h-11 px-8 rounded-xl font-bold text-xs sm:text-sm shadow-md gap-2 active:scale-95 transition-all'
             )}
           >
             <Home className="w-4 h-4" />

@@ -124,7 +124,7 @@ export const VariantMatrix: React.FC<VariantMatrixProps> = ({
                 >
                   {isColor ? (
                     selectedOptions[attr.name] === val ? (
-                      <div className="w-full h-full rounded-full ring-2 ring-offset-2 ring-[#012169] dark:ring-[#FDD79A] ring-offset-background" />
+                      <div className="w-full h-full rounded-full ring-2 ring-offset-2 ring-primary ring-offset-background" />
                     ) : (
                       <div className="w-full h-full rounded-full border border-border hover:scale-105 transition-transform" />
                     )
@@ -132,7 +132,7 @@ export const VariantMatrix: React.FC<VariantMatrixProps> = ({
                     <div className={cn(
                       'w-full h-full flex items-center justify-center px-4 py-2 rounded-lg border',
                       selectedOptions[attr.name] === val
-                        ? 'border-2 border-[#012169] dark:border-[#FDD79A] text-[#012169] dark:text-[#FDD79A] font-bold bg-muted px-3.75 py-1.75'
+                        ? 'border-2 border-primary text-primary font-bold bg-muted px-3.75 py-1.75'
                         : 'border-border text-foreground hover:border-foreground/40'
                     )}>
                       {val}

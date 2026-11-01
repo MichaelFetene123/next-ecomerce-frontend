@@ -50,7 +50,7 @@ function StorefrontLandingContent() {
               <Search className="w-3.5 h-3.5" />
               <span>Search Results</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#002167] dark:text-foreground tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
               &ldquo;{searchQuery}&rdquo;
             </h1>
             <p className="text-xs sm:text-sm text-muted-foreground">
@@ -91,7 +91,7 @@ function StorefrontLandingContent() {
             </p>
             <Button
               onClick={() => router.push('/')}
-              className="bg-[#002167] text-white hover:bg-[#002167]/90 text-xs font-bold px-6"
+              className="text-xs font-bold px-6"
             >
               Explore Full Catalog
             </Button>

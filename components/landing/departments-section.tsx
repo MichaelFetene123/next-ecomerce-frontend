@@ -40,7 +40,7 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
       <div className="relative z-10 flex h-full w-full flex-col justify-end p-6 sm:p-8">
         <div className="flex items-end justify-between gap-4">
           <div className="max-w-md space-y-1.5">
-            <span className="inline-block text-[10px] font-bold tracking-[0.2em] text-[#FDD79A] uppercase drop-shadow-xs sm:text-[11px]">
+            <span className="inline-block text-[10px] font-bold tracking-[0.2em] text-secondary uppercase drop-shadow-xs sm:text-[11px]">
               {tag}
             </span>
             <h3 className="text-xl leading-tight font-extrabold tracking-tight text-white drop-shadow-sm sm:text-2xl lg:text-3xl">
@@ -53,7 +53,7 @@ const DepartmentCard: React.FC<DepartmentCardProps> = ({
 
           <Button
             size="icon"
-            className="size-11 shrink-0 rounded-full bg-white text-[#012169] shadow-lg pointer-events-none hover:bg-white sm:size-12 transition-colors duration-300 group-hover:bg-[#FDD79A] group-hover:text-[#012169] group-hover:shadow-xl"
+            className="size-11 shrink-0 rounded-full bg-white text-primary shadow-lg pointer-events-none hover:bg-white sm:size-12 transition-colors duration-300 group-hover:bg-secondary group-hover:text-secondary-foreground group-hover:shadow-xl"
             tabIndex={-1}
             aria-hidden
           >
@@ -73,7 +73,7 @@ export const DepartmentsSection: React.FC = () => {
           <span className="text-[11px] font-bold tracking-[0.2em] text-muted-foreground uppercase">
             Collections 2025
           </span>
-          <h2 className="text-2xl font-extrabold tracking-tight text-[#002167] sm:text-3xl lg:text-4xl dark:text-foreground">
+          <h2 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
             CURATED WARDROBE DEPARTMENTS
           </h2>
         </div>

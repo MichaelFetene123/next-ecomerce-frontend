@@ -51,7 +51,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title }) => 
             className={cn(
               'aspect-square bg-muted rounded-lg overflow-hidden border transition-all cursor-pointer p-0',
               activeIndex === idx
-                ? 'border-2 border-[#012169] dark:border-[#FDD79A] shadow-xs'
+                ? 'border-2 border-primary shadow-xs'
                 : 'border-border hover:border-foreground/40'
             )}
           >

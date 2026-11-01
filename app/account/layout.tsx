@@ -19,7 +19,7 @@ const navItems = [
 
 const AccountLayoutFallback = (
   <div className="min-h-screen bg-background text-foreground flex flex-col">
-    <div className="h-18 sm:h-20 bg-[#012169] w-full" />
+    <div className="h-18 sm:h-20 bg-primary w-full" />
     <div className="flex-1 max-w-360 w-full mx-auto px-4 sm:px-6 md:px-8 py-5 sm:py-7 md:py-10">
       <div className="flex flex-col md:flex-row gap-5 md:gap-8 items-start">
         <Skeleton className="w-full md:w-64 h-64 rounded-2xl" />
@@ -45,20 +45,20 @@ export default function AccountLayout({
     <AuthGuard fallback={AccountLayoutFallback}>
       <div className="min-h-screen bg-background text-foreground flex flex-col">
         {/* Dedicated Account Topbar matching Shop Header */}
-        <header className="sticky top-0 z-30 bg-[#012169] text-white shadow-xs">
+        <header className="sticky top-0 z-30 bg-primary text-primary-foreground shadow-xs">
           <div className="max-w-360 mx-auto px-4 sm:px-6 md:px-8 h-18 sm:h-20 flex items-center justify-between gap-3">
             <div className="flex items-center gap-3 sm:gap-4 min-w-0">
               <Link
                 href="/"
-                className="font-bold text-lg sm:text-xl tracking-tight text-white flex items-center gap-2 hover:opacity-90 transition-opacity shrink-0"
+                className="font-bold text-lg sm:text-xl tracking-tight text-primary-foreground flex items-center gap-2 hover:opacity-90 transition-opacity shrink-0"
               >
-                <span className="w-8 h-8 rounded-lg bg-[#FDD79A] text-[#012169] flex items-center justify-center font-black text-base shrink-0 shadow-xs">
+                <span className="w-8 h-8 rounded-lg bg-secondary text-secondary-foreground flex items-center justify-center font-black text-base shrink-0 shadow-xs">
                   S
                 </span>
                 Storefront
               </Link>
-              <Separator orientation="vertical" className="hidden sm:block h-4 bg-white/20 center" />
-              <span className="hidden sm:inline-block text-base font-medium text-white/85 tracking-wide truncate">
+              <Separator orientation="vertical" className="hidden sm:block h-4 bg-primary-foreground/20 center" />
+              <span className="hidden sm:inline-block text-base font-medium text-primary-foreground/85 tracking-wide truncate">
                 Account Center
               </span>
             </div>
@@ -69,17 +69,17 @@ export default function AccountLayout({
         <div className="flex-1 max-w-360 w-full mx-auto px-4 sm:px-6 md:px-8 py-5 sm:py-7 md:py-10">
           <div className="flex flex-col md:flex-row gap-5 md:gap-8 items-start">
             {/* Sidebar Navigation */}
-            <aside className="w-full md:w-64 shrink-0 space-y-3 sm:space-y-4 md:space-y-6 md:bg-[#012169] md:text-white md:p-5 md:rounded-2xl md:shadow-xs md:border md:border-[#012169]/20">
+            <aside className="w-full md:w-64 shrink-0 space-y-3 sm:space-y-4 md:space-y-6 md:bg-primary md:text-primary-foreground md:p-5 md:rounded-2xl md:shadow-xs md:border md:border-primary/20">
               {/* User Profile Card Snapshot */}
               {user && (
-                <div className="p-3 sm:p-4 rounded-xl bg-[#012169] text-white flex items-center justify-between gap-3 shadow-xs md:p-0 md:bg-transparent md:shadow-none md:rounded-none md:pb-5 md:border-b md:border-white/15">
+                <div className="p-3 sm:p-4 rounded-xl bg-primary text-primary-foreground flex items-center justify-between gap-3 shadow-xs md:p-0 md:bg-transparent md:shadow-none md:rounded-none md:pb-5 md:border-b md:border-white/15">
                   <div className="flex items-center gap-3 min-w-0 flex-1">
-                    <div className="w-10 h-10 rounded-full bg-[#FDD79A] text-[#012169] flex items-center justify-center font-bold text-lg shrink-0 shadow-xs">
+                    <div className="w-10 h-10 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center font-bold text-lg shrink-0 shadow-xs">
                       {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="font-semibold text-base sm:text-lg truncate text-white">{user.name}</p>
-                      <p className="text-sm sm:text-base text-white/75 truncate">{user.email}</p>
+                      <p className="font-semibold text-base sm:text-lg truncate text-primary-foreground">{user.name}</p>
+                      <p className="text-sm sm:text-base text-primary-foreground/75 truncate">{user.email}</p>
                     </div>
                   </div>
 
@@ -113,11 +113,11 @@ export default function AccountLayout({
                       className={cn(
                         "inline-flex items-center justify-start gap-2.5 h-10 md:h-11 text-sm sm:text-base font-medium transition-all shrink-0 md:w-full md:gap-3 px-3.5 rounded-lg",
                         isActive
-                          ? "bg-[#012169] text-white shadow-xs md:bg-white/15 md:text-white md:shadow-xs"
-                          : "bg-card border border-border/70 text-foreground hover:bg-[#012169]/10 hover:text-[#012169] md:bg-transparent md:border-transparent md:text-white/80 md:hover:bg-white/10 md:hover:text-white"
+                          ? "bg-primary text-primary-foreground shadow-xs md:bg-white/15 md:text-white md:shadow-xs"
+                          : "bg-card border border-border/70 text-foreground hover:bg-primary/10 hover:text-primary md:bg-transparent md:border-transparent md:text-white/80 md:hover:bg-white/10 md:hover:text-white"
                       )}
                     >
-                      <Icon className={cn("w-4 h-4 shrink-0 transition-colors", isActive ? "text-[#FDD79A]" : "text-muted-foreground md:text-white/60")} />
+                      <Icon className={cn("w-4 h-4 shrink-0 transition-colors", isActive ? "text-secondary" : "text-muted-foreground md:text-white/60")} />
                       <span>{item.name}</span>
                     </Link>
                   );

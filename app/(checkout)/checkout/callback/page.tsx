@@ -22,15 +22,15 @@ function CheckoutCallbackContent() {
         {isSuccess ? (
           <>
             <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckCircle2 className="w-10 h-10 text-[#012169] dark:text-[#FDD79A]" />
+              <CheckCircle2 className="w-10 h-10 text-primary" />
             </div>
-            <h1 className="text-3xl font-bold text-[#012169] dark:text-foreground">Payment Successful!</h1>
+            <h1 className="text-3xl font-bold text-foreground">Payment Successful!</h1>
             <p className="text-muted-foreground">
               Your transaction <span className="font-mono bg-muted px-2 py-1 rounded text-foreground">{tx_ref}</span> has been verified successfully.
             </p>
             <div className="pt-4">
               <Link href="/checkout/success">
-                <Button size="lg" className="w-full bg-[#012169] text-white hover:bg-[#012169]/90 font-bold">
+                <Button size="lg" variant="default" className="w-full font-bold">
                   View Order Details
                 </Button>
               </Link>
@@ -38,16 +38,16 @@ function CheckoutCallbackContent() {
           </>
         ) : (
           <>
-            <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
-              <div className="w-10 h-10 text-red-600 dark:text-red-400 flex items-center justify-center font-bold text-2xl">!</div>
+            <div className="w-20 h-20 bg-destructive/10 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-10 h-10 text-destructive flex items-center justify-center font-bold text-2xl">!</div>
             </div>
-            <h1 className="text-3xl font-bold text-[#012169] dark:text-foreground">Payment Failed</h1>
+            <h1 className="text-3xl font-bold text-foreground">Payment Failed</h1>
             <p className="text-muted-foreground">
               Unfortunately, we couldn't verify your payment. Please try again or contact support.
             </p>
             <div className="pt-4 flex gap-4">
               <Link href="/checkout" className="flex-1">
-                <Button size="lg" className="w-full bg-[#012169] text-white hover:bg-[#012169]/90 font-bold">
+                <Button size="lg" variant="default" className="w-full font-bold">
                   Try Again
                 </Button>
               </Link>

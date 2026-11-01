@@ -35,7 +35,7 @@ export const Footer: React.FC = () => {
         <div className="max-w-360 mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
           <p>© <Suspense fallback={<span></span>}><CurrentYear /></Suspense> Storefront Inc. All rights reserved.</p>
           <div className="flex items-center gap-1.5 text-xs font-medium">
-            <Lock className="w-3.5 h-3.5 text-[#012169] dark:text-[#FDD79A]" />
+            <Lock className="w-3.5 h-3.5 text-primary" />
             <span>256-Bit SSL Encrypted Checkout</span>
           </div>
         </div>
@@ -44,7 +44,7 @@ export const Footer: React.FC = () => {
   }
 
   return (
-    <footer className="w-full bg-[#012169] text-white border-t border-white/10 mt-auto">
+    <footer className="w-full bg-primary text-primary-foreground border-t border-primary-foreground/10 mt-auto">
       <div className="max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Brand Column */}
@@ -53,7 +53,7 @@ export const Footer: React.FC = () => {
               href="/"
               className="flex items-center gap-2 font-extrabold text-xl sm:text-2xl tracking-tight text-white hover:opacity-90 transition-opacity"
             >
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/15 flex items-center justify-center text-[#FDD79A] border border-white/20">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/15 flex items-center justify-center text-secondary border border-white/20">
                 <Store className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </div>
               <span>Storefront</span>
@@ -66,7 +66,7 @@ export const Footer: React.FC = () => {
             <div className="flex flex-wrap items-center gap-2.5 pt-1">
               {/* Trust Badge */}
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-white/90 text-xs font-medium border border-white/15">
-                <ShieldCheck className="w-4 h-4 text-[#FDD79A]" />
+                <ShieldCheck className="w-4 h-4 text-secondary" />
                 <span>Secure Payments via Chapa</span>
               </div>
 

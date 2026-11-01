@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function GlobalNotFound() {
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8F9FA] dark:bg-background text-foreground transition-colors">
+    <div className="flex flex-col min-h-screen bg-background text-foreground transition-colors">
       <Header />
       <main className="flex-1 flex flex-col w-full py-8 px-4 sm:px-6 lg:px-8 max-w-360 mx-auto">
         <NotFoundView />

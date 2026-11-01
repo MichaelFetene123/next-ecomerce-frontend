@@ -53,8 +53,9 @@ export const CartDrawer: React.FC = () => {
               Explore our collection and discover premium essentials.
             </p>
             <Button
+              variant="default"
               onClick={() => setIsOpen(false)}
-              className="mt-6 px-6 bg-[#012169] text-white hover:bg-[#012169]/90 font-bold"
+              className="mt-6 px-6 font-bold"
             >
               Continue Shopping
             </Button>

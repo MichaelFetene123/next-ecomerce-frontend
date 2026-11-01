@@ -21,21 +21,22 @@ export default function CartPage() {
   return (
     <AuthGuard fallback={<CartSkeleton />}>
       <div className="container mx-auto px-4 py-8 md:py-12 max-w-6xl">
-        <h1 className="text-3xl font-bold text-[#012169] dark:text-foreground mb-8 tracking-tight">
+        <h1 className="text-3xl font-bold text-foreground mb-8 tracking-tight">
           Shopping Cart
         </h1>
 
         {items.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 px-4 text-center border-2 border-dashed border-border rounded-xl bg-card">
             <ShoppingBag className="w-16 h-16 text-muted-foreground/40 mb-4" />
-            <h2 className="text-2xl font-bold text-[#012169] dark:text-foreground mb-2">Your cart is empty</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-2">Your cart is empty</h2>
             <p className="text-muted-foreground mb-8 max-w-md">
               Looks like you haven't added any products to your cart yet. Explore our catalog to find premium corporate essentials.
             </p>
             <Button 
               size="lg" 
+              variant="default"
               onClick={() => router.push('/')}
-              className="bg-[#012169] text-white hover:bg-[#012169]/90 font-bold px-8"
+              className="font-bold px-8"
             >
               Continue Shopping
             </Button>
@@ -47,7 +48,7 @@ export default function CartPage() {
               <div className="bg-card rounded-xl border border-border overflow-hidden">
                 <div className="p-4 sm:p-6 bg-muted/50 border-b border-border flex justify-between items-center">
                   <h2 className="font-bold text-foreground">Items ({totalItemsCount})</h2>
-                  <Link href="/" className="text-sm text-[#012169] dark:text-[#FDD79A] hover:underline font-medium">
+                  <Link href="/" className="text-sm text-primary dark:text-secondary hover:underline font-medium">
                     Continue Shopping
                   </Link>
                 </div>
@@ -69,7 +70,7 @@ export default function CartPage() {
             {/* Order Summary */}
             <div className="lg:col-span-1">
               <Card className="p-6 sticky top-24 border-border bg-card shadow-sm">
-                <h2 className="text-xl font-bold text-[#012169] dark:text-foreground mb-6">Order Summary</h2>
+                <h2 className="text-xl font-bold text-foreground mb-6">Order Summary</h2>
                 
                 <div className="space-y-4 text-sm mb-6">
                   <div className="flex justify-between text-muted-foreground">
@@ -94,8 +95,9 @@ export default function CartPage() {
                 </div>
 
                 <Button
+                  variant="secondary"
                   size="lg"
-                  className="w-full bg-[#FDD79A] text-[#012169] hover:bg-[#FDD79A]/90 font-bold text-base h-14"
+                  className="w-full font-bold text-base h-14"
                   onClick={() => router.push('/checkout')}
                 >
                   Proceed to Checkout

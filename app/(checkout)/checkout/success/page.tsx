@@ -17,11 +17,11 @@ export default function CheckoutSuccessPage() {
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center p-4">
       <div className="max-w-2xl w-full text-center space-y-6">
-        <div className="w-24 h-24 bg-[#FDD79A]/20 rounded-full flex items-center justify-center mx-auto mb-8 border border-[#FDD79A]/40">
-          <CheckCircle2 className="w-12 h-12 text-[#012169] dark:text-[#FDD79A]" />
+        <div className="w-24 h-24 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-8 border border-secondary/40">
+          <CheckCircle2 className="w-12 h-12 text-primary" />
         </div>
         
-        <h1 className="text-4xl md:text-5xl font-black text-[#012169] dark:text-foreground tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">
           Order Confirmed!
         </h1>
         
@@ -31,7 +31,7 @@ export default function CheckoutSuccessPage() {
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link href="/orders">
-            <Button size="lg" className="w-full sm:w-auto bg-[#012169] text-white hover:bg-[#012169]/90 font-bold px-8 h-14">
+            <Button size="lg" variant="default" className="w-full sm:w-auto font-bold px-8 h-14">
               <Package className="w-5 h-5 mr-2" />
               View Order History
             </Button>

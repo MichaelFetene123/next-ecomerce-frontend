@@ -146,7 +146,7 @@ function ProductDetailContent({ params }: { params: Promise<{ slug: string }> })
             <div className="text-xs font-bold text-muted-foreground tracking-wider mb-3">
               SKU: {activeVariant ? activeVariant.sku : 'N/A'}
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-[#012169] dark:text-foreground mb-4 tracking-tight leading-tight">
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4 tracking-tight leading-tight">
               {product.title}
             </h1>
             
@@ -226,14 +226,14 @@ function ProductDetailContent({ params }: { params: Promise<{ slug: string }> })
               <button
                 onClick={handleAddToCart}
                 disabled={isOutOfStock || ((product.variants?.length || 0) > 0 && !activeVariant)}
-                className="flex-1 h-12 bg-[#FDD79A] hover:bg-[#FDD79A]/90 text-[#012169] font-bold rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 h-12 bg-secondary text-secondary-foreground hover:bg-secondary/90 font-bold rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
               </button>
               <button
                 onClick={handleBuyNow}
                 disabled={isOutOfStock || ((product.variants?.length || 0) > 0 && !activeVariant)}
-                className="flex-1 h-12 bg-[#012169] hover:bg-[#012169]/90 text-white font-bold rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 h-12 bg-primary text-primary-foreground hover:bg-primary/90 font-bold rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Buy Now
               </button>
