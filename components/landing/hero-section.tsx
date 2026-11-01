@@ -72,8 +72,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               href="/products"
               onClick={onExploreClick}
               className={cn(
-                buttonVariants({ size: 'lg' }),
-                'h-auto cursor-pointer rounded-lg bg-[#FDD79A] px-7 py-6 text-xs font-bold tracking-wider text-[#012169] uppercase shadow-lg transition-all duration-200 hover:scale-[1.02] hover:bg-[#FCD082] hover:text-[#012169] hover:shadow-xl sm:text-sm'
+                buttonVariants({ variant: 'gold', size: 'lg' }),
+                'h-auto cursor-pointer rounded-lg px-7 py-6 text-xs font-bold tracking-wider uppercase shadow-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl sm:text-sm'
               )}
             >
               Explore Collection
