@@ -46,7 +46,7 @@ export const Footer: React.FC = () => {
   return (
     <footer className="w-full bg-[#012169] text-white border-t border-white/10 mt-auto">
       <div className="max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12 pb-12 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-6 space-y-4">
             <Link
@@ -155,35 +155,6 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
             </ul>
-          </div>
-        </div>
-
-        {/* Bottom Bar: Copyright, Telegram Username & Verified Badges */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
-          <div className="flex flex-wrap items-center gap-4">
-            <p>© <Suspense fallback={<span></span>}><CurrentYear /></Suspense> Storefront. All rights reserved.</p>
-            <a
-              href={telegramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-white/75 hover:text-white transition-colors"
-              title="Connect on Telegram"
-            >
-              <TelegramIcon className="w-3.5 h-3.5 text-[#229ED9]" />
-              <span>@{telegramUsername.replace(/^@/, '')}</span>
-            </a>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <span className="text-[11px] font-semibold text-white/80 bg-white/10 px-2.5 py-1 rounded border border-white/10">
-              Chapa Pay
-            </span>
-            <span className="text-[11px] font-semibold text-white/80 bg-white/10 px-2.5 py-1 rounded border border-white/10">
-              Telebirr
-            </span>
-            <span className="text-[11px] font-semibold text-white/80 bg-white/10 px-2.5 py-1 rounded border border-white/10">
-              CBE Birr
-            </span>
           </div>
         </div>
       </div>
