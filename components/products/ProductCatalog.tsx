@@ -33,7 +33,6 @@ import {
   ChevronDown,
   RotateCcw,
   Check,
-  Sparkles,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
@@ -235,9 +234,8 @@ function ProductCatalogInner() {
         {/* Top Tier: Primary Category Tabs */}
         <div className="space-y-3">
           <div className="flex items-center justify-between gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-primary" />
-              <span>Categories</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              Categories
             </span>
             {hasActiveFilters && (
               <Button
