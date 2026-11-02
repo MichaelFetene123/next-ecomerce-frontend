@@ -58,6 +58,7 @@ export default function CheckoutPage() {
     try {
       await processCheckout({
         billing_address_id: selectedAddressId,
+        return_url: `${window.location.origin}/checkout/callback`,
         items: items.map(item => ({
           product_variant_id: item.product.variants?.[0]?.id || 0,
           quantity: item.quantity,
@@ -65,7 +66,7 @@ export default function CheckoutPage() {
       });
       // The hook redirects automatically to checkout_url
     } catch (err: any) {
-      toast.error(err?.response?.data?.message || 'Payment initialization failed');
+      toast.error(err?.response?.data?.message || err?.message || 'Payment initialization failed');
     }
   };
 

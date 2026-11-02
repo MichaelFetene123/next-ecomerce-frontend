@@ -21,8 +21,8 @@ export function useOrderDetail(orderNumber: string) {
   return useQuery({
     queryKey: orderDetailQueryKey(orderNumber),
     queryFn: async (): Promise<Order> => {
-      const response = await apiClient.get<ApiResponse<Order>>(`/api/orders/${orderNumber}`);
-      return response.data.data;
+      const response = await apiClient.get<any>(`/api/orders/${orderNumber}`);
+      return (response.data?.data ?? response.data) as Order;
     },
     enabled: Boolean(orderNumber),
   });

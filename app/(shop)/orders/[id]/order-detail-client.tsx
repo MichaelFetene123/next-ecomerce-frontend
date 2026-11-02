@@ -4,10 +4,12 @@ import React, { use } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useOrders } from '@/hooks/use-orders'; 
+import { useInitiateOrderPayment } from '@/hooks/use-checkout';
 import { formatCurrency, formatDate } from '@/lib/utils';
-import { Download, MapPin, CreditCard } from 'lucide-react';
+import { Download, MapPin, CreditCard, Loader2, ArrowRight } from 'lucide-react';
 import { OrderDetailSkeleton } from '@/components/skeletons/order-detail-skeleton';
 import { BackButton } from '@/components/ui/back-button';
+import { toast } from 'sonner';
 
 export function OrderDetailClient({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -16,6 +18,18 @@ export function OrderDetailClient({ params }: { params: Promise<{ id: string }> 
   
   const { data: response, isLoading } = useOrders();
   const order = response?.data?.find(o => o.id === orderId);
+  const { mutateAsync: initiatePayment, isPending: isPaying } = useInitiateOrderPayment();
+
+  const handlePayNow = async () => {
+    if (!order) return;
+    try {
+      await initiatePayment({
+        orderNumber: order.order_number,
+      });
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message || err?.message || 'Failed to initialize payment');
+    }
+  };
 
   if (isLoading) {
     return <OrderDetailSkeleton variant="detail" />;
@@ -52,21 +66,48 @@ export function OrderDetailClient({ params }: { params: Promise<{ id: string }> 
         <div>
           <div className="flex items-center gap-3 mb-1">
             <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">Order #ORD-{order.id}</h1>
-            <span className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+            <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider ${
+              order.status === 'completed' || order.status === 'paid'
+                ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                : order.status === 'pending'
+                ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
+                : 'bg-destructive/10 text-destructive'
+            }`}>
               {order.status === 'completed' ? 'PAID' : order.status}
             </span>
           </div>
           <div className="text-sm text-muted-foreground flex gap-4">
             <span>{formatDate(order.created_at, { month: 'long', day: 'numeric', year: 'numeric' })}</span>
-            <span>tx_ref: {order.transaction_id || 'N/A'}</span>
+            <span>tx_ref: {order.tx_ref || order.transaction_id || 'N/A'}</span>
           </div>
         </div>
-        <Link 
-          href="/"
-          className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-bold text-[13px] px-6 py-3 rounded-lg transition-colors text-center w-full md:w-auto"
-        >
-          Back to Catalog
-        </Link>
+        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          {(order.status === 'pending' || order.status === 'failed') && (
+            <button
+              onClick={handlePayNow}
+              disabled={isPaying}
+              className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-[13px] px-6 py-3 rounded-lg transition-colors flex items-center justify-center cursor-pointer disabled:opacity-50 w-full sm:w-auto"
+            >
+              {isPaying ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Connecting to Chapa...
+                </>
+              ) : (
+                <>
+                  Pay Now with Chapa
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </>
+              )}
+            </button>
+          )}
+          <Link 
+            href="/"
+            className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-bold text-[13px] px-6 py-3 rounded-lg transition-colors text-center w-full sm:w-auto"
+          >
+            Back to Catalog
+          </Link>
+        </div>
       </div>
 
       {/* Two Column Layout */}

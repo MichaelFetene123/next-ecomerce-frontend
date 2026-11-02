@@ -67,15 +67,33 @@ export interface Order {
 }
 
 export interface CheckoutPayload {
-  billing_address_id: number;
+  billing_address_id?: number | null;
+  return_url?: string;
   items: Array<{
     product_variant_id: number;
     quantity: number;
   }>;
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  currency?: string;
 }
 
 export interface CheckoutResponse {
   message?: string;
+  order?: Order;
   order_id?: number;
+  tx_ref?: string;
   checkout_url?: string;
+}
+
+export interface VerifyPaymentPayload {
+  tx_ref: string;
+}
+
+export interface VerifyPaymentResponse {
+  status: 'success' | 'failed' | 'pending';
+  message: string;
+  order?: Order;
+  payment?: Payment;
 }

@@ -1,63 +1,174 @@
 "use client";
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { CheckCircle2, Loader2 } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Loader2, AlertCircle, RotateCcw, Package, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useVerifyPayment } from '@/hooks/use-checkout';
+import { useCartStore } from '@/hooks/use-cart';
 
 function CheckoutCallbackContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const tx_ref = searchParams.get('trx_ref');
-  const status = searchParams.get('status');
+  const txRef = searchParams.get('trx_ref') || searchParams.get('tx_ref');
+  const urlStatus = searchParams.get('status')?.toLowerCase();
 
-  // In a real implementation, you might want to call an API to verify the transaction
-  // using the tx_ref, but for now we just show a state based on URL params
+  const { clearCart } = useCartStore();
+  const { mutateAsync: verifyPayment } = useVerifyPayment();
 
-  const isSuccess = status === 'success';
+  const [state, setState] = useState<'verifying' | 'success' | 'failed' | 'pending' | 'error'>('verifying');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [orderNumber, setOrderNumber] = useState<string>('');
+  const hasTriggeredRef = useRef(false);
+
+  useEffect(() => {
+    // Prevent duplicate triggers in React StrictMode
+    if (hasTriggeredRef.current) return;
+    hasTriggeredRef.current = true;
+
+    // Fast-path: User explicitly cancelled on Chapa
+    if (urlStatus === 'canceled' || urlStatus === 'cancelled') {
+      router.replace(`/checkout/cancelled${txRef ? `?tx_ref=${txRef}` : ''}`);
+      return;
+    }
+
+    if (!txRef) {
+      setState('error');
+      setErrorMessage('No transaction reference was provided by the payment gateway.');
+      return;
+    }
+
+    async function runVerification() {
+      try {
+        const result = await verifyPayment({ tx_ref: txRef! });
+
+        if (result.status === 'success' || result.order?.status === 'paid' || result.order?.status === 'completed') {
+          clearCart();
+          const ordNum = result.order?.order_number || '';
+          setOrderNumber(ordNum);
+          setState('success');
+          // Smooth redirect to dedicated success page
+          router.replace(`/checkout/success?order_number=${ordNum}&tx_ref=${txRef}`);
+        } else if (result.status === 'failed' || result.order?.status === 'failed') {
+          const ordNum = result.order?.order_number || '';
+          setOrderNumber(ordNum);
+          setState('failed');
+          router.replace(`/checkout/failed?order_number=${ordNum}&tx_ref=${txRef}`);
+        } else {
+          // Status is still pending confirmation
+          setState('pending');
+        }
+      } catch (err: any) {
+        setState('error');
+        setErrorMessage(
+          err?.response?.data?.message ||
+            err?.message ||
+            'Failed to verify payment with the server.'
+        );
+      }
+    }
+
+    runVerification();
+  }, [txRef, urlStatus, verifyPayment, clearCart, router]);
+
+  const handleManualRetry = async () => {
+    if (!txRef) return;
+    setState('verifying');
+    try {
+      const result = await verifyPayment({ tx_ref: txRef });
+      if (result.status === 'success' || result.order?.status === 'paid') {
+        clearCart();
+        router.replace(`/checkout/success?order_number=${result.order?.order_number || ''}&tx_ref=${txRef}`);
+      } else if (result.status === 'failed') {
+        router.replace(`/checkout/failed?order_number=${result.order?.order_number || ''}&tx_ref=${txRef}`);
+      } else {
+        setState('pending');
+      }
+    } catch (err: any) {
+      setState('error');
+      setErrorMessage(err?.response?.data?.message || 'Verification inquiry failed.');
+    }
+  };
 
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center p-4">
       <div className="max-w-md w-full text-center space-y-6 p-8 border border-border rounded-2xl bg-card shadow-sm">
-        {isSuccess ? (
-          <>
-            <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckCircle2 className="w-10 h-10 text-primary" />
+        {state === 'verifying' && (
+          <div className="space-y-4">
+            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
-            <h1 className="text-3xl font-bold text-foreground">Payment Successful!</h1>
-            <p className="text-muted-foreground">
-              Your transaction <span className="font-mono bg-muted px-2 py-1 rounded text-foreground">{tx_ref}</span> has been verified successfully.
+            <h1 className="text-2xl font-bold text-foreground">Verifying Payment</h1>
+            <p className="text-sm text-muted-foreground">
+              Communicating securely with the server to confirm your Chapa transaction...
             </p>
-            <div className="pt-4">
-              <Link href="/checkout/success">
-                <Button size="lg" variant="default" className="w-full font-bold">
-                  View Order Details
-                </Button>
-              </Link>
+            {txRef && (
+              <p className="text-xs font-mono text-muted-foreground bg-muted py-1 px-2 rounded inline-block">
+                Ref: {txRef}
+              </p>
+            )}
+          </div>
+        )}
+
+        {state === 'success' && (
+          <div className="space-y-4">
+            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
+              <CheckCircle2 className="w-8 h-8 text-primary" />
             </div>
-          </>
-        ) : (
-          <>
-            <div className="w-20 h-20 bg-destructive/10 rounded-full flex items-center justify-center mx-auto mb-6">
-              <div className="w-10 h-10 text-destructive flex items-center justify-center font-bold text-2xl">!</div>
-            </div>
-            <h1 className="text-3xl font-bold text-foreground">Payment Failed</h1>
-            <p className="text-muted-foreground">
-              Unfortunately, we couldn't verify your payment. Please try again or contact support.
+            <h1 className="text-2xl font-bold text-foreground">Payment Confirmed!</h1>
+            <p className="text-sm text-muted-foreground">
+              Redirecting you to your order summary...
             </p>
-            <div className="pt-4 flex gap-4">
-              <Link href="/checkout" className="flex-1">
-                <Button size="lg" variant="default" className="w-full font-bold">
-                  Try Again
-                </Button>
-              </Link>
-              <Link href="/" className="flex-1">
-                <Button size="lg" variant="outline" className="w-full border-border text-foreground hover:bg-muted font-bold">
-                  Home
+          </div>
+        )}
+
+        {state === 'pending' && (
+          <div className="space-y-4">
+            <div className="w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto border border-amber-500/20">
+              <Loader2 className="w-8 h-8 animate-spin text-amber-600 dark:text-amber-400" />
+            </div>
+            <h1 className="text-2xl font-bold text-foreground">Payment Processing</h1>
+            <p className="text-sm text-muted-foreground">
+              Your transaction is being confirmed by Chapa. Your order status will update as soon as the gateway notifies us.
+            </p>
+            <div className="pt-2 flex flex-col gap-2">
+              <Button onClick={handleManualRetry} variant="default" className="w-full font-bold">
+                <RotateCcw className="w-4 h-4 mr-2" />
+                Check Status Again
+              </Button>
+              <Link href="/orders">
+                <Button variant="outline" className="w-full border-border font-bold">
+                  <Package className="w-4 h-4 mr-2" />
+                  View Order History
                 </Button>
               </Link>
             </div>
-          </>
+          </div>
+        )}
+
+        {state === 'error' && (
+          <div className="space-y-4">
+            <div className="w-16 h-16 bg-destructive/10 rounded-full flex items-center justify-center mx-auto border border-destructive/20">
+              <AlertCircle className="w-8 h-8 text-destructive" />
+            </div>
+            <h1 className="text-2xl font-bold text-foreground">Verification Error</h1>
+            <p className="text-sm text-muted-foreground">
+              {errorMessage || 'Unable to verify payment status.'}
+            </p>
+            <div className="pt-2 flex flex-col gap-2">
+              <Button onClick={handleManualRetry} variant="default" className="w-full font-bold">
+                <RotateCcw className="w-4 h-4 mr-2" />
+                Retry Verification
+              </Button>
+              <Link href="/orders">
+                <Button variant="outline" className="w-full border-border font-bold">
+                  <Package className="w-4 h-4 mr-2" />
+                  Check Orders
+                </Button>
+              </Link>
+            </div>
+          </div>
         )}
       </div>
     </div>
