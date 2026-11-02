@@ -8,7 +8,7 @@ export function CategoryPillsSkeleton({ count = 5 }: { count?: number }) {
       {Array.from({ length: count }).map((_, i) => (
         <Skeleton
           key={i}
-          className={`h-[30px] ${widths[i % widths.length]} rounded-full shrink-0 border border-border/40`}
+          className={`h-9 ${widths[i % widths.length]} rounded-xl shrink-0 border border-border/40`}
         />
       ))}
     </div>

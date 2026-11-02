@@ -11,6 +11,17 @@ import { CategoryPillsSkeleton } from '@/components/skeletons/category-pills-ske
 import { ProductGridSkeleton } from '@/components/skeletons/product-grid-skeleton';
 import { Product } from '@/types/catalog';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu';
 import {
   Search,
   SlidersHorizontal,
@@ -19,12 +30,22 @@ import {
   ArrowUpDown,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   RotateCcw,
+  Check,
+  Sparkles,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
 type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'name-asc';
+
+const SORT_OPTIONS: { value: SortOption; label: string }[] = [
+  { value: 'featured', label: 'Featured / Default' },
+  { value: 'price-asc', label: 'Price: Low to High' },
+  { value: 'price-desc', label: 'Price: High to Low' },
+  { value: 'name-asc', label: 'Alphabetical (A - Z)' },
+];
 
 function ProductCatalogInner() {
   const router = useRouter();
@@ -149,10 +170,12 @@ function ProductCatalogInner() {
     updateParams({ search: undefined, page: undefined });
   };
 
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const nextSort = e.target.value as SortOption;
+  const handleSortSelect = (nextSort: SortOption) => {
     updateParams({ sort: nextSort === 'featured' ? undefined : nextSort });
   };
+
+  const currentSortLabel =
+    SORT_OPTIONS.find((opt) => opt.value === sortParam)?.label || 'Featured / Default';
 
   const handleSelectRootCategory = (slug: string) => {
     updateParams({ category: slug || undefined, page: undefined });
@@ -207,85 +230,46 @@ function ProductCatalogInner() {
         </div>
       </div>
 
-      {/* Filter Toolbar: Search, Sort, Reset */}
-      <div className="space-y-4">
-        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
-          {/* Search Box */}
-          <form onSubmit={handleSearchSubmit} className="relative flex-1 max-w-md">
-            <Search className="w-4 h-4 text-muted-foreground absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-            <input
-              type="text"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              placeholder="Search products by title or description..."
-              className="w-full pl-9 pr-9 py-2 bg-card text-foreground placeholder:text-muted-foreground border border-border rounded-xl text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-ring/20 transition-all shadow-xs"
-            />
-            {searchInput && (
-              <button
-                type="button"
-                onClick={handleClearSearch}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer p-0.5 rounded-md"
-                aria-label="Clear search"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
-          </form>
-
-          {/* Sort Selector & Reset */}
-          <div className="flex items-center gap-2 self-end sm:self-auto">
-            <span className="text-xs font-semibold text-muted-foreground hidden sm:flex items-center gap-1">
-              <ArrowUpDown className="w-3.5 h-3.5" />
-              Sort:
+      {/* Redesigned Clean & Modern Filter / Category / Sort Panel */}
+      <div className="bg-card border border-border rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
+        {/* Top Tier: Primary Category Tabs */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-primary" />
+              <span>Categories</span>
             </span>
-            <select
-              value={sortParam}
-              onChange={handleSortChange}
-              className="bg-card text-foreground border border-border rounded-xl px-3 py-2 text-xs font-medium cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-ring/20 shadow-xs"
-            >
-              <option value="featured">Featured / Default</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="name-asc">Alphabetical (A - Z)</option>
-            </select>
-
             {hasActiveFilters && (
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={handleResetFilters}
-                className="text-xs text-muted-foreground hover:text-foreground h-9 px-2.5 gap-1"
-                title="Reset all filters"
+                className="h-7 px-2 text-xs text-muted-foreground hover:text-destructive hover:bg-destructive/10 gap-1 sm:hidden cursor-pointer"
               >
-                <RotateCcw className="w-3.5 h-3.5" />
-                <span className="hidden md:inline">Reset</span>
+                <RotateCcw className="w-3 h-3" />
+                <span>Reset</span>
               </Button>
             )}
           </div>
-        </div>
 
-        {/* Top-Level Category Pills */}
-        <div className="space-y-2">
           {isLoadingCategories ? (
-            <CategoryPillsSkeleton />
+            <CategoryPillsSkeleton count={5} />
           ) : (
-            <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none pt-1">
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none pt-0.5">
               <button
                 type="button"
                 onClick={() => handleSelectRootCategory('')}
                 className={cn(
-                  'px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer border',
+                  'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all cursor-pointer border shrink-0',
                   !categoryParam
                     ? 'bg-primary text-primary-foreground border-primary shadow-xs'
-                    : 'bg-card text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground'
+                    : 'bg-background text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground'
                 )}
               >
                 All Products
               </button>
 
               {categories.map((cat) => {
-                const isRootActive =
-                  activeParentCategory?.id === cat.id && !isChildActive;
                 const isFamilyActive = activeParentCategory?.id === cat.id;
 
                 return (
@@ -294,12 +278,10 @@ function ProductCatalogInner() {
                     type="button"
                     onClick={() => handleSelectRootCategory(cat.slug)}
                     className={cn(
-                      'px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer border',
-                      isRootActive
+                      'px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all cursor-pointer border shrink-0',
+                      isFamilyActive
                         ? 'bg-primary text-primary-foreground border-primary shadow-xs'
-                        : isFamilyActive
-                        ? 'bg-primary/10 text-primary border-primary/30'
-                        : 'bg-card text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground'
+                        : 'bg-background text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground'
                     )}
                   >
                     {cat.name}
@@ -309,51 +291,202 @@ function ProductCatalogInner() {
             </div>
           )}
 
-          {/* Child Category Pills (Shown only when a parent category with children is selected) */}
+          {/* Subcategories Refinement Strip (Shown when active parent category has children) */}
           {activeParentCategory &&
             activeParentCategory.children &&
             activeParentCategory.children.length > 0 && (
-              <div className="flex items-center gap-2 overflow-x-auto pt-2 pl-2 border-l-2 border-primary/30">
-                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider whitespace-nowrap mr-1">
-                  Subcategories:
-                </span>
+              <div className="bg-muted/40 dark:bg-muted/20 border border-border/60 rounded-xl p-2 sm:p-2.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 transition-all">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground uppercase tracking-wider shrink-0 pl-1">
+                  <SlidersHorizontal className="w-3.5 h-3.5 text-primary" />
+                  <span>Subcategories:</span>
+                </div>
 
-                <button
-                  type="button"
-                  onClick={() => handleSelectChildCategory(activeParentCategory.slug)}
-                  className={cn(
-                    'px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all cursor-pointer border',
-                    !isChildActive
-                      ? 'bg-primary text-primary-foreground border-primary shadow-xs'
-                      : 'bg-card text-muted-foreground border-border hover:text-foreground'
-                  )}
-                >
-                  All {activeParentCategory.name}
-                </button>
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none flex-1">
+                  <button
+                    type="button"
+                    onClick={() => handleSelectChildCategory(activeParentCategory.slug)}
+                    className={cn(
+                      'px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all cursor-pointer border shrink-0',
+                      !isChildActive
+                        ? 'bg-secondary text-secondary-foreground border-secondary font-bold shadow-xs'
+                        : 'bg-background text-muted-foreground border-border/80 hover:text-foreground hover:border-foreground/30'
+                    )}
+                  >
+                    All {activeParentCategory.name}
+                  </button>
 
-                {activeParentCategory.children.map((child) => {
-                  const isChildSelected =
-                    categoryParam.toLowerCase() === child.slug.toLowerCase();
+                  {activeParentCategory.children.map((child) => {
+                    const isChildSelected =
+                      categoryParam.toLowerCase() === child.slug.toLowerCase();
 
-                  return (
-                    <button
-                      key={child.id}
-                      type="button"
-                      onClick={() => handleSelectChildCategory(child.slug)}
-                      className={cn(
-                        'px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all cursor-pointer border',
-                        isChildSelected
-                          ? 'bg-primary text-primary-foreground border-primary shadow-xs'
-                          : 'bg-card text-muted-foreground border-border hover:border-foreground/30 hover:text-foreground'
-                      )}
-                    >
-                      {child.name}
-                    </button>
-                  );
-                })}
+                    return (
+                      <button
+                        key={child.id}
+                        type="button"
+                        onClick={() => handleSelectChildCategory(child.slug)}
+                        className={cn(
+                          'px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all cursor-pointer border shrink-0',
+                          isChildSelected
+                            ? 'bg-secondary text-secondary-foreground border-secondary font-bold shadow-xs'
+                            : 'bg-background text-muted-foreground border-border/80 hover:text-foreground hover:border-foreground/30'
+                        )}
+                      >
+                        {child.name}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             )}
         </div>
+
+        <Separator className="bg-border/60" />
+
+        {/* Bottom Tier: Search, Sort & Action Controls */}
+        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+          {/* Search Box */}
+          <form onSubmit={handleSearchSubmit} className="relative flex-1 max-w-md w-full">
+            <Search className="w-4 h-4 text-muted-foreground absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              type="text"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              placeholder="Search products by title or description..."
+              className="w-full pl-9.5 pr-9 py-2 bg-background text-foreground placeholder:text-muted-foreground border border-border rounded-xl text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-primary/20 focus:border-primary/50 transition-all shadow-xs h-10"
+            />
+            {searchInput && (
+              <button
+                type="button"
+                onClick={handleClearSearch}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer p-0.5 rounded-md transition-colors"
+                aria-label="Clear search"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </form>
+
+          {/* Sort Selector & Reset */}
+          <div className="flex items-center gap-2 self-end sm:self-auto w-full sm:w-auto justify-end">
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                render={
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-10 gap-2 px-3.5 text-xs font-medium rounded-xl border-border bg-background hover:bg-muted/60 shadow-xs cursor-pointer"
+                  />
+                }
+              >
+                <ArrowUpDown className="w-3.5 h-3.5 text-muted-foreground" />
+                <span className="text-muted-foreground hidden sm:inline">Sort:</span>
+                <span className="font-semibold text-foreground">{currentSortLabel}</span>
+                <ChevronDown className="w-3 h-3 text-muted-foreground opacity-70" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 bg-card text-card-foreground">
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel className="text-xs text-muted-foreground font-medium px-2 py-1.5">
+                    Sort products
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  {SORT_OPTIONS.map((opt) => {
+                    const isSelected = sortParam === opt.value;
+                    return (
+                      <DropdownMenuItem
+                        key={opt.value}
+                        onClick={() => handleSortSelect(opt.value)}
+                        className={cn(
+                          'flex items-center justify-between text-xs cursor-pointer px-2.5 py-2 rounded-md transition-colors',
+                          isSelected && 'font-bold text-primary dark:text-secondary'
+                        )}
+                      >
+                        <span>{opt.label}</span>
+                        {isSelected && <Check className="w-3.5 h-3.5 text-primary dark:text-secondary" />}
+                      </DropdownMenuItem>
+                    );
+                  })}
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {hasActiveFilters && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleResetFilters}
+                className="h-10 px-3 text-xs font-medium rounded-xl text-muted-foreground hover:text-destructive hover:border-destructive/30 hover:bg-destructive/10 gap-1.5 transition-colors cursor-pointer"
+                title="Reset all filters"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Reset</span>
+              </Button>
+            )}
+          </div>
+        </div>
+
+        {/* Active Filter Chips Strip */}
+        {hasActiveFilters && (
+          <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-border/40 text-xs">
+            <span className="text-muted-foreground text-[11px] font-semibold uppercase tracking-wider mr-1">
+              Active Filters:
+            </span>
+            {categoryParam && (
+              <Badge
+                variant="secondary"
+                className="gap-1.5 px-2.5 py-1 text-xs font-medium rounded-lg"
+              >
+                <span>Category: {activeCategory?.name || categoryParam}</span>
+                <button
+                  type="button"
+                  onClick={() => handleSelectRootCategory('')}
+                  className="hover:opacity-70 cursor-pointer"
+                  aria-label="Remove category filter"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </Badge>
+            )}
+            {searchParam && (
+              <Badge
+                variant="secondary"
+                className="gap-1.5 px-2.5 py-1 text-xs font-medium rounded-lg"
+              >
+                <span>Search: &ldquo;{searchParam}&rdquo;</span>
+                <button
+                  type="button"
+                  onClick={handleClearSearch}
+                  className="hover:opacity-70 cursor-pointer"
+                  aria-label="Remove search filter"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </Badge>
+            )}
+            {sortParam !== 'featured' && (
+              <Badge
+                variant="secondary"
+                className="gap-1.5 px-2.5 py-1 text-xs font-medium rounded-lg"
+              >
+                <span>Sort: {currentSortLabel}</span>
+                <button
+                  type="button"
+                  onClick={() => handleSortSelect('featured')}
+                  className="hover:opacity-70 cursor-pointer"
+                  aria-label="Reset sort"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </Badge>
+            )}
+            <button
+              type="button"
+              onClick={handleResetFilters}
+              className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-2 ml-1 cursor-pointer font-medium"
+            >
+              Clear all
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Main Products Grid */}

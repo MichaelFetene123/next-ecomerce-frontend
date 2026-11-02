@@ -23,15 +23,17 @@ export function ProductCatalogSkeleton() {
         </div>
       </div>
 
-      {/* Filter Toolbar: Search & Sort */}
-      <div className="space-y-4">
+      {/* Filter, Category & Sort Toolbar Card Skeleton */}
+      <div className="bg-card border border-border rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-24 rounded-md" />
+          <CategoryPillsSkeleton count={6} />
+        </div>
+        <div className="h-px bg-border/60" />
         <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
           <Skeleton className="h-10 w-full max-w-md rounded-xl" />
-          <Skeleton className="h-9 w-36 rounded-xl self-end sm:self-auto" />
+          <Skeleton className="h-10 w-36 rounded-xl self-end sm:self-auto" />
         </div>
-
-        {/* Top-Level Category Pills */}
-        <CategoryPillsSkeleton count={6} />
       </div>
 
       {/* Product Grid */}
