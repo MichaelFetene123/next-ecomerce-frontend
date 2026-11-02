@@ -283,9 +283,6 @@ export const Header: React.FC = () => {
                   <DropdownMenuItem render={<Link href="/account" />}>
                     My account
                   </DropdownMenuItem>
-                  <DropdownMenuItem render={<Link href="/orders" />}>
-                    Orders
-                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className="text-red-600 focus:bg-red-50 dark:focus:bg-red-950 cursor-pointer"
