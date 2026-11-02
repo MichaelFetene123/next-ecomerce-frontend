@@ -9,6 +9,7 @@ import { useRequireAuth } from '@/hooks/use-require-auth';
 import { ProductCard } from '@/components/catalog/product-card';
 import { CategoryPillsSkeleton } from '@/components/skeletons/category-pills-skeleton';
 import { ProductGridSkeleton } from '@/components/skeletons/product-grid-skeleton';
+import { ProductCatalogSkeleton } from '@/components/skeletons/product-catalog-skeleton';
 import { Product } from '@/types/catalog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -562,7 +563,7 @@ function ProductCatalogInner() {
 
 export function ProductCatalog() {
   return (
-    <Suspense fallback={<ProductGridSkeleton />}>
+    <Suspense fallback={<ProductCatalogSkeleton />}>
       <ProductCatalogInner />
     </Suspense>
   );

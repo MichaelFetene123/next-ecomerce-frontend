@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { Suspense, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';
@@ -14,7 +14,17 @@ import { Product } from '@/types/catalog';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
-export const CuratedCatalogSection: React.FC = () => {
+function CuratedProductsFallback() {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {Array.from({ length: 8 }).map((_, index) => (
+        <ProductCardSkeleton key={index} />
+      ))}
+    </div>
+  );
+}
+
+function CuratedProductsGrid() {
   const router = useRouter();
   const { addItem } = useCartStore();
   const { data: apiResponse, isLoading } = useProducts({ per_page: 8 });
@@ -26,7 +36,6 @@ export const CuratedCatalogSection: React.FC = () => {
         ? rawLiveProducts
         : SHOWCASE_PRODUCTS.map((item) => item.productData);
 
-    // Deduplicate products strictly by product ID
     const uniqueMap = new Map<number, Product>();
     sourceList.forEach((product) => {
       if (product && product.id && !uniqueMap.has(product.id)) {
@@ -36,14 +45,12 @@ export const CuratedCatalogSection: React.FC = () => {
 
     const uniqueProducts = Array.from(uniqueMap.values());
 
-    // Sort by created_at in descending order (most recently created first)
     uniqueProducts.sort((a, b) => {
       const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
       const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
       return dateB - dateA;
     });
 
-    // Display two rows (8 products in a 4-column desktop layout)
     return uniqueProducts.slice(0, 8);
   }, [apiResponse?.data]);
 
@@ -57,6 +64,25 @@ export const CuratedCatalogSection: React.FC = () => {
     toast.success(`Added "${product.title}" to bag`);
   };
 
+  if (isLoading) {
+    return <CuratedProductsFallback />;
+  }
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {products.map((product) => (
+        <ProductCard
+          key={product.id}
+          product={product}
+          onQuickAdd={handleQuickAdd}
+          onSelectProduct={handleSelectProduct}
+        />
+      ))}
+    </div>
+  );
+}
+
+export const CuratedCatalogSection: React.FC = () => {
   return (
     <section id="curated-catalog" className="w-full scroll-mt-24 space-y-6 sm:space-y-8">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
@@ -81,24 +107,9 @@ export const CuratedCatalogSection: React.FC = () => {
         </Link>
       </div>
 
-      {isLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {Array.from({ length: 8 }).map((_, index) => (
-            <ProductCardSkeleton key={index} />
-          ))}
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onQuickAdd={handleQuickAdd}
-              onSelectProduct={handleSelectProduct}
-            />
-          ))}
-        </div>
-      )}
+      <Suspense fallback={<CuratedProductsFallback />}>
+        <CuratedProductsGrid />
+      </Suspense>
     </section>
   );
 };

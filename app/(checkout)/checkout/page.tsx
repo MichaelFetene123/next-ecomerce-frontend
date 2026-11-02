@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/hooks/use-cart';
@@ -79,7 +79,8 @@ export default function CheckoutPage() {
   }
 
   return (
-    <AuthGuard fallback={<CheckoutSkeleton />}>
+    <Suspense fallback={<CheckoutSkeleton />}>
+      <AuthGuard fallback={<CheckoutSkeleton />}>
       <div className="w-full">
         <div className="mb-8">
           <BackButton fallbackHref="/cart" className="mb-3" />
@@ -153,5 +154,6 @@ export default function CheckoutPage() {
         </div>
       </div>
     </AuthGuard>
+    </Suspense>
   );
 }

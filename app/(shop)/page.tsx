@@ -69,34 +69,36 @@ function StorefrontLandingContent() {
           </Button>
         </div>
 
-        {isSearchLoading ? (
-          <ProductGridSkeleton />
-        ) : searchResults.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {searchResults.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onQuickAdd={handleQuickAdd}
-                onSelectProduct={handleSelectProduct}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="py-20 text-center space-y-4 bg-card rounded-xl border border-dashed border-border p-8">
-            <Search className="w-12 h-12 text-muted-foreground/40 mx-auto" />
-            <h3 className="text-lg font-bold text-foreground">No matches found</h3>
-            <p className="text-sm text-muted-foreground max-w-md mx-auto">
-              We couldn&apos;t find any garments or essentials matching &ldquo;{searchQuery}&rdquo;. Try checking the spelling or exploring our curated departments.
-            </p>
-            <Button
-              onClick={() => router.push('/')}
-              className="text-xs font-bold px-6"
-            >
-              Explore Full Catalog
-            </Button>
-          </div>
-        )}
+        <Suspense fallback={<ProductGridSkeleton count={8} />}>
+          {isSearchLoading ? (
+            <ProductGridSkeleton count={8} />
+          ) : searchResults.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {searchResults.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onQuickAdd={handleQuickAdd}
+                  onSelectProduct={handleSelectProduct}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="py-20 text-center space-y-4 bg-card rounded-xl border border-dashed border-border p-8">
+              <Search className="w-12 h-12 text-muted-foreground/40 mx-auto" />
+              <h3 className="text-lg font-bold text-foreground">No matches found</h3>
+              <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                We couldn&apos;t find any garments or essentials matching &ldquo;{searchQuery}&rdquo;. Try checking the spelling or exploring our curated departments.
+              </p>
+              <Button
+                onClick={() => router.push('/')}
+                className="text-xs font-bold px-6"
+              >
+                Explore Full Catalog
+              </Button>
+            </div>
+          )}
+        </Suspense>
       </div>
     );
   }
