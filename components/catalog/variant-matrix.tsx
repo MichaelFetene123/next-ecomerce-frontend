@@ -190,7 +190,7 @@ export const VariantMatrix: React.FC<VariantMatrixProps> = ({
                   className={cn(
                     'px-4 py-2.5 rounded-xl font-geist text-xs sm:text-sm h-auto min-h-0 cursor-pointer transition-all border shadow-xs',
                     isSelected
-                      ? 'border-2 border-primary bg-primary text-primary-foreground dark:border-secondary dark:bg-secondary dark:text-secondary-foreground font-bold shadow-sm'
+                      ? 'border-2 border-primary !bg-primary !text-primary-foreground hover:!bg-primary/90 hover:!text-primary-foreground aria-pressed:!bg-primary aria-pressed:!text-primary-foreground data-[state=on]:!bg-primary data-[state=on]:!text-primary-foreground dark:border-secondary dark:!bg-secondary dark:!text-secondary-foreground dark:hover:!bg-secondary/90 dark:hover:!text-secondary-foreground dark:aria-pressed:!bg-secondary dark:aria-pressed:!text-secondary-foreground dark:data-[state=on]:!bg-secondary dark:data-[state=on]:!text-secondary-foreground font-bold shadow-sm'
                       : 'border-border bg-card text-foreground hover:border-foreground/40 hover:bg-muted/40 font-medium'
                   )}
                 >
