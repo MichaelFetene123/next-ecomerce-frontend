@@ -13,6 +13,7 @@ import { ShoppingBag, ArrowRight, ShieldCheck } from 'lucide-react';
 
 import { AuthGuard } from '@/components/auth/auth-guard';
 import { CartSkeleton } from '@/components/skeletons/cart-skeleton';
+import { BackButton } from '@/components/ui/back-button';
 
 export default function CartPage() {
   const router = useRouter();
@@ -21,6 +22,7 @@ export default function CartPage() {
   return (
     <AuthGuard fallback={<CartSkeleton />}>
       <div className="container mx-auto px-4 py-8 md:py-12 max-w-6xl">
+        <BackButton fallbackHref="/products" className="mb-4" />
         <h1 className="text-3xl font-bold text-foreground mb-8 tracking-tight">
           Shopping Cart
         </h1>

@@ -7,6 +7,7 @@ import { useOrders } from '@/hooks/use-orders';
 import { formatCurrency, formatDate } from '@/lib/utils';
 import { Download, ArrowLeft, MapPin, CreditCard } from 'lucide-react';
 import { OrderDetailSkeleton } from '@/components/skeletons/order-detail-skeleton';
+import { BackButton } from '@/components/ui/back-button';
 
 export default function OrderDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
@@ -36,10 +37,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
     <div className="w-full">
       {/* Top Header */}
       <div className="flex items-center justify-between mb-8 pb-4 border-b border-border">
-        <Link href="/orders" className="flex items-center text-[13px] font-bold text-muted-foreground hover:text-foreground transition-colors">
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Order Details
-        </Link>
+        <BackButton fallbackHref="/orders" label="Back to Orders" className="text-[13px] font-bold" />
         <button 
           onClick={() => window.print()}
           className="flex items-center text-[13px] font-bold text-foreground border border-border px-4 py-2 rounded hover:bg-muted transition-colors cursor-pointer"

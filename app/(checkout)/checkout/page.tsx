@@ -34,6 +34,7 @@ const MOCK_ADDRESSES: Address[] = [
 
 import { AuthGuard } from '@/components/auth/auth-guard';
 import { CheckoutSkeleton } from '@/components/skeletons/checkout-skeleton';
+import { BackButton } from '@/components/ui/back-button';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -81,6 +82,7 @@ export default function CheckoutPage() {
     <AuthGuard fallback={<CheckoutSkeleton />}>
       <div className="w-full">
         <div className="mb-8">
+          <BackButton fallbackHref="/cart" className="mb-3" />
           <h1 className="text-3xl font-bold text-foreground mb-1">Checkout</h1>
           <p className="text-sm text-muted-foreground">Please review your order details below.</p>
         </div>

@@ -3,4 +3,3 @@ import { ProductDetailSkeleton } from '@/components/skeletons/product-detail-ske
 export default function Loading() {
   return <ProductDetailSkeleton />;
 }
-

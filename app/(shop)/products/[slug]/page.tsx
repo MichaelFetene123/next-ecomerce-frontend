@@ -2,20 +2,22 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { useProduct } from '@/hooks/use-product';
 import { useCartStore } from '@/hooks/use-cart';
 import { useRequireAuth } from '@/hooks/use-require-auth';
 import { ProductDetailSkeleton } from '@/components/skeletons/product-detail-skeleton';
 import { ImageGallery } from '@/components/catalog/image-gallery';
 import { VariantMatrix } from '@/components/catalog/variant-matrix';
+import { BackButton } from '@/components/ui/back-button';
 import { formatCurrency } from '@/lib/utils';
 import { ChevronRight, Star, Minus, Plus, ChevronDown, ChevronUp } from 'lucide-react';
 import { ProductVariant } from '@/types/catalog';
 import { toast } from 'sonner';
 
-function ProductDetailContent({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = React.use(params);
+function ProductDetailContent({ params }: { params?: Promise<{ slug: string }> }) {
+  const routeParams = useParams<{ slug: string }>();
+  const slug = routeParams?.slug || (params ? React.use(params).slug : '');
   const router = useRouter();
   const { data: product, isLoading } = useProduct(slug);
   const { addItem, updateQuantity, items } = useCartStore();
@@ -114,24 +116,28 @@ function ProductDetailContent({ params }: { params: Promise<{ slug: string }> })
 
   return (
     <div className="w-full" suppressHydrationWarning>
-      {/* Breadcrumbs */}
-      <nav className="flex items-center text-xs text-muted-foreground mb-8">
-        <ol className="inline-flex items-center space-x-2">
-          <li>
-            <Link href="/" className="hover:text-foreground transition-colors font-medium">Home</Link>
-          </li>
-          <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50" />
-          <li>
-            <Link href={`/categories/${product.category?.slug}`} className="hover:text-foreground transition-colors font-medium capitalize">
-              {product.category?.name || 'Category'}
-            </Link>
-          </li>
-          <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50" />
-          <li className="text-foreground truncate max-w-50 md:max-w-none capitalize font-medium">
-            {product.title}
-          </li>
-        </ol>
-      </nav>
+      {/* Top Navigation: Back Button & Breadcrumbs */}
+      <div className="flex flex-wrap items-center gap-3 mb-8">
+        <BackButton fallbackHref="/products" />
+        <div className="h-3.5 w-px bg-border/80 hidden sm:block" />
+        <nav className="flex items-center text-xs text-muted-foreground">
+          <ol className="inline-flex items-center space-x-2">
+            <li>
+              <Link href="/" className="hover:text-foreground transition-colors font-medium">Home</Link>
+            </li>
+            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50" />
+            <li>
+              <Link href={`/products?category=${product.category?.slug}`} className="hover:text-foreground transition-colors font-medium capitalize">
+                {product.category?.name || 'Category'}
+              </Link>
+            </li>
+            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50" />
+            <li className="text-foreground truncate max-w-50 md:max-w-none capitalize font-medium">
+              {product.title}
+            </li>
+          </ol>
+        </nav>
+      </div>
 
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-16">
