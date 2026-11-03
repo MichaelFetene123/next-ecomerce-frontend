@@ -88,7 +88,8 @@ export interface CheckoutResponse {
 }
 
 export interface VerifyPaymentPayload {
-  tx_ref: string;
+  tx_ref?: string;
+  order_number?: string;
 }
 
 export interface VerifyPaymentResponse {

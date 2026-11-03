@@ -32,6 +32,14 @@ export function useCheckout() {
       // Invalidate customer orders list
       queryClient.invalidateQueries({ queryKey: ORDERS_QUERY_KEY });
 
+      // Persist pending reference to sessionStorage as a secure client-side fallback
+      if (typeof window !== 'undefined' && data.tx_ref) {
+        sessionStorage.setItem('chapa_pending_tx_ref', data.tx_ref);
+        if (data.order?.order_number) {
+          sessionStorage.setItem('chapa_pending_order_number', data.order.order_number);
+        }
+      }
+
       // Automatically redirect browser to Chapa hosted payment gateway
       if (data.checkout_url) {
         window.location.href = data.checkout_url;
@@ -69,6 +77,13 @@ export function useInitiateOrderPayment() {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ORDERS_QUERY_KEY });
 
+      if (typeof window !== 'undefined' && data.tx_ref) {
+        sessionStorage.setItem('chapa_pending_tx_ref', data.tx_ref);
+        if (data.order?.order_number) {
+          sessionStorage.setItem('chapa_pending_order_number', data.order.order_number);
+        }
+      }
+
       if (data.checkout_url) {
         window.location.href = data.checkout_url;
       }
@@ -84,11 +99,11 @@ export function useVerifyPayment() {
 
   return useMutation({
     mutationFn: async (
-      payload: VerifyPaymentPayload
+      payload?: VerifyPaymentPayload
     ): Promise<VerifyPaymentResponse> => {
       const response = await apiClient.post<VerifyPaymentResponse>(
         '/api/checkout/verify',
-        payload
+        payload || {}
       );
       return response.data;
     },
