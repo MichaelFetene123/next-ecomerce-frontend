@@ -178,8 +178,8 @@ function CheckoutCallbackContent() {
 
         {state === 'success' && (
           <div className="space-y-4">
-            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
-              <CheckCircle2 className="w-8 h-8 text-primary" />
+            <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto border border-green-500/20">
+              <CheckCircle2 className="w-8 h-8 text-green-600 dark:text-green-500" />
             </div>
             <h1 className="text-2xl font-bold text-foreground">Payment Confirmed!</h1>
             <p className="text-sm text-muted-foreground">

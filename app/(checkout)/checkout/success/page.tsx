@@ -21,8 +21,8 @@ function CheckoutSuccessContent() {
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center p-4">
       <div className="max-w-2xl w-full text-center space-y-6">
-        <div className="w-24 h-24 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-8 border border-secondary/40">
-          <CheckCircle2 className="w-12 h-12 text-primary" />
+        <div className="w-24 h-24 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-green-500/20">
+          <CheckCircle2 className="w-12 h-12 text-green-600 dark:text-green-500" />
         </div>
 
         <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">
