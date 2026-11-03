@@ -77,6 +77,8 @@ export function ProductDetailClient({ params }: { params: Promise<{ slug: string
           quantity,
           color: selectedColor,
           size: selectedSize,
+          variantId: activeVariant?.id,
+          variant: activeVariant || undefined,
         });
         toast.success(`Added "${product.title}" to Cart`);
       }
@@ -95,6 +97,8 @@ export function ProductDetailClient({ params }: { params: Promise<{ slug: string
           quantity,
           color: selectedColor,
           size: selectedSize,
+          variantId: activeVariant?.id,
+          variant: activeVariant || undefined,
         });
       }
       router.push('/checkout');

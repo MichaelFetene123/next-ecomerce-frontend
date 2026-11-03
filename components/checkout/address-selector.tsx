@@ -30,60 +30,67 @@ export const AddressSelector: React.FC<AddressSelectorProps> = ({
       </div>
 
       {/* Addresses Grid */}
-      <RadioGroup
-        value={selectedAddressId?.toString() || ''}
-        onValueChange={(val) => onSelectAddress(Number(val))}
-        className="grid grid-cols-1 md:grid-cols-2 gap-4"
-      >
-        {addresses.map((address) => {
-          const isSelected = address.id === selectedAddressId;
+      {addresses.length === 0 ? (
+        <div className="py-6 px-4 text-center rounded-lg border border-dashed border-border bg-muted/20">
+          <p className="text-sm text-muted-foreground mb-1">No shipping addresses saved yet.</p>
+          <p className="text-xs text-muted-foreground">Click below to add a shipping address for your order.</p>
+        </div>
+      ) : (
+        <RadioGroup
+          value={selectedAddressId?.toString() || ''}
+          onValueChange={(val) => onSelectAddress(Number(val))}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        >
+          {addresses.map((address) => {
+            const isSelected = address.id === selectedAddressId;
 
-          return (
-            <div key={address.id} className="relative">
-              <RadioGroupItem
-                value={address.id.toString()}
-                id={`address-${address.id}`}
-                className="peer sr-only"
-              />
-              <label
-                htmlFor={`address-${address.id}`}
-                className={cn(
-                  'p-5 rounded-lg border transition-all duration-200 cursor-pointer relative flex flex-col justify-between min-h-35 w-full',
-                  isSelected
-                    ? 'border-secondary bg-secondary/10 shadow-sm ring-1 ring-secondary'
-                    : 'border-border bg-card hover:border-foreground/40'
-                )}
-              >
-                <div className="flex justify-between items-start mb-2">
-                  <span className="font-bold text-[13px] text-foreground">
-                    {address.full_name}
-                  </span>
-                  {isSelected && (
-                    <CheckCircle2 className="w-4.5 h-4.5 text-secondary fill-secondary/20" />
+            return (
+              <div key={address.id} className="relative">
+                <RadioGroupItem
+                  value={address.id.toString()}
+                  id={`address-${address.id}`}
+                  className="peer sr-only"
+                />
+                <label
+                  htmlFor={`address-${address.id}`}
+                  className={cn(
+                    'p-5 rounded-lg border transition-all duration-200 cursor-pointer relative flex flex-col justify-between min-h-35 w-full',
+                    isSelected
+                      ? 'border-secondary bg-secondary/10 shadow-sm ring-1 ring-secondary'
+                      : 'border-border bg-card hover:border-foreground/40'
                   )}
-                </div>
+                >
+                  <div className="flex justify-between items-start mb-2">
+                    <span className="font-bold text-[13px] text-foreground">
+                      {address.full_name}
+                    </span>
+                    {isSelected && (
+                      <CheckCircle2 className="w-4.5 h-4.5 text-secondary fill-secondary/20" />
+                    )}
+                  </div>
 
-                <div className="text-[12px] text-muted-foreground space-y-0.5 leading-relaxed font-medium">
-                  <p>{address.line1}</p>
-                  {address.line2 && <p>{address.line2}</p>}
-                  <p>
-                    {address.city}
-                    {address.region && `, ${address.region}`}
-                    {', '}
-                    {address.country}
-                  </p>
-                  {address.postal_code && <p>Postal Code: {address.postal_code}</p>}
-                  {address.phone && (
-                    <p className="pt-1 text-muted-foreground">
-                      Phone: {address.phone}
+                  <div className="text-[12px] text-muted-foreground space-y-0.5 leading-relaxed font-medium">
+                    <p>{address.line1}</p>
+                    {address.line2 && <p>{address.line2}</p>}
+                    <p>
+                      {address.city}
+                      {address.region && `, ${address.region}`}
+                      {', '}
+                      {address.country}
                     </p>
-                  )}
-                </div>
-              </label>
-            </div>
-          );
-        })}
-      </RadioGroup>
+                    {address.postal_code && <p>Postal Code: {address.postal_code}</p>}
+                    {address.phone && (
+                      <p className="pt-1 text-muted-foreground">
+                        Phone: {address.phone}
+                      </p>
+                    )}
+                  </div>
+                </label>
+              </div>
+            );
+          })}
+        </RadioGroup>
+      )}
 
       {/* Add New Address Button */}
       <button

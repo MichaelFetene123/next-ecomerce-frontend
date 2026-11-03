@@ -1,7 +1,7 @@
 'use client';
 
 import { useSyncExternalStore, useEffect } from 'react';
-import { Product } from '@/types/catalog';
+import { Product, ProductVariant } from '@/types/catalog';
 
 export interface CartItem {
   id: string;
@@ -9,11 +9,14 @@ export interface CartItem {
   quantity: number;
   selectedColor?: string;
   selectedSize?: string;
+  selectedVariantId?: number;
+  selectedVariant?: ProductVariant;
 }
 
 interface CartStoreState {
   items: CartItem[];
   isOpen: boolean;
+  isHydrated: boolean;
 }
 
 const CART_STORAGE_KEY = 'storefront_cart_state_v1';
@@ -21,6 +24,7 @@ const CART_STORAGE_KEY = 'storefront_cart_state_v1';
 let state: CartStoreState = {
   items: [],
   isOpen: false,
+  isHydrated: false,
 };
 
 const listeners = new Set<() => void>();
@@ -35,20 +39,24 @@ function notify() {
 let isInitialized = false;
 
 function initFromStorage() {
-  if (typeof window === 'undefined' || isInitialized) return;
+  if (typeof window === 'undefined') return;
+  if (isInitialized) return;
   isInitialized = true;
   try {
     const saved = localStorage.getItem(CART_STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        state = { ...state, items: parsed };
+        state = { ...state, items: parsed, isHydrated: true };
         notify();
+        return;
       }
     }
   } catch (e) {
     console.error('Failed to parse cart state from local storage', e);
   }
+  state = { ...state, isHydrated: true };
+  notify();
 }
 
 export const cartStore = {
@@ -58,20 +66,50 @@ export const cartStore = {
     listeners.add(listener);
     return () => listeners.delete(listener);
   },
-  addItem: (product: Product, options?: { quantity?: number; color?: string; size?: string; openCart?: boolean }) => {
+  addItem: (
+    product: Product,
+    options?: {
+      quantity?: number;
+      color?: string;
+      size?: string;
+      variantId?: number;
+      variant?: ProductVariant;
+      openCart?: boolean;
+    }
+  ) => {
     initFromStorage();
     const color = options?.color;
     const size = options?.size;
     const qty = options?.quantity || 1;
     const openCart = options?.openCart ?? false;
 
-    const existingIndex = state.items.findIndex(
-      (i) => i.product.id === product.id && i.selectedColor === color && i.selectedSize === size
-    );
+    // Resolve variant
+    let variant = options?.variant;
+    let variantId = options?.variantId;
+    if (!variantId && variant?.id) {
+      variantId = variant.id;
+    }
+    if (!variantId && product.variants && product.variants.length > 0) {
+      const defaultVariant = product.variants.find((v) => v.is_default) || product.variants[0];
+      variant = defaultVariant;
+      variantId = defaultVariant.id;
+    }
+
+    const existingIndex = state.items.findIndex((i) => {
+      if (i.product.id !== product.id) return false;
+      if (variantId && i.selectedVariantId) {
+        return i.selectedVariantId === variantId;
+      }
+      return i.selectedColor === color && i.selectedSize === size;
+    });
 
     if (existingIndex > -1) {
       const newItems = [...state.items];
       newItems[existingIndex].quantity += qty;
+      if (variantId && !newItems[existingIndex].selectedVariantId) {
+        newItems[existingIndex].selectedVariantId = variantId;
+        newItems[existingIndex].selectedVariant = variant;
+      }
       state = { ...state, items: newItems, ...(openCart ? { isOpen: true } : {}) };
     } else {
       state = {
@@ -84,6 +122,8 @@ export const cartStore = {
             quantity: qty,
             selectedColor: color,
             selectedSize: size,
+            selectedVariantId: variantId,
+            selectedVariant: variant,
           },
         ],
         ...(openCart ? { isOpen: true } : {}),
@@ -119,22 +159,22 @@ export const cartStore = {
   },
 };
 
-const emptyServerState: CartStoreState = { items: [], isOpen: false };
+const emptyServerState: CartStoreState = { items: [], isOpen: false, isHydrated: false };
 
 export function useCartStore() {
   const storeState = useSyncExternalStore(
-    cartStore.subscribe, 
-    cartStore.getState, 
+    cartStore.subscribe,
+    cartStore.getState,
     () => emptyServerState // Server side fallback
   );
 
   useEffect(() => {
     initFromStorage();
   }, []);
-  
+
   const totalItemsCount = storeState.items.reduce((sum, i) => sum + i.quantity, 0);
   const subtotal = storeState.items.reduce((sum, i) => {
-    const price = i.product.variants?.[0]?.price || 0;
+    const price = i.selectedVariant?.price ?? i.product.variants?.[0]?.price ?? 0;
     return sum + Number(price) * i.quantity;
   }, 0);
   const shipping = storeState.items.length > 0 ? (subtotal > 2000 ? 0 : 150) : 0;
@@ -142,6 +182,7 @@ export function useCartStore() {
 
   return {
     ...storeState,
+    isHydrated: storeState.isHydrated,
     addItem: cartStore.addItem,
     updateQuantity: cartStore.updateQuantity,
     removeItem: cartStore.removeItem,

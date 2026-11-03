@@ -1,18 +1,5 @@
-export interface Address {
-  id: number;
-  user_id: number;
-  full_name: string;
-  line1: string;
-  line2: string | null;
-  city: string;
-  region: string | null;
-  country: string;
-  postal_code: string | null;
-  phone: string | null;
-  is_default?: boolean;
-  created_at: string;
-  updated_at: string;
-}
+import { Address } from '@/types/address';
+export type { Address };
 
 export type PaymentGateway = 'chapa' | 'cbebirr' | 'telebirr';
 export type OrderStatus = 'pending' | 'paid' | 'failed' | 'completed' | 'cancelled';

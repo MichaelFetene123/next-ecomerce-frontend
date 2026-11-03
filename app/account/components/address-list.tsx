@@ -43,19 +43,19 @@ export function AddressList() {
                 <div className="min-w-0 flex-1 space-y-1">
                   <div className="flex items-center justify-between gap-2">
                     <p className="font-semibold truncate">
-                      {address.first_name} {address.last_name}
+                      {address.full_name || `${address.first_name || ''} ${address.last_name || ''}`.trim() || 'Address'}
                     </p>
                     {address.is_default && (
                       <Badge variant="secondary" className="text-xs">Default</Badge>
                     )}
                   </div>
-                  <p className="text-sm text-muted-foreground truncate">{address.phone}</p>
-                  <p className="text-sm text-muted-foreground truncate">{address.address_line_1}</p>
-                  {address.address_line_2 && (
-                    <p className="text-sm text-muted-foreground truncate">{address.address_line_2}</p>
+                  {address.phone && <p className="text-sm text-muted-foreground truncate">{address.phone}</p>}
+                  <p className="text-sm text-muted-foreground truncate">{address.line1 || address.address_line_1}</p>
+                  {(address.line2 || address.address_line_2) && (
+                    <p className="text-sm text-muted-foreground truncate">{address.line2 || address.address_line_2}</p>
                   )}
                   <p className="text-sm text-muted-foreground truncate">
-                    {address.city}, {address.state} {address.postal_code}
+                    {address.city}{address.region || address.state ? `, ${address.region || address.state}` : ''} {address.postal_code || ''}
                   </p>
                   <p className="text-sm text-muted-foreground truncate">{address.country}</p>
                 </div>
