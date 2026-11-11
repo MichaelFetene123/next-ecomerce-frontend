@@ -501,3 +501,108 @@ Chapa responds with a transaction object containing a secure `checkout_url`. Lar
 2. **Asymmetric Webhook Dispatch**: Once the funds are collected, Chapa issues an asynchronous server-to-server webhook callback request to `POST /api/webhooks/chapa`.
 3. **Signature Authentication**: The incoming request payload contains an authorization header signature value (`x-chapa-signature`). Laravel interceptors match this string against the system configuration (`hash_hmac('sha256', $payload, $secret)`) to authenticate the request's origin.
 4. **Fulfillment & Stock Deduction**: Once verified, the order status transitions to `paid`. Laravel dispatches `ProcessPaidOrder` to Horizon, automatically triggering localized stock deductions, transactional order confirmations, and shipping readiness.
+
+
+### DASHboard for ADMIN
+1. Proposed project structure
+NextLaravelEcommerce/
+├── app/
+│   ├── (auth)/
+│   │   └── admin-login/
+│   │       └── page.tsx
+│   │
+│   ├── (admin)/
+│   │   └── admin/
+│   │       ├── layout.tsx
+│   │       ├── page.tsx
+│   │       ├── products/
+│   │       │   └── page.tsx
+│   │       ├── categories/
+│   │       │   └── page.tsx
+│   │       ├── orders/
+│   │       │   └── page.tsx
+│   │       ├── customers/
+│   │       │   └── page.tsx
+│   │       ├── payments/
+│   │       │   └── page.tsx
+│   │       └── settings/
+│   │           └── page.tsx
+│   │
+│   ├── layout.tsx
+│   └── globals.css
+│
+├── components/
+│   ├── admin/
+│   │   ├── layout/
+│   │   ├── dashboard/
+│   │   └── navigation/
+│   ├── skeletons/
+│   └── ui/
+│
+├── hooks/
+│   ├── products/
+│   ├── categories/
+│   ├── orders/
+│   ├── customers/
+│   └── payments/
+│
+├── lib/
+│   ├── api/
+│   ├── query-client.ts
+│   └── utils.ts
+│
+├── providers/
+│   └── query-provider.tsx
+│
+├── types/
+│   ├── product.ts
+│   ├── category.ts
+│   ├── order.ts
+│   └── customer.ts
+│
+├── public/
+├── package.json
+└── bun.lock
+
+These are proposed modules, not confirmation that all corresponding backend endpoints already exist.
+
+### 2. Initial implementation prompt
+
+Act as a senior Next.js frontend architect. Create the foundational Admin Dashboard structure for my NextLaravelEcommerce project.
+
+Technology stack:
+- Next.js App Router + TypeScript
+- Bun package manager
+- Tailwind CSS + shadcn/ui
+- TanStack Query v5
+- Laravel REST API backend
+Requirements:
+1. Create a separate admin route group with a dedicated admin layout.
+2. Build a responsive admin shell with a collapsible sidebar, header, navigation, and breadcrumbs.
+3. Prepare placeholder pages for Dashboard, Products, Categories, Orders, Customers, Payments, and Settings.
+4. Organize reusable admin components separately from shared UI components.
+5. Keep API queries and mutations inside domain-specific hooks in hooks/.
+6. Use staleTime: 0, invalidate relevant query keys after successful mutations, and use component-level shadcn Skeleton loading states.
+7. Reuse the existing theme, CSS variables, shadcn components, authentication setup, and project conventions.
+Constraints:
+- Inspect the existing project before making changes.
+- Do not duplicate existing providers, components, or configurations.
+- Do not implement backend functionality or invent API endpoints.
+- Do not modify the customer-facing storefront.
+- Do not introduce unnecessary dependencies.
+First establish the folder structure, admin layout, sidebar navigation, header, and placeholder pages. Ensure the project builds successfully with Bun.
+
+
+
+
+### 3. Implementation order
+I recommend building in this order:
+1. Admin layout and responsive sidebar.
+2. Admin authentication and route protection.
+3. Dashboard overview.
+4. Products and categories.
+5. Orders and payments.
+6. Customers and settings.
+One architectural decision: Keep the admin dashboard under /admin and the customer-facing storefront separate. This gives us a clear boundary between administrative and customer experiences.
+
+We can add, remove, or rename modules after reviewing the generated structure.

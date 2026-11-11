@@ -11,3 +11,11 @@ export const orderDetailQueryKey = (orderNumber: string) => [...ORDERS_QUERY_KEY
 
 export const ADDRESSES_QUERY_KEY = ['addresses'] as const;
 export const addressesListQueryKey = () => [...ADDRESSES_QUERY_KEY] as const;
+
+export const ADMIN_QUERY_KEY = ['admin'] as const;
+export const adminStatsQueryKey = () => [...ADMIN_QUERY_KEY, 'stats'] as const;
+export const adminProductsQueryKey = (params?: any) => [...ADMIN_QUERY_KEY, 'products', params] as const;
+export const adminCategoriesQueryKey = () => [...ADMIN_QUERY_KEY, 'categories'] as const;
+export const adminOrdersQueryKey = (params?: any) => [...ADMIN_QUERY_KEY, 'orders', params] as const;
+export const adminCustomersQueryKey = (params?: any) => [...ADMIN_QUERY_KEY, 'customers', params] as const;
+export const adminPaymentsQueryKey = (params?: any) => [...ADMIN_QUERY_KEY, 'payments', params] as const;
