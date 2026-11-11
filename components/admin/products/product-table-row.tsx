@@ -29,12 +29,14 @@ import {
 
 interface ProductTableRowProps {
   product: Product;
+  onEdit: (product: Product) => void;
   onEditStock: (product: Product) => void;
   onDelete: (product: Product) => void;
 }
 
 export function ProductTableRow({
   product,
+  onEdit,
   onEditStock,
   onDelete,
 }: ProductTableRowProps) {
@@ -76,23 +78,27 @@ export function ProductTableRow({
       {/* Product Image & Title */}
       <td className="p-4 pl-2">
         <div className="flex items-center gap-3 min-w-56">
-          <Link
-            href={`/admin/products/${product.id}`}
-            className="w-10 h-10 rounded-lg overflow-hidden bg-muted shrink-0 border border-border group-hover:border-primary/40 transition-colors"
+          <button
+            type="button"
+            onClick={() => onEdit(product)}
+            className="w-10 h-10 rounded-lg overflow-hidden bg-muted shrink-0 border border-border hover:border-primary/60 transition-colors text-left"
+            title="Click to edit product"
           >
             <img
               src={image}
               alt={product.title}
               className="w-full h-full object-cover"
             />
-          </Link>
+          </button>
           <div className="min-w-0">
-            <Link
-              href={`/admin/products/${product.id}`}
-              className="font-semibold text-foreground truncate block hover:text-primary transition-colors text-xs"
+            <button
+              type="button"
+              onClick={() => onEdit(product)}
+              className="font-semibold text-foreground truncate block hover:text-primary transition-colors text-xs text-left"
+              title="Click to edit product"
             >
               {product.title}
-            </Link>
+            </button>
             <span className="text-[11px] text-muted-foreground truncate block font-mono">
               /{product.slug}
             </span>
@@ -181,7 +187,7 @@ export function ProductTableRow({
           />
           <DropdownMenuContent align="end" className="text-xs w-44">
             <DropdownMenuItem
-              onClick={() => window.open(`/admin/products/${product.id}`, '_self')}
+              onClick={() => onEdit(product)}
               className="flex items-center gap-2 cursor-pointer"
             >
               <Edit3 className="w-3.5 h-3.5 text-muted-foreground" />

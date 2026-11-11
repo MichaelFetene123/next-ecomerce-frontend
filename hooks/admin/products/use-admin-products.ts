@@ -11,6 +11,7 @@ import {
 import {
   Product,
   ProductImage,
+  Attribute,
   AdminProductsResponse,
   AdminProductFilterParams,
   CreateProductInput,
@@ -106,6 +107,12 @@ export function useCreateProduct() {
         if (input.image_paths && input.image_paths.length > 0) {
           input.image_paths.forEach((path) => {
             formData.append('image_paths[]', path);
+          });
+        }
+
+        if (input.attribute_value_ids && input.attribute_value_ids.length > 0) {
+          input.attribute_value_ids.forEach((id) => {
+            formData.append('attribute_value_ids[]', String(id));
           });
         }
 
@@ -350,6 +357,20 @@ export function useReorderProductImages(productId: number | string) {
       const msg = error?.response?.data?.message || 'Failed to reorder images.';
       toast.error(msg);
     },
+  });
+}
+
+/**
+ * Fetch catalog attributes (Color, Storage, Size, RAM) with nested values for product configuration.
+ */
+export function useAdminAttributes() {
+  return useQuery({
+    queryKey: ['admin', 'attributes'],
+    queryFn: async (): Promise<Attribute[]> => {
+      const response = await apiClient.get<{ data: Attribute[] }>('/api/admin/attributes');
+      return response.data.data;
+    },
+    staleTime: 5 * 60 * 1000,
   });
 }
 

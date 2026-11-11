@@ -11,6 +11,7 @@ import {
   ProductTableRow,
   StockEditDialog,
   DeleteProductDialog,
+  ProductFormDialog,
 } from '@/components/admin/products';
 import { AdminTableSkeleton } from '@/components/skeletons/admin/admin-table-skeleton';
 import { Card } from '@/components/ui/card';
@@ -42,6 +43,9 @@ export default function AdminProductsPage() {
   const { data: response, isLoading, refetch, isFetching } = useAdminProducts(filters);
 
   // Dialog states
+  const [formProduct, setFormProduct] = useState<Product | null>(null);
+  const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
+
   const [stockProduct, setStockProduct] = useState<Product | null>(null);
   const [isStockDialogOpen, setIsStockDialogOpen] = useState(false);
 
@@ -72,6 +76,16 @@ export default function AdminProductsPage() {
       sort_by: 'created_at',
       sort_order: 'desc',
     });
+  };
+
+  const handleOpenCreateDialog = () => {
+    setFormProduct(null);
+    setIsFormDialogOpen(true);
+  };
+
+  const handleOpenEditDialog = (product: Product) => {
+    setFormProduct(product);
+    setIsFormDialogOpen(true);
   };
 
   const handleOpenStockDialog = (product: Product) => {
@@ -112,16 +126,14 @@ export default function AdminProductsPage() {
             <span>Refresh</span>
           </Button>
 
-          <Link
-            href="/admin/products/new"
-            className={cn(
-              buttonVariants({ size: 'sm' }),
-              'text-xs font-semibold rounded-xl gap-1.5 bg-primary text-primary-foreground hover:bg-primary/90 h-9'
-            )}
+          <Button
+            size="sm"
+            onClick={handleOpenCreateDialog}
+            className="text-xs font-semibold rounded-xl gap-1.5 bg-primary text-primary-foreground hover:bg-primary/90 h-9"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>Add Product</span>
-          </Link>
+          </Button>
         </div>
       </div>
 
@@ -173,16 +185,14 @@ export default function AdminProductsPage() {
                 Clear Filters
               </Button>
             ) : (
-              <Link
-                href="/admin/products/new"
-                className={cn(
-                  buttonVariants({ size: 'sm' }),
-                  'text-xs font-semibold rounded-lg bg-primary text-primary-foreground'
-                )}
+              <Button
+                size="sm"
+                onClick={handleOpenCreateDialog}
+                className="text-xs font-semibold rounded-lg bg-primary text-primary-foreground gap-1.5"
               >
-                <Plus className="w-3.5 h-3.5 mr-1.5" />
+                <Plus className="w-3.5 h-3.5" />
                 <span>Create First Product</span>
-              </Link>
+              </Button>
             )}
           </div>
         </Card>
@@ -207,6 +217,7 @@ export default function AdminProductsPage() {
                   <ProductTableRow
                     key={product.id}
                     product={product}
+                    onEdit={handleOpenEditDialog}
                     onEditStock={handleOpenStockDialog}
                     onDelete={handleOpenDeleteDialog}
                   />
@@ -266,6 +277,14 @@ export default function AdminProductsPage() {
           </div>
         </Card>
       )}
+
+      {/* Product Form Dialog (Create & Edit) */}
+      <ProductFormDialog
+        open={isFormDialogOpen}
+        onOpenChange={setIsFormDialogOpen}
+        product={formProduct}
+        onSuccess={() => refetch()}
+      />
 
       {/* Stock Edit Modal */}
       <StockEditDialog

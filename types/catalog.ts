@@ -129,6 +129,7 @@ export interface CreateProductInput {
   weight?: number | null;
   image_paths?: string[];
   image_files?: File[];
+  attribute_value_ids?: number[];
 }
 
 export interface UpdateProductInput {
@@ -145,4 +146,5 @@ export interface UpdateProductInput {
   compare_at_price?: number | null;
   stock_quantity?: number;
   weight?: number | null;
+  attribute_value_ids?: number[];
 }
