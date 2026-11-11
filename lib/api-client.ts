@@ -88,13 +88,19 @@ export const apiClient = {
   post: <T>(url: string, data?: any) => {
     return fetchClient<T>(url, {
       method: "POST",
-      body: data ? JSON.stringify(data) : undefined,
+      body: data ? (data instanceof FormData ? data : JSON.stringify(data)) : undefined,
+    });
+  },
+  patch: <T>(url: string, data?: any) => {
+    return fetchClient<T>(url, {
+      method: "PATCH",
+      body: data ? (data instanceof FormData ? data : JSON.stringify(data)) : undefined,
     });
   },
   put: <T>(url: string, data?: any) => {
     return fetchClient<T>(url, {
       method: "PUT",
-      body: data ? JSON.stringify(data) : undefined,
+      body: data ? (data instanceof FormData ? data : JSON.stringify(data)) : undefined,
     });
   },
   delete: <T>(url: string) => {

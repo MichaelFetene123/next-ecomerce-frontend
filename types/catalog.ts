@@ -69,6 +69,7 @@ export interface Product {
   slug: string;
   description: string | null;
   is_active: boolean;
+  is_featured?: boolean;
   meta_title: string | null;
   meta_description: string | null;
   created_at: string;
@@ -76,5 +77,72 @@ export interface Product {
 
   category?: Category;
   variants?: ProductVariant[];
+  default_variant?: ProductVariant;
+  defaultVariant?: ProductVariant;
   images?: ProductImage[];
+}
+
+export interface AdminProductStats {
+  total: number;
+  active: number;
+  draft: number;
+  featured: number;
+  low_stock: number;
+}
+
+export interface AdminProductsResponse {
+  data: Product[];
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  total: number;
+  from: number | null;
+  to: number | null;
+  stats: AdminProductStats;
+}
+
+export interface AdminProductFilterParams {
+  page?: number;
+  per_page?: number;
+  search?: string;
+  category_id?: number | string;
+  status?: 'all' | 'active' | 'inactive';
+  featured?: 'all' | 'featured' | 'standard';
+  stock?: 'all' | 'in_stock' | 'low_stock' | 'out_of_stock';
+  sort_by?: 'created_at' | 'title' | 'price' | 'stock';
+  sort_order?: 'asc' | 'desc';
+}
+
+export interface CreateProductInput {
+  title: string;
+  slug?: string;
+  category_id: number;
+  description?: string;
+  is_active?: boolean;
+  is_featured?: boolean;
+  meta_title?: string;
+  meta_description?: string;
+  sku: string;
+  price: number;
+  compare_at_price?: number | null;
+  stock_quantity: number;
+  weight?: number | null;
+  image_paths?: string[];
+  image_files?: File[];
+}
+
+export interface UpdateProductInput {
+  title?: string;
+  slug?: string;
+  category_id?: number;
+  description?: string;
+  is_active?: boolean;
+  is_featured?: boolean;
+  meta_title?: string;
+  meta_description?: string;
+  sku?: string;
+  price?: number;
+  compare_at_price?: number | null;
+  stock_quantity?: number;
+  weight?: number | null;
 }
