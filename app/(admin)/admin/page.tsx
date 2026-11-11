@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useAdminDashboardMetrics } from '@/hooks/admin/use-admin-dashboard';
 import { AdminStatsSkeleton } from '@/components/skeletons/admin/admin-stats-skeleton';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { formatCurrency, cn } from '@/lib/utils';
 import {
@@ -16,9 +16,7 @@ import {
   Users,
   FolderTree,
   CreditCard,
-  Plus,
   ArrowUpRight,
-  RefreshCw,
   ExternalLink,
   Store,
   ChevronRight,
@@ -26,7 +24,7 @@ import {
 import { ADMIN_NAV_ITEMS } from '@/components/admin/navigation/admin-nav-items';
 
 export default function AdminDashboardPage() {
-  const { data: metrics, isLoading, refetch, isFetching } = useAdminDashboardMetrics();
+  const { data: metrics, isLoading } = useAdminDashboardMetrics();
 
   return (
     <div className="space-y-8">
@@ -39,30 +37,6 @@ export default function AdminDashboardPage() {
           <p className="text-sm text-muted-foreground mt-1">
             Real-time business performance, order processing, and catalog status.
           </p>
-        </div>
-
-        <div className="flex items-center gap-2.5 shrink-0">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => refetch()}
-            disabled={isFetching}
-            className="text-xs font-medium rounded-xl gap-1.5"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${isFetching ? 'animate-spin' : ''}`} />
-            <span>Refresh</span>
-          </Button>
-
-          <Link
-            href="/admin/products"
-            className={cn(
-              buttonVariants({ size: 'sm' }),
-              'text-xs font-semibold rounded-xl gap-1.5 bg-primary text-primary-foreground hover:bg-primary/90'
-            )}
-          >
-            <Plus className="w-3.5 h-3.5" />
-            <span>Add Product</span>
-          </Link>
         </div>
       </div>
 

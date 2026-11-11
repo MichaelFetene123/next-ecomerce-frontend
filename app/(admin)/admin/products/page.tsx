@@ -20,7 +20,6 @@ import { cn } from '@/lib/utils';
 import {
   Package,
   Plus,
-  RefreshCw,
   ChevronLeft,
   ChevronRight,
   Sparkles,
@@ -115,17 +114,6 @@ export default function AdminProductsPage() {
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => refetch()}
-            disabled={isFetching}
-            className="text-xs font-medium rounded-xl gap-1.5 h-9"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${isFetching ? 'animate-spin' : ''}`} />
-            <span>Refresh</span>
-          </Button>
-
           <Button
             size="sm"
             onClick={handleOpenCreateDialog}
