@@ -12,10 +12,6 @@ export function AdminStatsSkeleton({ count = 4 }: { count?: number }) {
             <Skeleton className="w-8 h-8 rounded-lg" />
           </div>
           <Skeleton className="h-8 w-36 rounded-md" />
-          <div className="flex items-center gap-2">
-            <Skeleton className="h-4 w-12 rounded-md" />
-            <Skeleton className="h-3.5 w-24 rounded-md" />
-          </div>
         </Card>
       ))}
     </div>

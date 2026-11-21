@@ -7,7 +7,6 @@ import { AdminStatsSkeleton } from '@/components/skeletons/admin/admin-stats-ske
 import { Card } from '@/components/ui/card';
 import { formatCurrency } from '@/lib/utils';
 import {
-  TrendingUp,
   DollarSign,
   ShoppingBag,
   Package,
@@ -49,11 +48,6 @@ export default function AdminDashboardPage() {
             <div className="text-2xl font-bold tracking-tight text-foreground">
               {formatCurrency(metrics?.totalRevenue ?? 0)}
             </div>
-            <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
-              <TrendingUp className="w-3.5 h-3.5" />
-              <span>+{metrics?.growthRates.revenue}%</span>
-              <span className="text-muted-foreground font-normal">vs previous period</span>
-            </div>
           </Card>
 
           {/* Orders */}
@@ -66,11 +60,6 @@ export default function AdminDashboardPage() {
             </div>
             <div className="text-2xl font-bold tracking-tight text-foreground">
               {metrics?.totalOrders ?? 0}
-            </div>
-            <div className="flex items-center gap-1.5 text-xs text-blue-600 dark:text-blue-400 font-semibold">
-              <TrendingUp className="w-3.5 h-3.5" />
-              <span>+{metrics?.growthRates.orders}%</span>
-              <span className="text-muted-foreground font-normal">order velocity</span>
             </div>
           </Card>
 
@@ -85,9 +74,6 @@ export default function AdminDashboardPage() {
             <div className="text-2xl font-bold tracking-tight text-foreground">
               {metrics?.totalProducts ?? 0}
             </div>
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
-              <span>{metrics?.totalCategories ?? 0} Categories active</span>
-            </div>
           </Card>
 
           {/* Customers */}
@@ -100,10 +86,6 @@ export default function AdminDashboardPage() {
             </div>
             <div className="text-2xl font-bold tracking-tight text-foreground">
               Chapa Active
-            </div>
-            <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Online & Verifying</span>
             </div>
           </Card>
         </div>
