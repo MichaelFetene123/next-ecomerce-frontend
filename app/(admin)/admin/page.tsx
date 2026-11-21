@@ -4,21 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 import { useAdminDashboardMetrics } from '@/hooks/admin/use-admin-dashboard';
 import { AdminStatsSkeleton } from '@/components/skeletons/admin/admin-stats-skeleton';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { buttonVariants } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { formatCurrency, cn } from '@/lib/utils';
+import { Card } from '@/components/ui/card';
+import { formatCurrency } from '@/lib/utils';
 import {
   TrendingUp,
   DollarSign,
   ShoppingBag,
   Package,
-  Users,
-  FolderTree,
   CreditCard,
-  ArrowUpRight,
-  ExternalLink,
-  Store,
   ChevronRight,
 } from 'lucide-react';
 import { ADMIN_NAV_ITEMS } from '@/components/admin/navigation/admin-nav-items';
@@ -152,35 +145,6 @@ export default function AdminDashboardPage() {
           })}
         </div>
       </div>
-
-      {/* System Status Banner */}
-      <Card className="p-6 border-border bg-muted/40 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <Store className="w-4 h-4 text-primary" />
-            <h3 className="font-bold text-sm text-foreground">Storefront Integration</h3>
-            <Badge variant="secondary" className="text-[10px] uppercase font-bold py-0 h-4">
-              Connected
-            </Badge>
-          </div>
-          <p className="text-xs text-muted-foreground">
-            The customer-facing storefront is operating at <code className="text-xs bg-muted px-1.5 py-0.5 rounded">localhost:3000</code>.
-          </p>
-        </div>
-
-        <Link
-          href="/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(
-            buttonVariants({ variant: 'outline', size: 'sm' }),
-            'rounded-lg gap-2 text-xs font-semibold shrink-0'
-          )}
-        >
-          <span>Open Public Storefront</span>
-          <ExternalLink className="w-3.5 h-3.5" />
-        </Link>
-      </Card>
     </div>
   );
 }
