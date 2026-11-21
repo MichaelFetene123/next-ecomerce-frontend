@@ -1,7 +1,6 @@
 "use client";
 
 import React from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useUser, useLogout } from '@/hooks/use-auth';
 import { useTheme } from 'next-themes';
@@ -12,11 +11,10 @@ import {
   Moon,
   LogOut,
   User as UserIcon,
-  Shield,
   Store,
   Settings,
 } from 'lucide-react';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,7 +24,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
 
 interface AdminHeaderProps {
   onOpenMobileNav: () => void;
@@ -79,20 +76,6 @@ export function AdminHeader({
 
       {/* Right: Actions & User Dropdown */}
       <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-        {/* Quick link to Storefront */}
-        <Link
-          href="/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(
-            buttonVariants({ variant: 'outline', size: 'sm' }),
-            'hidden lg:inline-flex items-center gap-1.5 h-8 text-xs font-semibold rounded-lg'
-          )}
-        >
-          <Store className="w-3.5 h-3.5 text-muted-foreground" />
-          <span>Storefront</span>
-        </Link>
-
         {/* Theme Toggle Button */}
         <Button
           variant="ghost"
