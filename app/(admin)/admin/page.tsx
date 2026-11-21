@@ -102,15 +102,15 @@ export default function AdminDashboardPage() {
             return (
               <Card
                 key={item.href}
-                className="group p-5 border-border bg-card hover:border-primary/40 hover:shadow-sm transition-all rounded-xl"
+                className="group p-5 border-border bg-card hover:border-primary/40 dark:hover:border-blue-500/40 hover:shadow-sm transition-all rounded-xl"
               >
                 <Link href={item.href} className="flex items-start justify-between">
                   <div className="space-y-2">
-                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary dark:bg-blue-500/15 dark:text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
                       <Icon className="w-5 h-5" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-sm text-foreground group-hover:text-primary transition-colors">
+                      <h3 className="font-bold text-sm text-foreground group-hover:text-primary dark:group-hover:text-blue-400 transition-colors">
                         {item.title}
                       </h3>
                       <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">
@@ -118,7 +118,7 @@ export default function AdminDashboardPage() {
                       </p>
                     </div>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+                  <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary dark:group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all" />
                 </Link>
               </Card>
             );

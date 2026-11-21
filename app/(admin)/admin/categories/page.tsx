@@ -90,7 +90,7 @@ export default function AdminCategoriesPage() {
                     <tr key={category.id} className="hover:bg-muted/30 transition-colors">
                       <td className="p-4 pl-6">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-bold">
+                          <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary dark:bg-blue-500/15 dark:text-blue-400 flex items-center justify-center font-bold">
                             <Layers className="w-4 h-4" />
                           </div>
                           <div>

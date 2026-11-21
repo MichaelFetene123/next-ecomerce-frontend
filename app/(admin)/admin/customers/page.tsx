@@ -116,7 +116,7 @@ export default function AdminCustomersPage() {
                 <tr key={customer.id} className="hover:bg-muted/30 transition-colors">
                   <td className="p-4 pl-6">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs uppercase">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 text-primary dark:bg-blue-500/15 dark:text-blue-400 flex items-center justify-center font-bold text-xs uppercase">
                         {customer.name.slice(0, 2)}
                       </div>
                       <div>
