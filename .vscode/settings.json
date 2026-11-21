@@ -28,5 +28,10 @@
         "activityBarTop.activeBorder": "#15202b",
         "statusBar.inactiveBackground": "#007fff"
     },
-    "peacock.color": "#007fff"
+    "peacock.color": "#007fff",
+    "css.lint.unknownAtRules": "ignore",
+    "scss.lint.unknownAtRules": "ignore",
+    "files.associations": {
+        "*.css": "tailwindcss"
+    }
 }
