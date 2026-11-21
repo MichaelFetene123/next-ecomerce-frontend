@@ -104,7 +104,7 @@ export function AdminHeader({ onOpenMobileNav }: AdminHeaderProps) {
             className="flex items-center gap-2.5 p-1.5 rounded-xl hover:bg-muted/60 transition-colors cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring"
             aria-label="User profile menu"
           >
-            <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 text-primary flex items-center justify-center font-bold text-xs uppercase shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 text-primary dark:bg-blue-500/15 dark:border-blue-400/30 dark:text-blue-400 flex items-center justify-center font-bold text-xs uppercase shrink-0">
               {user?.name ? user.name.slice(0, 2) : <UserIcon className="w-4 h-4" />}
             </div>
             <div className="hidden md:flex flex-col text-left">
