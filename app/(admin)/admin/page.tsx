@@ -21,15 +21,13 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-8">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-border">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-            Dashboard Overview
-          </h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Real-time business performance, order processing, and catalog status.
-          </p>
-        </div>
+      <div>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+          Dashboard Overview
+        </h1>
+        <p className="text-sm text-muted-foreground mt-1">
+          Real-time business performance, order processing, and catalog status.
+        </p>
       </div>
 
       {/* Metrics Row */}
