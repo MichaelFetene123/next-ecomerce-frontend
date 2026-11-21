@@ -10,17 +10,14 @@ import {
 import { cn } from '@/lib/utils';
 import {
   Store,
-  ChevronLeft,
-  ChevronRight,
   Shield,
   ExternalLink,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
 interface AdminSidebarProps {
   isCollapsed: boolean;
-  onToggleCollapse: () => void;
+  onToggleCollapse?: () => void;
   className?: string;
 }
 
@@ -47,13 +44,19 @@ export function AdminSidebar({
       )}
     >
       {/* Brand Header */}
-      <div className="h-16 px-4 border-b border-sidebar-border flex items-center justify-between shrink-0">
+      <div
+        className={cn(
+          'h-16 border-b border-sidebar-border flex items-center shrink-0',
+          isCollapsed ? 'justify-center px-2' : 'px-4'
+        )}
+      >
         <Link
           href="/admin"
           className={cn(
-            'flex items-center gap-3 overflow-hidden group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring rounded-lg',
-            isCollapsed && 'justify-center w-full'
+            'flex items-center overflow-hidden group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring rounded-lg',
+            isCollapsed ? 'justify-center' : 'gap-3 min-w-0'
           )}
+          title="Admin Console"
         >
           <div className="w-9 h-9 rounded-xl bg-primary text-primary-foreground flex items-center justify-center font-bold shadow-xs shrink-0 group-hover:scale-105 transition-transform">
             <Shield className="w-5 h-5 text-secondary" />
@@ -128,7 +131,7 @@ export function AdminSidebar({
       </nav>
 
       {/* Footer / Utilities */}
-      <div className="p-3 border-t border-sidebar-border bg-sidebar-accent/30 space-y-2 shrink-0">
+      <div className="p-3 border-t border-sidebar-border bg-sidebar-accent/30 shrink-0">
         {/* Quick Link to Storefront */}
         <Link
           href="/"
@@ -148,25 +151,6 @@ export function AdminSidebar({
             </>
           )}
         </Link>
-
-        {/* Collapse Toggle Button */}
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={onToggleCollapse}
-          className={cn(
-            'w-full text-xs font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-xl flex items-center gap-2 justify-center h-9',
-            !isCollapsed && 'justify-between px-3'
-          )}
-          aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        >
-          {!isCollapsed && <span>Collapse Sidebar</span>}
-          {isCollapsed ? (
-            <ChevronRight className="w-4 h-4" />
-          ) : (
-            <ChevronLeft className="w-4 h-4" />
-          )}
-        </Button>
       </div>
     </aside>
   );

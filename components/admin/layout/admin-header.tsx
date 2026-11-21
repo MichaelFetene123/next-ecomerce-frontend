@@ -30,9 +30,15 @@ import { cn } from '@/lib/utils';
 
 interface AdminHeaderProps {
   onOpenMobileNav: () => void;
+  onToggleSidebar?: () => void;
+  isSidebarCollapsed?: boolean;
 }
 
-export function AdminHeader({ onOpenMobileNav }: AdminHeaderProps) {
+export function AdminHeader({
+  onOpenMobileNav,
+  onToggleSidebar,
+  isSidebarCollapsed = false,
+}: AdminHeaderProps) {
   const router = useRouter();
   const { data: user } = useUser();
   const { mutate: logout } = useLogout();
@@ -64,7 +70,11 @@ export function AdminHeader({ onOpenMobileNav }: AdminHeaderProps) {
           <Menu className="w-5 h-5" />
         </Button>
 
-        <AdminBreadcrumbs className="hidden sm:flex" />
+        <AdminBreadcrumbs
+          className="hidden sm:flex"
+          onToggleSidebar={onToggleSidebar}
+          isSidebarCollapsed={isSidebarCollapsed}
+        />
       </div>
 
       {/* Right: Actions & User Dropdown */}
