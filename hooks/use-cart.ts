@@ -19,7 +19,7 @@ interface CartStoreState {
   isHydrated: boolean;
 }
 
-const CART_STORAGE_KEY = 'storefront_cart_state_v1';
+const CART_STORAGE_KEY = 'wende_cosmetics_cart_v1';
 
 let state: CartStoreState = {
   items: [],
@@ -43,7 +43,7 @@ function initFromStorage() {
   if (isInitialized) return;
   isInitialized = true;
   try {
-    const saved = localStorage.getItem(CART_STORAGE_KEY);
+    const saved = localStorage.getItem(CART_STORAGE_KEY) || localStorage.getItem('storefront_cart_state_v1');
     if (saved) {
       const parsed = JSON.parse(saved);
       if (Array.isArray(parsed) && parsed.length > 0) {

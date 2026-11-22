@@ -4,8 +4,8 @@ import { Providers } from "@/components/providers";
 import { CartDrawer } from "@/components/cart/cart-drawer";
 
 export const metadata: Metadata = {
-  title: "Storefront - Next.js Ecommerce",
-  description: "Modern full-stack ecommerce application",
+  title: "Wende Cosmetics - Pure Botanical Beauty & Luxury Essentials",
+  description: "Curated luxury cosmetics, clean botanical skincare, signature perfumes, and nourishing essentials.",
 };
 
 export default function RootLayout({

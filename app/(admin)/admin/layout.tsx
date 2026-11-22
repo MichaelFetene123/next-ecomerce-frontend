@@ -5,8 +5,8 @@ import { AdminShell } from '@/components/admin/layout/admin-shell';
 import { AdminPageSkeleton } from '@/components/skeletons/admin/admin-page-skeleton';
 
 export const metadata: Metadata = {
-  title: 'Admin Dashboard | Storefront Management',
-  description: 'Administrative console for NextLaravel Ecommerce storefront.',
+  title: 'Admin Dashboard | Wende Cosmetics',
+  description: 'Administrative console for Wende Cosmetics inventory, orders, and catalog.',
 };
 
 export default function AdminLayout({

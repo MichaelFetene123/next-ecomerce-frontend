@@ -16,9 +16,9 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'About Us | Storefront Beauty & Essentials',
+  title: 'About Us | Wende Cosmetics - Luxury Beauty & Essentials',
   description:
-    'Discover the story behind Storefront. Clean botanical skincare, signature perfumes, cloud-comfort bras, and nourishing body care powered by seamless checkout.',
+    'Discover the story behind Wende Cosmetics. Clean botanical skincare, signature perfumes, cloud-comfort bras, and nourishing body care powered by seamless checkout.',
 };
 
 const TelegramIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
@@ -33,7 +33,7 @@ const TelegramIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
 );
 
 export default function AboutPage() {
-  const telegramUsername = process.env.NEXT_PUBLIC_TELEGRAM_USERNAME || 'StorefrontOfficial';
+  const telegramUsername = process.env.NEXT_PUBLIC_TELEGRAM_USERNAME || 'WendeCosmetics';
   const telegramUrl =
     process.env.NEXT_PUBLIC_TELEGRAM_URL ||
     `https://t.me/${telegramUsername.replace(/^@/, '')}`;
@@ -79,7 +79,7 @@ export default function AboutPage() {
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1600&auto=format&fit=crop&q=85"
-            alt="Storefront beauty atelier"
+            alt="Wende Cosmetics beauty atelier"
             className="w-full h-full object-cover object-center opacity-30 filter brightness-75 scale-105 transition-transform duration-1000"
           />
           <div className="absolute inset-0 bg-linear-to-r from-[#12071d] via-[#12071d]/85 to-[#12071d]/50" />
@@ -97,7 +97,7 @@ export default function AboutPage() {
           </h1>
 
           <p className="text-sm sm:text-base text-white/80 leading-relaxed max-w-2xl">
-            Storefront was founded on the belief that everyday beauty and intimate essentials should celebrate
+            Wende Cosmetics was founded on the belief that everyday beauty and intimate essentials should celebrate
             natural radiance and effortless comfort. We formulate clean skincare, bottle evocative personal
             perfumes, sculpt second-skin wirefree bras, and handcraft whipped body lotions for your daily rituals.
           </p>
@@ -127,7 +127,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 2. Key Pillars / Why Choose Storefront */}
+      {/* 2. Key Pillars / Why Choose Wende Cosmetics */}
       <section className="space-y-8">
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="text-xs font-bold tracking-widest uppercase text-primary">
@@ -174,7 +174,7 @@ export default function AboutPage() {
           <div className="space-y-4 text-xs sm:text-sm text-muted-foreground leading-relaxed">
             <p>
               Finding truly clean skincare, enduring fragrances, and genuinely supportive, wireless bras
-              often felt overwhelming. Storefront was conceived to curate an elevated sanctuary of beauty
+              often felt overwhelming. Wende Cosmetics was conceived to curate an elevated sanctuary of beauty
               and self-care essentials for modern women.
             </p>
             <p>

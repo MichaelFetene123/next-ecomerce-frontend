@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/footer';
 import { NotFoundView } from '@/components/layout/not-found-view';
 
 export const metadata: Metadata = {
-  title: '404 - Page Not Found | Storefront',
+  title: '404 - Page Not Found | Wende Cosmetics',
   description: 'The requested page could not be found. Return to Home or browse products.',
 };
 

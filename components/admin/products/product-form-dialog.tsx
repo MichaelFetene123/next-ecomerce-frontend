@@ -527,7 +527,7 @@ export function ProductFormDialog({
               <div>
                 <h4 className="text-xs font-semibold text-foreground">Media Assets</h4>
                 <p className="text-[11px] text-muted-foreground mt-0.5">
-                  Upload multiple product images. The first image serves as the main storefront thumbnail.
+                  Upload multiple product images. The first image serves as the main store catalog thumbnail.
                 </p>
               </div>
 

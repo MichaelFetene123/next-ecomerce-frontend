@@ -17,7 +17,7 @@ import { ArrowLeft, Search, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
-function StorefrontLandingContent() {
+function WendeLandingContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get('search');
@@ -115,10 +115,10 @@ function StorefrontLandingContent() {
   );
 }
 
-export default function StorefrontLandingPage() {
+export default function WendeLandingPage() {
   return (
     <Suspense fallback={<ProductGridSkeleton count={8} />}>
-      <StorefrontLandingContent />
+      <WendeLandingContent />
     </Suspense>
   );
 }

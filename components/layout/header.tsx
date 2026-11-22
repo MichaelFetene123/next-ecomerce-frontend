@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Search, ShoppingCart, User, Sun, Moon, Menu, Store, Lock } from 'lucide-react';
+import { Search, ShoppingCart, User, Sun, Moon, Menu, Sparkles, Lock } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useCartStore } from '@/hooks/use-cart';
 import { useUser, useLogout } from '@/hooks/use-auth';
@@ -103,9 +103,9 @@ export const CheckoutHeader = () => {
           className="flex items-center gap-2.5 font-bold text-xl tracking-tight text-white hover:opacity-90 transition-opacity"
         >
           <div className="w-7 h-7 rounded-md bg-white/10 flex items-center justify-center text-secondary border border-white/20">
-            <Store className="w-4 h-4" />
+            <Sparkles className="w-4 h-4" />
           </div>
-          <span>Storefront</span>
+          <span>Wende Cosmetics</span>
         </Link>
         <div className="flex items-center gap-4 text-white/80">
           <ThemeToggle />
@@ -151,8 +151,8 @@ export const Header: React.FC = () => {
                 <SheetContent side="left" className="w-72 sm:w-80 bg-background text-foreground">
                   <SheetHeader>
                     <SheetTitle className="text-left text-lg font-bold flex items-center gap-2">
-                      <Store className="w-5 h-5 text-primary" />
-                      <span>Storefront</span>
+                      <Sparkles className="w-5 h-5 text-secondary" />
+                      <span>Wende Cosmetics</span>
                     </SheetTitle>
                   </SheetHeader>
                   <div className="flex flex-col gap-4 mt-6">
@@ -206,15 +206,17 @@ export const Header: React.FC = () => {
               </Sheet>
             </div>
 
-            {/* Storefront Logo */}
+            {/* Wende Cosmetics Logo */}
             <Link
               href="/"
-              className="flex items-center gap-2 font-extrabold text-xl sm:text-2xl tracking-tight text-white hover:opacity-95 transition-opacity"
+              className="flex items-center gap-2.5 font-extrabold text-xl sm:text-2xl tracking-tight text-white hover:opacity-95 transition-opacity group"
             >
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/15 flex items-center justify-center text-secondary border border-white/20 shadow-xs">
-                <Store className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/15 flex items-center justify-center text-secondary border border-white/20 shadow-xs group-hover:scale-105 transition-transform">
+                <Sparkles className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </div>
-              <span>Storefront</span>
+              <span className="font-heading">
+                Wende <span className="font-light text-secondary">Cosmetics</span>
+              </span>
             </Link>
           </div>
 

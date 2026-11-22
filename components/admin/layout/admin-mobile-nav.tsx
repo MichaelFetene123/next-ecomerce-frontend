@@ -50,7 +50,7 @@ export function AdminMobileNav({ open, onOpenChange }: AdminMobileNavProps) {
                 Admin Console
               </SheetTitle>
               <span className="text-[11px] font-medium text-sidebar-foreground/60">
-                NextLaravel Ecommerce
+                Wende Cosmetics
               </span>
             </div>
           </div>
@@ -109,7 +109,7 @@ export function AdminMobileNav({ open, onOpenChange }: AdminMobileNavProps) {
           >
             <div className="flex items-center gap-2.5">
               <Store className="w-4 h-4 text-sidebar-foreground/60" />
-              <span>View Storefront</span>
+              <span>View Wende Cosmetics</span>
             </div>
             <ExternalLink className="w-3.5 h-3.5 opacity-60" />
           </Link>

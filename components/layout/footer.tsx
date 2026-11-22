@@ -3,7 +3,7 @@
 import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Store, ShieldCheck, Lock } from 'lucide-react';
+import { Sparkles, ShieldCheck, Lock } from 'lucide-react';
 
 const TelegramIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
   <svg
@@ -24,7 +24,7 @@ export const Footer: React.FC = () => {
   const pathname = usePathname();
 
   // You can set NEXT_PUBLIC_TELEGRAM_URL or NEXT_PUBLIC_TELEGRAM_USERNAME in .env
-  const telegramUsername = process.env.NEXT_PUBLIC_TELEGRAM_USERNAME || 'StorefrontOfficial';
+  const telegramUsername = process.env.NEXT_PUBLIC_TELEGRAM_USERNAME || 'WendeCosmetics';
   const telegramUrl =
     process.env.NEXT_PUBLIC_TELEGRAM_URL ||
     `https://t.me/${telegramUsername.replace(/^@/, '')}`;
@@ -33,7 +33,7 @@ export const Footer: React.FC = () => {
     return (
       <footer className="w-full py-6 bg-card border-t border-border mt-auto text-center">
         <div className="max-w-360 mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
-          <p>© <Suspense fallback={<span></span>}><CurrentYear /></Suspense> Storefront Inc. All rights reserved.</p>
+          <p>© <Suspense fallback={<span></span>}><CurrentYear /></Suspense> Wende Cosmetics Inc. All rights reserved.</p>
           <div className="flex items-center gap-1.5 text-xs font-medium">
             <Lock className="w-3.5 h-3.5 text-primary" />
             <span>256-Bit SSL Encrypted Checkout</span>
@@ -51,12 +51,14 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-6 space-y-4">
             <Link
               href="/"
-              className="flex items-center gap-2 font-extrabold text-xl sm:text-2xl tracking-tight text-white hover:opacity-90 transition-opacity"
+              className="flex items-center gap-2.5 font-extrabold text-xl sm:text-2xl tracking-tight text-white hover:opacity-90 transition-opacity group"
             >
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/15 flex items-center justify-center text-secondary border border-white/20">
-                <Store className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/15 flex items-center justify-center text-secondary border border-white/20 group-hover:scale-105 transition-transform">
+                <Sparkles className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
               </div>
-              <span>Storefront</span>
+              <span className="font-heading">
+                Wende <span className="font-light text-secondary">Cosmetics</span>
+              </span>
             </Link>
 
             <p className="text-xs sm:text-sm text-white/70 max-w-md leading-relaxed">
@@ -151,7 +153,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <Link href="/about" className="hover:text-white hover:underline transition-colors">
-                  About Storefront
+                  About Wende Cosmetics
                 </Link>
               </li>
             </ul>

@@ -48,7 +48,7 @@ export default function AppearancePage() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-foreground">Appearance</h1>
         <p className="text-base text-muted-foreground mt-1">
-          Customize how Storefront looks on your device. Choose between light, dark, or system preference.
+          Customize how Wende Cosmetics looks on your device. Choose between light, dark, or system preference.
         </p>
       </div>
 

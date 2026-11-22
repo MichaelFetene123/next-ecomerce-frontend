@@ -62,7 +62,7 @@ export function AdminGuard({ children, fallback }: AdminGuardProps) {
               onClick={() => router.push('/')}
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Storefront
+              Wende Cosmetics Store
             </Button>
             <Button
               variant="destructive"

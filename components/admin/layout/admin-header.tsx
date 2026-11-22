@@ -149,7 +149,7 @@ export function AdminHeader({
               className="flex items-center gap-2 text-xs py-2 cursor-pointer"
             >
               <Store className="w-3.5 h-3.5 text-muted-foreground" />
-              <span>Open Storefront</span>
+              <span>Open Wende Cosmetics</span>
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />

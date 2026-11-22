@@ -65,7 +65,7 @@ export default function AdminCategoriesPage() {
           </div>
           <h3 className="font-bold text-sm text-foreground">No categories defined</h3>
           <p className="text-xs text-muted-foreground max-w-sm mx-auto">
-            Create your first product category to organize your storefront.
+            Create your first product category to organize your store catalog.
           </p>
         </Card>
       ) : (

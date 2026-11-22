@@ -69,12 +69,12 @@ export default function AdminSettingsPage() {
             <CardContent className="p-6 pt-0 space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <Label htmlFor="store_name">Storefront Brand Name</Label>
-                  <Input id="store_name" defaultValue="Storefront Ecommerce" className="h-9 text-xs rounded-xl" />
+                  <Label htmlFor="store_name">Store Brand Name</Label>
+                  <Input id="store_name" defaultValue="Wende Cosmetics" className="h-9 text-xs rounded-xl" />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="support_email">Customer Support Email</Label>
-                  <Input id="support_email" defaultValue="support@nextlaravelecommerce.com" className="h-9 text-xs rounded-xl" />
+                  <Input id="support_email" defaultValue="support@wendecosmetics.com" className="h-9 text-xs rounded-xl" />
                 </div>
               </div>
 

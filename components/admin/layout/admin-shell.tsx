@@ -9,7 +9,7 @@ interface AdminShellProps {
   children: React.ReactNode;
 }
 
-const SIDEBAR_STORAGE_KEY = 'storefront_admin_sidebar_collapsed';
+const SIDEBAR_STORAGE_KEY = 'wende_admin_sidebar_collapsed';
 
 export function AdminShell({ children }: AdminShellProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);

@@ -53,9 +53,9 @@ export default function AccountLayout({
                 className="font-bold text-lg sm:text-xl tracking-tight text-primary-foreground flex items-center gap-2 hover:opacity-90 transition-opacity shrink-0"
               >
                 <span className="w-8 h-8 rounded-lg bg-secondary text-secondary-foreground flex items-center justify-center font-black text-base shrink-0 shadow-xs">
-                  S
+                  W
                 </span>
-                Storefront
+                Wende Cosmetics
               </Link>
               <Separator orientation="vertical" className="hidden sm:block h-4 bg-primary-foreground/20 center" />
               <span className="hidden sm:inline-block text-base font-medium text-primary-foreground/85 tracking-wide truncate">

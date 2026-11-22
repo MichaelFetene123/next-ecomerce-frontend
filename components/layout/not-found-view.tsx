@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Home, Store } from 'lucide-react';
+import { Home, Sparkles } from 'lucide-react';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -16,7 +16,7 @@ export function NotFoundView() {
           <div className="absolute -bottom-6 -left-6 w-28 h-28 bg-primary/20 rounded-full blur-2xl pointer-events-none" />
 
           <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-inner mb-4">
-            <Store className="w-8 h-8 sm:w-10 sm:h-10" />
+            <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 text-secondary" />
           </div>
 
           <div className="font-extrabold text-7xl sm:text-8xl md:text-9xl tracking-tighter text-primary leading-none select-none">
