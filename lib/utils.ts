@@ -37,9 +37,13 @@ export function getImageUrl(path: string | undefined): string {
   if (path.startsWith('http://') || path.startsWith('https://')) return path;
   if (path.startsWith('/placeholder') || path === 'placeholder-product.jpg') return '/placeholder-product.jpg';
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-  const storagePath = cleanPath.startsWith('storage/') ? cleanPath : `storage/${cleanPath}`;
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-  return `${apiUrl}/${storagePath}`;
+
+  if (cleanPath.startsWith('uploads/') || cleanPath.startsWith('storage/')) {
+    return `${apiUrl}/${cleanPath}`;
+  }
+
+  return `${apiUrl}/uploads/${cleanPath}`;
 }
 
 export function slugify(text: string): string {
