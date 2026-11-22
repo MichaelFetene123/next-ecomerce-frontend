@@ -6,6 +6,7 @@ import { Product, Category, CreateProductInput, UpdateProductInput } from '@/typ
 import { useCategories } from '@/hooks/use-categories';
 import { useCreateProduct, useUpdateProduct } from '@/hooks/admin/products';
 import { ImageManager } from './image-manager';
+import { slugify } from '@/lib/utils';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -83,10 +84,7 @@ export function ProductForm({ initialProduct, mode = 'create' }: ProductFormProp
   const handleTitleChange = (val: string) => {
     setTitle(val);
     if (mode === 'create') {
-      const generatedSlug = val
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)+/g, '');
+      const generatedSlug = slugify(val);
       setSlug(generatedSlug);
 
       if (!sku) {
@@ -125,9 +123,10 @@ export function ProductForm({ initialProduct, mode = 'create' }: ProductFormProp
     }
 
     if (mode === 'create') {
+      const generatedSlug = slug.trim() || slugify(title);
       const payload: CreateProductInput = {
         title: title.trim(),
-        slug: slug.trim() || undefined,
+        slug: generatedSlug || undefined,
         category_id: Number(categoryId),
         description: description.trim() || undefined,
         is_active: isActive,
@@ -282,21 +281,13 @@ export function ProductForm({ initialProduct, mode = 'create' }: ProductFormProp
               </div>
 
               <div className="space-y-1.5">
-                <Label htmlFor="slug" className="text-xs font-semibold">
-                  URL Slug
+                <Label className="text-xs font-semibold">
+                  Storefront URL
                 </Label>
-                <div className="relative">
-                  <Input
-                    id="slug"
-                    value={slug}
-                    onChange={(e) => setSlug(e.target.value)}
-                    placeholder="e.g. macbook-pro-16-m3-max"
-                    className="font-mono text-xs"
-                  />
+                <div className="px-3 py-2 rounded-lg border border-border bg-muted/20 text-xs font-mono text-muted-foreground flex items-center justify-between">
+                  <span>/products/{slug || slugify(title) || 'product-slug'}</span>
+                  <span className="text-[10px] uppercase font-sans tracking-wider text-muted-foreground/80 font-medium">Auto-generated</span>
                 </div>
-                <p className="text-[11px] text-muted-foreground">
-                  The URL identifier for the product: /products/{slug || 'product-slug'}
-                </p>
               </div>
 
               <div className="space-y-1.5">

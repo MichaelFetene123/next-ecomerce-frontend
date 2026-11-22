@@ -23,6 +23,7 @@ import {
   useAdminAttributes,
 } from '@/hooks/admin/products';
 import { ImageManager } from './image-manager';
+import { slugify } from '@/lib/utils';
 import {
   Package,
   DollarSign,
@@ -144,10 +145,7 @@ export function ProductFormDialog({
   const handleTitleChange = (val: string) => {
     setTitle(val);
     if (mode === 'create') {
-      const generatedSlug = val
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)+/g, '');
+      const generatedSlug = slugify(val);
       setSlug(generatedSlug);
 
       if (!sku) {
@@ -192,9 +190,10 @@ export function ProductFormDialog({
     }
 
     if (mode === 'create') {
+      const generatedSlug = slug.trim() || slugify(title);
       const payload: CreateProductInput = {
         title: title.trim(),
-        slug: slug.trim() || undefined,
+        slug: generatedSlug || undefined,
         category_id: Number(categoryId),
         description: description.trim() || undefined,
         is_active: isActive,
@@ -356,22 +355,6 @@ export function ProductFormDialog({
                     </p>
                   )}
                 </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <Label htmlFor="dialog_slug" className="text-xs font-semibold">
-                  URL Slug
-                </Label>
-                <Input
-                  id="dialog_slug"
-                  value={slug}
-                  onChange={(e) => setSlug(e.target.value)}
-                  placeholder="e.g. macbook-pro-16-m3-max"
-                  className="h-9 text-xs font-mono"
-                />
-                <p className="text-[11px] text-muted-foreground">
-                  Storefront URL: /products/{slug || 'product-slug'}
-                </p>
               </div>
 
               <div className="space-y-1.5">
