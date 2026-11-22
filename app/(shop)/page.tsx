@@ -13,7 +13,7 @@ import { useCartStore } from '@/hooks/use-cart';
 import { ProductCard } from '@/components/catalog/product-card';
 import { ProductGridSkeleton } from '@/components/skeletons/product-grid-skeleton';
 import { Product } from '@/types/catalog';
-import { ArrowLeft, Search } from 'lucide-react';
+import { ArrowLeft, Search, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
@@ -37,7 +37,7 @@ function StorefrontLandingContent() {
   const handleQuickAdd = (product: Product, e: React.MouseEvent) => {
     e.stopPropagation();
     addItem(product, { quantity: 1 });
-    toast.success(`Added "${product.title}" to Cart`);
+    toast.success(`Added "${product.title}" to Bag`);
   };
 
   // If a search is active in the URL, display dedicated search results view
@@ -54,7 +54,7 @@ function StorefrontLandingContent() {
               &ldquo;{searchQuery}&rdquo;
             </h1>
             <p className="text-xs sm:text-sm text-muted-foreground">
-              {searchResults.length} {searchResults.length === 1 ? 'product' : 'products'} found
+              {searchResults.length} {searchResults.length === 1 ? 'essential' : 'essentials'} found
             </p>
           </div>
 
@@ -86,15 +86,15 @@ function StorefrontLandingContent() {
           ) : (
             <div className="py-20 text-center space-y-4 bg-card rounded-xl border border-dashed border-border p-8">
               <Search className="w-12 h-12 text-muted-foreground/40 mx-auto" />
-              <h3 className="text-lg font-bold text-foreground">No matches found</h3>
+              <h3 className="text-lg font-bold text-foreground">No beauty essentials found</h3>
               <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                We couldn&apos;t find any garments or essentials matching &ldquo;{searchQuery}&rdquo;. Try checking the spelling or exploring our curated departments.
+                We couldn&apos;t find any beauty, perfume, or intimate essentials matching &ldquo;{searchQuery}&rdquo;. Try checking the spelling or exploring our skincare and fragrance departments.
               </p>
               <Button
                 onClick={() => router.push('/')}
                 className="text-xs font-bold px-6"
               >
-                Explore Full Catalog
+                Explore Beauty Catalog
               </Button>
             </div>
           )}
@@ -103,33 +103,21 @@ function StorefrontLandingContent() {
     );
   }
 
-  // Primary Landing Page Experience matching the reference design exactly
   return (
-    <div className="w-full max-w-360 mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7 space-y-12 sm:space-y-16 lg:space-y-20">
-      {/* 1. Hero Section */}
+    <div className="w-full space-y-16 sm:space-y-20 lg:space-y-24 pb-12">
       <HeroSection />
-
-      {/* 2. Four Service Value Badges */}
       <FeaturesBar />
-
-      {/* 3. Curated Wardrobe Departments (Collections 2025) */}
       <DepartmentsSection />
-
-      {/* 4. Curated Catalog (Best Outfit For Your Happiness) */}
       <CuratedCatalogSection />
-
-      {/* 5. Film Lookbook Motion Story Banner */}
       <LookbookBanner />
-
-      {/* 6. Client Voices / Verified Reviews */}
       <TestimonialsSection />
     </div>
   );
 }
 
-export default function ShopHomepage() {
+export default function StorefrontLandingPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen" />}>
+    <Suspense fallback={<ProductGridSkeleton count={8} />}>
       <StorefrontLandingContent />
     </Suspense>
   );

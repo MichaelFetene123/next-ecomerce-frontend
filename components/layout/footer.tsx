@@ -60,7 +60,7 @@ export const Footer: React.FC = () => {
             </Link>
 
             <p className="text-xs sm:text-sm text-white/70 max-w-md leading-relaxed">
-              Curated marketplace offering verified goods, premium textiles, and everyday essentials with seamless digital checkout.
+              Curated luxury beauty, radiant botanical skincare, signature perfumes, and women&apos;s intimate essentials with seamless digital checkout.
             </p>
 
             <div className="flex flex-wrap items-center gap-2.5 pt-1">
@@ -92,27 +92,27 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5 text-xs text-white/75 font-medium">
               <li>
                 <Link href="/products" className="hover:text-white hover:underline transition-colors">
-                  All Products
+                  All Beauty Essentials
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=fashion" className="hover:text-white hover:underline transition-colors">
-                  Fashion & Apparel
+                <Link href="/products?category=skincare-cosmetics" className="hover:text-white hover:underline transition-colors">
+                  Skincare & Cosmetics
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=electronics" className="hover:text-white hover:underline transition-colors">
-                  Electronics & Devices
+                <Link href="/products?category=perfumes-fragrances" className="hover:text-white hover:underline transition-colors">
+                  Perfumes & Fragrances
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=home" className="hover:text-white hover:underline transition-colors">
-                  Home & Living
+                <Link href="/products?category=bras-intimates" className="hover:text-white hover:underline transition-colors">
+                  Bras & Intimates
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=sports" className="hover:text-white hover:underline transition-colors">
-                  Sports & Outdoors
+                <Link href="/products?category=body-care" className="hover:text-white hover:underline transition-colors">
+                  Body Care & Lotions
                 </Link>
               </li>
             </ul>

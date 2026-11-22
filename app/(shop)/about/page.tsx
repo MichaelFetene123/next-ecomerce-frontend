@@ -16,9 +16,9 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'About Us | Storefront',
+  title: 'About Us | Storefront Beauty & Essentials',
   description:
-    'Discover the story behind Storefront. Modern commerce, verified quality, and seamless secure checkout powered by Chapa.',
+    'Discover the story behind Storefront. Clean botanical skincare, signature perfumes, cloud-comfort bras, and nourishing body care powered by seamless checkout.',
 };
 
 const TelegramIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
@@ -41,9 +41,9 @@ export default function AboutPage() {
   const values = [
     {
       icon: <Sparkles className="w-5 h-5 text-secondary" />,
-      title: 'Curated Excellence',
+      title: 'Botanical Purity',
       description:
-        'Every item in our catalog undergoes rigorous inspection for material integrity, craftsmanship, and enduring aesthetic appeal.',
+        'Every skincare and body formula is dermatologist-tested, utilizing ethically sourced cold-pressed botanicals and clean ingredients.',
     },
     {
       icon: <Lock className="w-5 h-5 text-secondary" />,
@@ -53,53 +53,53 @@ export default function AboutPage() {
     },
     {
       icon: <Truck className="w-5 h-5 text-secondary" />,
-      title: 'Reliable Fulfillment',
+      title: 'Climate-Protected Dispatch',
       description:
-        'From our regional distribution centers straight to your doorstep, enjoy real-time tracking and dedicated dispatch care.',
+        'From our temperature-regulated beauty facilities straight to your doorstep, enjoy real-time tracking and delicate package care.',
     },
     {
       icon: <HeartHandshake className="w-5 h-5 text-secondary" />,
-      title: 'Customer-Centric Care',
+      title: 'Women-Centric Care',
       description:
-        'Our support team is always available to assist with inquiries, sizing guidance, and guaranteed post-purchase satisfaction.',
+        'Our beauty concierges are always available to assist with skincare analysis, fragrance pairing, and discreet bra fit consultations.',
     },
   ];
 
   const stats = [
-    { label: 'Active Customers', value: '15,000+' },
-    { label: 'Verified Products', value: '1,200+' },
-    { label: 'On-Time Delivery Rate', value: '99.4%' },
-    { label: 'Customer Satisfaction', value: '4.9 / 5' },
+    { label: 'Happy Women Served', value: '25,000+' },
+    { label: 'Clean Beauty Formulations', value: '250+' },
+    { label: 'Same-Day Dispatch Rate', value: '99.2%' },
+    { label: 'Customer Love Rating', value: '4.9 / 5' },
   ];
 
   return (
     <div className="w-full space-y-16 sm:space-y-20 pb-16">
       {/* 1. Hero Banner */}
-      <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-primary text-primary-foreground shadow-2xl">
+      <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-[#12071d] text-white shadow-2xl">
         <div className="absolute inset-0">
           <img
-            src="/images/landing/lookbook-artisans.jpg"
-            alt="Storefront craftsmanship"
-            className="w-full h-full object-cover object-center opacity-25 filter brightness-75 scale-105 transition-transform duration-1000"
+            src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1600&auto=format&fit=crop&q=85"
+            alt="Storefront beauty atelier"
+            className="w-full h-full object-cover object-center opacity-30 filter brightness-75 scale-105 transition-transform duration-1000"
           />
-          <div className="absolute inset-0 bg-linear-to-r from-primary via-primary/85 to-primary/50" />
+          <div className="absolute inset-0 bg-linear-to-r from-[#12071d] via-[#12071d]/85 to-[#12071d]/50" />
         </div>
 
         <div className="relative z-10 max-w-3xl px-6 py-16 sm:px-12 sm:py-24 space-y-6">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-xs font-bold tracking-wider uppercase text-secondary border border-white/15">
-            <Store className="w-3.5 h-3.5" />
+            <Sparkles className="w-3.5 h-3.5" />
             <span>Our Heritage & Purpose</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
-            Crafted With Care. <br className="hidden sm:inline" />
-            <span className="text-secondary">Delivered With Integrity.</span>
+            Formulated With Love. <br className="hidden sm:inline" />
+            <span className="text-secondary">Dedicated To Every Woman.</span>
           </h1>
 
           <p className="text-sm sm:text-base text-white/80 leading-relaxed max-w-2xl">
-            Storefront bridges modern contemporary design with state-of-the-art e-commerce.
-            We bring you authentic garments, precision electronics, and everyday home essentials
-            backed by seamless payment technologies and genuine artisan care.
+            Storefront was founded on the belief that everyday beauty and intimate essentials should celebrate
+            natural radiance and effortless comfort. We formulate clean skincare, bottle evocative personal
+            perfumes, sculpt second-skin wirefree bras, and handcraft whipped body lotions for your daily rituals.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -110,7 +110,7 @@ export default function AboutPage() {
                 'inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-md active:scale-95'
               )}
             >
-              Explore Collection
+              Explore Beauty Catalog
               <ArrowRight className="w-4 h-4" />
             </Link>
 
@@ -121,7 +121,7 @@ export default function AboutPage() {
               className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-xs sm:text-sm border border-white/20 transition-all group"
             >
               <TelegramIcon className="w-4 h-4 text-[#229ED9] group-hover:scale-110 transition-transform" />
-              <span>Join Our Community</span>
+              <span>Join The Beauty Circle</span>
             </a>
           </div>
         </div>
@@ -131,13 +131,13 @@ export default function AboutPage() {
       <section className="space-y-8">
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="text-xs font-bold tracking-widest uppercase text-primary">
-            Core Commitments
+            Our Core Promises
           </span>
           <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-foreground">
-            Built On Transparency & Quality
+            Clean Formulations & Uncompromised Quality
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground">
-            We hold ourselves to elevated standards so you can shop with unwavering confidence.
+            We hold every skincare cream, eau de parfum, and intimate bra to the highest standard of craftsmanship.
           </p>
         </div>
 
@@ -168,29 +168,28 @@ export default function AboutPage() {
           </div>
 
           <h2 className="text-2xl sm:text-4xl font-extrabold text-foreground tracking-tight leading-tight">
-            Elevating Commerce in East Africa and Beyond
+            Elevating Personal Care & Women&apos;s Essentials
           </h2>
 
           <div className="space-y-4 text-xs sm:text-sm text-muted-foreground leading-relaxed">
             <p>
-              Storefront began with a simple observation: modern consumers deserve an effortless,
-              transparent shopping experience with verified catalog quality, reliable domestic deliveries,
-              and frictionless checkout using local payment channels.
+              Finding truly clean skincare, enduring fragrances, and genuinely supportive, wireless bras
+              often felt overwhelming. Storefront was conceived to curate an elevated sanctuary of beauty
+              and self-care essentials for modern women.
             </p>
             <p>
-              By fusing modern digital infrastructure with trusted regional supply networks,
-              we eliminate the guesswork from online purchases. Whether you are acquiring timeless
-              cashmere apparel, precision technology for work, or thoughtfully designed home goods,
-              each order is handled with the care it deserves.
+              By combining dermatological science, artisanal perfume blending, and ergonomic intimate tailoring,
+              we ensure that each product nurtures your body, skin, and spirit. From your morning glow routine to
+              evening rest, we are honored to be part of your personal care journey.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
             {[
-              'Direct partnerships with ethical creators',
-              'Instant Chapa payment confirmation',
-              'Real-time automated status updates',
-              'Hassle-free guarantee on all items',
+              '100% cruelty-free & clean botanical ingredients',
+              'Second-skin wirefree bra fit guarantee',
+              'Artisanal long-lasting fragrance concentrates',
+              'Frictionless checkout with Telebirr & Chapa',
             ].map((bullet, idx) => (
               <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm font-medium text-foreground">
                 <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
@@ -201,78 +200,29 @@ export default function AboutPage() {
         </div>
 
         <div className="lg:col-span-5 relative">
-          <div className="relative rounded-2xl overflow-hidden shadow-xl aspect-4/5">
+          <div className="relative aspect-4/5 w-full rounded-2xl overflow-hidden shadow-2xl border border-border">
             <img
-              src="/images/landing/dept-formal-woman.jpg"
-              alt="Storefront collection"
-              className="w-full h-full object-cover object-center"
+              src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=1000&auto=format&fit=crop&q=85"
+              alt="Botanical skincare and beauty essentials"
+              className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
-              <span className="text-[11px] font-bold uppercase tracking-widest text-secondary">
-                Quality Guaranteed
-              </span>
-              <p className="text-sm font-semibold">
-                Designed for those who appreciate refined craftsmanship.
-              </p>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* 4. Stats Banner */}
-      <section className="rounded-2xl sm:rounded-3xl bg-primary text-primary-foreground p-8 sm:p-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-white/10">
+      {/* 4. Statistics */}
+      <section className="bg-muted/40 border border-border/60 rounded-3xl p-8 sm:p-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-center">
           {stats.map((s, idx) => (
-            <div key={idx} className="pt-4 sm:pt-0 sm:px-4 space-y-1.5">
-              <div className="text-2xl sm:text-4xl font-extrabold text-secondary tracking-tight">
+            <div key={idx} className="space-y-1 sm:space-y-2">
+              <div className="text-3xl sm:text-5xl font-extrabold tracking-tight text-foreground">
                 {s.value}
               </div>
-              <div className="text-xs sm:text-sm font-medium text-white/75">
+              <div className="text-xs sm:text-sm font-medium text-muted-foreground">
                 {s.label}
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* 5. Bottom Call to Action */}
-      <section className="text-center bg-card border border-border/80 rounded-3xl p-8 sm:p-14 space-y-6 max-w-3xl mx-auto shadow-sm">
-        <div className="w-14 h-14 rounded-2xl bg-primary text-secondary flex items-center justify-center mx-auto shadow-md">
-          <Store className="w-7 h-7" />
-        </div>
-
-        <div className="space-y-2">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
-            Discover the Difference Today
-          </h2>
-          <p className="text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
-            Browse our catalog or connect with our community on Telegram to stay informed
-            on exclusive releases and new arrivals.
-          </p>
-        </div>
-
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <Link
-            href="/products"
-            className={cn(
-              buttonVariants({ variant: 'default' }),
-              'inline-flex items-center gap-2 font-bold text-xs sm:text-sm px-6 h-11 rounded-xl shadow-xs transition-colors'
-            )}
-          >
-            <span>Browse All Products</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-
-          <a
-            href={telegramUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 border border-border bg-card hover:bg-muted text-foreground font-semibold text-xs sm:text-sm px-5 h-11 rounded-xl transition-colors"
-          >
-            <TelegramIcon className="w-4 h-4 text-[#229ED9]" />
-            <span>Join Telegram</span>
-          </a>
         </div>
       </section>
     </div>

@@ -50,7 +50,7 @@ const SearchForm = ({
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        placeholder="Search products, categories..."
+        placeholder="Search skincare, perfumes, bras, body care..."
         className={inputClassName}
       />
     </form>

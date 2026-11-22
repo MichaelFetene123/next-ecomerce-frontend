@@ -3,7 +3,7 @@
 import React, { Suspense, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { buttonVariants } from '@/components/ui/button';
 import { useCartStore } from '@/hooks/use-cart';
 import { useProducts } from '@/hooks/use-products';
@@ -87,11 +87,12 @@ export const CuratedCatalogSection: React.FC = () => {
     <section id="curated-catalog" className="w-full scroll-mt-24 space-y-6 sm:space-y-8">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div className="space-y-1">
-          <span className="text-[11px] font-bold tracking-[0.2em] text-muted-foreground uppercase">
-            Curated Catalog
+          <span className="text-[11px] font-bold tracking-[0.2em] text-muted-foreground uppercase flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-secondary" />
+            Curated Beauty & Self-Care
           </span>
           <h2 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
-            BEST OUTFIT FOR YOUR HAPPINESS
+            LUMINOUS ESSENTIALS FOR EVERY WOMAN
           </h2>
         </div>
 
@@ -102,7 +103,7 @@ export const CuratedCatalogSection: React.FC = () => {
             'h-auto self-start rounded-lg px-5 py-2.5 text-xs font-bold tracking-wider uppercase shadow-xs hover:shadow-md sm:self-auto'
           )}
         >
-          See More
+          Explore All Beauty
           <ArrowRight className="size-3.5" />
         </Link>
       </div>

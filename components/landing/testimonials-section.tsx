@@ -9,37 +9,37 @@ const TESTIMONIALS = [
     rating: 5,
     date: '15 Nov 2024',
     quote:
-      '"The linen blazers are impeccably structured. Paid via Telebirr in two seconds and received the package in Bole within four hours."',
+      '"The Radiance Vitamin C Serum transformed my skin barrier within two weeks. Lightweight, glowing, and never sticky. Paid in seconds with Telebirr and received it in Bole the same afternoon."',
     initials: 'SB',
     name: 'Selamawit Bekele',
-    title: 'Commercial Banker, Addis',
+    title: 'Skincare Enthusiast, Addis',
   },
   {
     rating: 5,
     date: '22 Nov 2024',
     quote:
-      '"Finding well-cut formal wear for board meetings used to require trips abroad. Storefront\'s finishing and wool quality is world class."',
-    initials: 'DW',
-    name: 'Dawit Wolde',
-    title: 'Managing Director, FinTech',
+      '"The Velvet Rose Eau de Parfum has the most captivating, lingering sillage. I get compliments everywhere I go. True niche luxury fragrance without needing to buy abroad."',
+    initials: 'HA',
+    name: 'Helen Assefa',
+    title: 'Creative Director',
   },
   {
     rating: 5,
     date: '03 Dec 2024',
     quote:
-      '"Chapa checkout was instant and transparent. The silk jumpsuit fits like bespoke couture. Can\'t wait for the upcoming summer drop."',
-    initials: 'HA',
-    name: 'Helen Assefa',
-    title: 'Architect & Consultant',
+      '"Finding wireless bras that provide both genuine lift and cloud-soft comfort was impossible until now. The Seamless Cloud Bra feels like second skin under silk blouses."',
+    initials: 'MT',
+    name: 'Meron Tadesse',
+    title: 'Architect & Designer',
   },
   {
     rating: 5,
     date: '10 Jan 2025',
     quote:
-      '"Fastest corporate delivery in Hawassa. The sizing charts are genuinely accurate and customer support is exceptionally polite."',
-    initials: 'MT',
-    name: 'Michael Tesfaye',
-    title: 'Operations Lead',
+      '"The Whipped Shea Body Butter is pure decadence. Keeps my skin deeply hydrated all day in dry weather. Packaging is immaculate and customer care is exceptionally polite."',
+    initials: 'BH',
+    name: 'Dr. Bethlehem Haile',
+    title: 'Physician',
   },
 ];
 
@@ -51,11 +51,10 @@ export const TestimonialsSection: React.FC = () => {
           Client Voices
         </span>
         <h2 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
-          TRUSTED BY COMMERCE LEADERS
+          LOVED BY WOMEN EVERYWHERE
         </h2>
         <p className="text-xs leading-relaxed text-muted-foreground sm:text-sm">
-          Over 15,000 verified Ethiopian and pan-African professionals depend on Storefront for
-          reliable daily dressing.
+          Over 25,000 women depend on our clean botanical formulations, evocative perfumes, and cloud-soft intimate bras for their daily confidence.
         </p>
       </div>
 

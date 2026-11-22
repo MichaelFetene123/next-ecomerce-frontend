@@ -2,48 +2,45 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Play, X } from 'lucide-react';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Play, X, Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { cn } from '@/lib/utils';
 
 export const LookbookBanner: React.FC = () => {
   return (
     <Dialog>
       <section
         id="film-lookbook"
-        className="group relative w-full overflow-hidden rounded-xl border border-white/10 bg-[#03132e] text-white shadow-2xl sm:rounded-2xl"
+        className="group relative w-full overflow-hidden rounded-xl border border-white/10 bg-[#12071d] text-white shadow-2xl sm:rounded-2xl"
       >
         <div className="absolute inset-0 h-full w-full">
           <img
-            src="/images/landing/lookbook-artisans.jpg"
-            alt="The Anatomy of Motion & Elegance - Artisanal Tailoring in Addis Ababa"
-            className="h-full w-full object-cover object-center brightness-[0.92] transition-transform duration-1000 ease-out group-hover:scale-[1.015]"
+            src="https://images.unsplash.com/photo-1512290900672-1f41b3734a66?w=1400&auto=format&fit=crop&q=85"
+            alt="Artisanal Skincare & Fragrance Alchemy Laboratory"
+            className="h-full w-full object-cover object-center brightness-[0.78] transition-transform duration-1000 ease-out group-hover:scale-[1.015]"
           />
-          <div className="absolute inset-0 bg-[#051838]/35" />
-          <div className="absolute inset-0 bg-radial-at-c from-transparent via-black/15 to-black/45" />
+          <div className="absolute inset-0 bg-[#0d0315]/50" />
+          <div className="absolute inset-0 bg-radial-at-c from-transparent via-black/20 to-black/55" />
         </div>
 
         <div className="relative z-10 flex min-h-95 w-full flex-col items-center justify-between px-6 py-12 text-center sm:min-h-110 sm:px-12 sm:py-16">
           <div className="pointer-events-auto absolute bottom-8 left-8 hidden flex-col items-start text-left text-white/60 lg:flex">
             <span className="text-[11px] font-semibold tracking-widest text-white/70 uppercase">
-              Model Wardrobe
+              Beauty Rituals
             </span>
-            <span className="text-sm font-bold text-white/90">New Arrivals Edition</span>
+            <span className="text-sm font-bold text-white/90">Skin & Sillage Edition</span>
             <Link
-              href="/products"
+              href="/products?category=perfumes-fragrances"
               className="mt-1 text-[11px] font-bold text-secondary hover:underline"
             >
-              Shop Now →
+              Explore Scents →
             </Link>
           </div>
 
@@ -56,7 +53,7 @@ export const LookbookBanner: React.FC = () => {
                   <Button
                     type="button"
                     size="icon"
-                    aria-label="Play lookbook film"
+                    aria-label="Play beauty film"
                     className="relative size-16 cursor-pointer rounded-full bg-secondary text-secondary-foreground shadow-2xl transition-all duration-300 ease-out hover:scale-105 hover:bg-secondary/90 sm:size-20"
                   />
                 }
@@ -68,25 +65,25 @@ export const LookbookBanner: React.FC = () => {
 
             <div className="space-y-2">
               <span className="inline-block text-[10px] font-bold tracking-[0.25em] text-secondary uppercase drop-shadow-xs sm:text-[11px]">
-                Film Lookbook • 2025 Motion Study
+                Beauty Film • The Alchemy of Glow
               </span>
               <h2 className="text-2xl leading-tight font-extrabold tracking-tight text-white drop-shadow-md sm:text-3xl md:text-4xl">
-                THE ANATOMY OF MOTION & ELEGANCE
+                THE ANATOMY OF RADIANCE & BOTANICAL CARE
               </h2>
             </div>
 
             <p className="mx-auto max-w-lg text-xs leading-relaxed font-normal text-white/95 drop-shadow-xs sm:text-sm">
-              Watch our artisans in Addis Ababa combine timeless tailoring traditions with
-              high-performance modern textiles.
+              Discover how our cosmetic chemists and artisanal perfumers harmonise rare African botanicals,
+              pure essential oils, and featherlight sculpting fabrics for your everyday rituals.
             </p>
           </div>
 
           <div className="flex items-center gap-3 pt-4 text-[10px] font-semibold tracking-wider text-white/70 uppercase drop-shadow-xs sm:text-[11px]">
-            <span>Directorial Cut</span>
+            <span>Clean Formulations</span>
             <span className="size-1 rounded-full bg-white/40" />
-            <span>4K Cinema Sound</span>
+            <span>4K Cinema Audio</span>
             <span className="size-1 rounded-full bg-white/40" />
-            <span>Addis Ababa Studios</span>
+            <span>Botanical Beauty Atelier</span>
           </div>
         </div>
       </section>
@@ -97,9 +94,10 @@ export const LookbookBanner: React.FC = () => {
       >
         <DialogHeader className="flex-row items-center justify-between border-b border-white/10 p-4 sm:p-6">
           <div className="flex items-center gap-2">
-            <span className="size-2 rounded-full bg-red-500 animate-pulse" />
-            <DialogTitle className="text-sm font-bold tracking-tight text-white sm:text-base">
-              The Anatomy of Motion & Elegance (Motion Story)
+            <span className="size-2 rounded-full bg-amber-400 animate-pulse" />
+            <DialogTitle className="text-sm font-bold tracking-tight text-white sm:text-base flex items-center gap-1.5">
+              <Sparkles className="w-4 h-4 text-secondary" />
+              The Alchemy of Glow (Botanical Formulation Story)
             </DialogTitle>
           </div>
           <DialogClose
@@ -118,58 +116,24 @@ export const LookbookBanner: React.FC = () => {
 
         <div className="relative flex aspect-video w-full items-center justify-center overflow-hidden bg-black">
           <img
-            src="/images/landing/lookbook-artisans.jpg"
-            alt="Cinema preview"
-            className="h-full w-full scale-102 object-cover brightness-90"
+            src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?w=1200&auto=format&fit=crop&q=85"
+            alt="Botanical Ingredients and Essential Oils preview"
+            className="h-full w-full object-cover brightness-75"
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4 bg-radial-at-c from-transparent to-black/60 p-6 text-center">
-            <div className="flex size-16 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-xl">
-              <Play className="ml-0.5 size-6 fill-current" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/45 p-6 text-center">
+            <div className="max-w-md space-y-2">
+              <span className="text-[11px] font-bold tracking-widest text-secondary uppercase">
+                Now Screening
+              </span>
+              <h3 className="text-lg font-bold text-white sm:text-xl">
+                Pure Botanicals, Delicate Silks & Eternal Sillage
+              </h3>
+              <p className="text-xs text-white/80">
+                Ethically harvested cold-pressed oils, gentle wirefree support structures, and artisanal perfume concentrates.
+              </p>
             </div>
-            <DialogDescription className="max-w-md space-y-1 text-center">
-              <span className="block text-sm font-bold text-white">
-                Autumn/Winter Capsule Documentary
-              </span>
-              <span className="block text-xs text-white/70">
-                Filmed in the historic quarters of Addis Ababa, capturing master tailors shaping
-                pure Ethiopian linen and Mulberry silk.
-              </span>
-            </DialogDescription>
           </div>
         </div>
-
-        <DialogFooter className="flex-col items-center justify-between gap-4 bg-slate-900/80 p-4 sm:flex-row sm:p-6">
-          <p className="text-xs text-white/70">
-            Run time: 02:45 • Directed by Storefront Atelier
-          </p>
-          <div className="flex items-center gap-3">
-            <DialogClose
-              nativeButton={false}
-              render={
-                <Link
-                  href="/products"
-                  className={cn(
-                    buttonVariants({ variant: 'secondary' }),
-                    'h-auto rounded-lg px-5 py-2.5 text-xs font-bold tracking-wider uppercase'
-                  )}
-                />
-              }
-            >
-              Shop Featured Looks
-            </DialogClose>
-            <DialogClose
-              render={
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-xs text-white hover:bg-white/10 hover:text-white"
-                />
-              }
-            >
-              Close
-            </DialogClose>
-          </div>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

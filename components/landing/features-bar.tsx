@@ -1,29 +1,29 @@
 'use client';
 
 import React from 'react';
-import { ShieldCheck, Headphones, Truck, Lock } from 'lucide-react';
+import { Sparkles, HeartHandshake, Truck, Lock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 const FEATURES = [
   {
-    icon: ShieldCheck,
-    title: '100% Satisfaction',
-    description: 'Industrial-grade quality inspection on every single garment and seam.',
+    icon: Sparkles,
+    title: 'Clean & Dermatologist Tested',
+    description: 'Cruelty-free botanical formulas, non-comedogenic ingredients, and hypoallergenic fabrics.',
   },
   {
-    icon: Headphones,
-    title: '24/7 Online Service',
-    description: 'Dedicated corporate concierges, personal stylists, and order desk.',
+    icon: HeartHandshake,
+    title: '24/7 Beauty Concierge',
+    description: 'Complimentary skincare consultations, bespoke fragrance discovery, and bra fit guidance.',
   },
   {
     icon: Truck,
-    title: 'Express Delivery',
-    description: 'Prompt 24-hour door dispatch across Addis Ababa and major regions.',
+    title: 'Express Door Dispatch',
+    description: 'Prompt 24-hour climate-protected delivery across Addis Ababa and major regions.',
   },
   {
     icon: Lock,
-    title: 'Secure Payments',
-    description: 'Encrypted checkout supporting Telebirr, CBE Birr, Chapa, and Visa.',
+    title: 'Fintech-Secured Checkout',
+    description: 'Encrypted payment flow supporting Telebirr, CBE Birr, Chapa, and international Visa cards.',
   },
 ];
 
