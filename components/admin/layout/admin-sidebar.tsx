@@ -9,9 +9,7 @@ import {
 } from '@/components/admin/navigation/admin-nav-items';
 import { cn } from '@/lib/utils';
 import {
-  Store,
   Shield,
-  ExternalLink,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
@@ -129,29 +127,6 @@ export function AdminSidebar({
           );
         })}
       </nav>
-
-      {/* Footer / Utilities */}
-      <div className="p-3 border-t border-sidebar-border bg-sidebar-accent/30 shrink-0">
-        {/* Quick Link to Store */}
-        <Link
-          href="/"
-          target="_blank"
-          rel="noopener noreferrer"
-          title={isCollapsed ? 'View Wende Cosmetics' : undefined}
-          className={cn(
-            'flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors',
-            isCollapsed && 'justify-center px-2'
-          )}
-        >
-          <Store className="w-4 h-4 text-sidebar-foreground/60 shrink-0" />
-          {!isCollapsed && (
-            <>
-              <span className="truncate flex-1">View Wende Cosmetics</span>
-              <ExternalLink className="w-3.5 h-3.5 opacity-60" />
-            </>
-          )}
-        </Link>
-      </div>
     </aside>
   );
 }

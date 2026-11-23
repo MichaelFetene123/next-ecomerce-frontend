@@ -14,7 +14,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet';
-import { Shield, Store, ExternalLink, User } from 'lucide-react';
+import { Shield, User } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 interface AdminMobileNavProps {
@@ -99,7 +99,7 @@ export function AdminMobileNav({ open, onOpenChange }: AdminMobileNavProps) {
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-sidebar-border bg-sidebar-accent/30 space-y-1.5 shrink-0">
+        <div className="p-4 border-t border-sidebar-border bg-sidebar-accent/30 shrink-0">
           <Link
             href="/account"
             onClick={handleNavigate}
@@ -107,19 +107,6 @@ export function AdminMobileNav({ open, onOpenChange }: AdminMobileNavProps) {
           >
             <User className="w-4 h-4 text-sidebar-foreground/60" />
             <span>My account</span>
-          </Link>
-          <Link
-            href="/"
-            onClick={handleNavigate}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
-          >
-            <div className="flex items-center gap-2.5">
-              <Store className="w-4 h-4 text-sidebar-foreground/60" />
-              <span>View Wende Cosmetics</span>
-            </div>
-            <ExternalLink className="w-3.5 h-3.5 opacity-60" />
           </Link>
         </div>
       </SheetContent>
