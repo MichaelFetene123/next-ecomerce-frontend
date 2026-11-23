@@ -143,24 +143,6 @@ export function AdminHeader({
             </DropdownMenuItem>
 
             <DropdownMenuItem
-              render={<Link href="/account/settings" />}
-              className="flex items-center gap-2.5 py-2 px-2.5 text-xs font-medium cursor-pointer"
-            >
-              <Settings className="w-4 h-4 text-muted-foreground" />
-              <span>Account Settings</span>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem
-              render={<Link href="/admin/settings" />}
-              className="flex items-center gap-2.5 py-2 px-2.5 text-xs font-medium cursor-pointer"
-            >
-              <SlidersHorizontal className="w-4 h-4 text-muted-foreground" />
-              <span>Store Settings</span>
-            </DropdownMenuItem>
-
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem
               render={<Link href="/" target="_blank" rel="noopener noreferrer" />}
               className="flex items-center gap-2.5 py-2 px-2.5 text-xs font-medium cursor-pointer"
             >
