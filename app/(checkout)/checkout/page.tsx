@@ -59,7 +59,6 @@ function CheckoutContent() {
     line1: '',
     line2: '',
     city: 'Arba Minch',
-    country: 'Ethiopia',
   });
 
   useEffect(() => {
@@ -91,9 +90,6 @@ function CheckoutContent() {
         line1: newAddress.line1.trim(),
         line2: newAddress.line2?.trim() || null,
         city: 'Arba Minch',
-        region: null,
-        country: 'Ethiopia',
-        postal_code: null,
       });
 
       setSelectedAddressId(created.id);
@@ -106,7 +102,6 @@ function CheckoutContent() {
         line1: '',
         line2: '',
         city: 'Arba Minch',
-        country: 'Ethiopia',
       });
     } catch (err: any) {
       toast.error(err?.response?.data?.message || err?.message || 'Failed to save address');

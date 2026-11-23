@@ -25,9 +25,6 @@ export interface CreateAddressPayload {
   line1: string;
   line2?: string | null;
   city: string;
-  region?: string | null;
-  country: string;
-  postal_code?: string | null;
   phone?: string | null;
   phone2?: string | null;
 }

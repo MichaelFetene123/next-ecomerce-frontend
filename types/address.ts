@@ -5,9 +5,6 @@ export interface Address {
   line1: string;
   line2?: string | null;
   city: string;
-  region?: string | null;
-  postal_code?: string | null;
-  country: string;
   phone?: string | null;
   phone2?: string | null;
   is_default?: boolean;
