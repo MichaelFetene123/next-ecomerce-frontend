@@ -4,11 +4,9 @@ import React, { Suspense } from 'react';
 import { useUser } from '@/hooks/use-auth';
 import { ProfileCard } from './components/profile-card';
 import { AddressList } from './components/address-list';
-import { OrderHistory } from './components/order-history';
 import { Separator } from '@/components/ui/separator';
 import { ProfileCardSkeleton } from '@/components/skeletons/profile-card-skeleton';
 import { AddressListSkeleton } from '@/components/skeletons/address-list-skeleton';
-import { RecentOrdersSkeleton } from '@/components/skeletons/recent-orders-skeleton';
 import { Skeleton } from '@/components/ui/skeleton';
 
 function AccountWelcomeHeader() {
@@ -58,12 +56,6 @@ export default function AccountProfilePage() {
         
         <Suspense fallback={<AddressListSkeleton count={2} />}>
           <AddressList />
-        </Suspense>
-
-        <Separator className="bg-border/60" />
-
-        <Suspense fallback={<RecentOrdersSkeleton count={2} />}>
-          <OrderHistory />
         </Suspense>
       </div>
     </div>
