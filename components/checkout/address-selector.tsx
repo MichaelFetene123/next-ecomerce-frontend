@@ -72,16 +72,15 @@ export const AddressSelector: React.FC<AddressSelectorProps> = ({
                   <div className="text-[12px] text-muted-foreground space-y-0.5 leading-relaxed font-medium">
                     <p>{address.line1}</p>
                     {address.line2 && <p>{address.line2}</p>}
-                    <p>
-                      {address.city}
-                      {address.region && `, ${address.region}`}
-                      {', '}
-                      {address.country}
-                    </p>
-                    {address.postal_code && <p>Postal Code: {address.postal_code}</p>}
+                    <p>Ethiopia / Arba Minch</p>
                     {address.phone && (
                       <p className="pt-1 text-muted-foreground">
-                        Phone: {address.phone}
+                        Phone 1: {address.phone}
+                      </p>
+                    )}
+                    {address.phone2 && (
+                      <p className="text-muted-foreground">
+                        Phone 2: {address.phone2}
                       </p>
                     )}
                   </div>

@@ -54,13 +54,12 @@ function CheckoutContent() {
   // New Address Form State
   const [newAddress, setNewAddress] = useState({
     full_name: '',
+    phone: '',
+    phone2: '',
     line1: '',
     line2: '',
-    city: 'Addis Ababa',
-    region: 'Addis Ababa',
+    city: 'Arba Minch',
     country: 'Ethiopia',
-    postal_code: '1000',
-    phone: '',
   });
 
   useEffect(() => {
@@ -79,21 +78,22 @@ function CheckoutContent() {
 
   const handleCreateAddress = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newAddress.full_name.trim() || !newAddress.line1.trim() || !newAddress.city.trim()) {
-      toast.error('Please fill in your name, address line 1, and city.');
+    if (!newAddress.full_name.trim() || !newAddress.phone.trim() || !newAddress.line1.trim()) {
+      toast.error('Please fill in your full name, phone number 1, and address line 1.');
       return;
     }
 
     try {
       const created = await createAddress({
         full_name: newAddress.full_name.trim(),
+        phone: newAddress.phone.trim(),
+        phone2: newAddress.phone2?.trim() || null,
         line1: newAddress.line1.trim(),
         line2: newAddress.line2?.trim() || null,
-        city: newAddress.city.trim(),
-        region: newAddress.region?.trim() || null,
-        country: newAddress.country.trim() || 'Ethiopia',
-        postal_code: newAddress.postal_code?.trim() || null,
-        phone: newAddress.phone?.trim() || null,
+        city: 'Arba Minch',
+        region: null,
+        country: 'Ethiopia',
+        postal_code: null,
       });
 
       setSelectedAddressId(created.id);
@@ -101,13 +101,12 @@ function CheckoutContent() {
       toast.success('Address saved successfully');
       setNewAddress({
         full_name: '',
+        phone: '',
+        phone2: '',
         line1: '',
         line2: '',
-        city: 'Addis Ababa',
-        region: 'Addis Ababa',
+        city: 'Arba Minch',
         country: 'Ethiopia',
-        postal_code: '1000',
-        phone: '',
       });
     } catch (err: any) {
       toast.error(err?.response?.data?.message || err?.message || 'Failed to save address');
@@ -313,12 +312,23 @@ function CheckoutContent() {
               </div>
 
               <div className="space-y-1.5">
-                <Label htmlFor="phone">Phone Number</Label>
+                <Label htmlFor="phone">Phone Number 1 *</Label>
                 <Input
                   id="phone"
                   value={newAddress.phone}
                   onChange={(e) => setNewAddress({ ...newAddress, phone: e.target.value })}
                   placeholder="e.g. +251911223344"
+                  required
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <Label htmlFor="phone2">Phone Number 2 (Optional)</Label>
+                <Input
+                  id="phone2"
+                  value={newAddress.phone2}
+                  onChange={(e) => setNewAddress({ ...newAddress, phone2: e.target.value })}
+                  placeholder="e.g. +251922334455"
                 />
               </div>
 
@@ -328,7 +338,7 @@ function CheckoutContent() {
                   id="line1"
                   value={newAddress.line1}
                   onChange={(e) => setNewAddress({ ...newAddress, line1: e.target.value })}
-                  placeholder="e.g. Bole Sub-City, Road 20"
+                  placeholder="e.g. Secha, Kebele 01, Near Stadium"
                   required
                 />
               </div>
@@ -339,51 +349,22 @@ function CheckoutContent() {
                   id="line2"
                   value={newAddress.line2}
                   onChange={(e) => setNewAddress({ ...newAddress, line2: e.target.value })}
-                  placeholder="e.g. Apt 4B, Building 3"
+                  placeholder="e.g. House No. 204 / Apt 4B"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1.5">
-                  <Label htmlFor="city">City *</Label>
-                  <Input
-                    id="city"
-                    value={newAddress.city}
-                    onChange={(e) => setNewAddress({ ...newAddress, city: e.target.value })}
-                    placeholder="e.g. Addis Ababa"
-                    required
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="region">Region / Sub-City</Label>
-                  <Input
-                    id="region"
-                    value={newAddress.region}
-                    onChange={(e) => setNewAddress({ ...newAddress, region: e.target.value })}
-                    placeholder="e.g. Bole"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1.5">
-                  <Label htmlFor="country">Country</Label>
-                  <Input
-                    id="country"
-                    value={newAddress.country}
-                    onChange={(e) => setNewAddress({ ...newAddress, country: e.target.value })}
-                    placeholder="Ethiopia"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="postal_code">Postal Code</Label>
-                  <Input
-                    id="postal_code"
-                    value={newAddress.postal_code}
-                    onChange={(e) => setNewAddress({ ...newAddress, postal_code: e.target.value })}
-                    placeholder="1000"
-                  />
-                </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="city">City</Label>
+                <Input
+                  id="city"
+                  value="Ethiopia / Arba Minch"
+                  disabled
+                  readOnly
+                  className="bg-muted text-foreground/80 font-medium cursor-not-allowed select-none"
+                />
+                <p className="text-[11px] text-muted-foreground">
+                  Delivery is currently only available in Arba Minch, Ethiopia.
+                </p>
               </div>
             </div>
 

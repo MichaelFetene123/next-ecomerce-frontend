@@ -49,15 +49,13 @@ export function AddressList() {
                       <Badge variant="secondary" className="text-xs">Default</Badge>
                     )}
                   </div>
-                  {address.phone && <p className="text-sm text-muted-foreground truncate">{address.phone}</p>}
+                  {address.phone && <p className="text-sm text-muted-foreground truncate">Phone 1: {address.phone}</p>}
+                  {address.phone2 && <p className="text-sm text-muted-foreground truncate">Phone 2: {address.phone2}</p>}
                   <p className="text-sm text-muted-foreground truncate">{address.line1 || address.address_line_1}</p>
                   {(address.line2 || address.address_line_2) && (
                     <p className="text-sm text-muted-foreground truncate">{address.line2 || address.address_line_2}</p>
                   )}
-                  <p className="text-sm text-muted-foreground truncate">
-                    {address.city}{address.region || address.state ? `, ${address.region || address.state}` : ''} {address.postal_code || ''}
-                  </p>
-                  <p className="text-sm text-muted-foreground truncate">{address.country}</p>
+                  <p className="text-sm text-muted-foreground truncate">Ethiopia / Arba Minch</p>
                 </div>
               </CardContent>
             </Card>

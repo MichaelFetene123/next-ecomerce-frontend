@@ -29,6 +29,7 @@ export interface CreateAddressPayload {
   country: string;
   postal_code?: string | null;
   phone?: string | null;
+  phone2?: string | null;
 }
 
 export function useCreateAddress() {
