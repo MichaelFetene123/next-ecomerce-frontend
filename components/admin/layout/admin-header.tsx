@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useUser, useLogout } from '@/hooks/use-auth';
 import { useTheme } from 'next-themes';
@@ -12,12 +13,13 @@ import {
   LogOut,
   User as UserIcon,
   Store,
-  Settings,
+  ChevronDown,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -108,58 +110,73 @@ export function AdminHeader({
                 {user?.role === 'admin' ? 'Super Admin' : 'Admin Staff'}
               </span>
             </div>
+            <ChevronDown className="w-3.5 h-3.5 text-muted-foreground hidden md:block" />
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent align="end" className="w-56 p-1.5 rounded-xl shadow-lg border-border">
-            <DropdownMenuLabel className="p-2 font-normal">
-              <div className="flex flex-col space-y-1">
-                <div className="flex items-center justify-between">
-                  <p className="text-xs font-bold leading-none text-foreground truncate">
-                    {user?.name || 'Admin'}
+          <DropdownMenuContent align="end" className="w-60 p-1.5 rounded-xl shadow-lg border-border bg-card text-card-foreground">
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="p-2.5 font-normal">
+                <div className="flex flex-col space-y-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-sm font-semibold leading-none text-foreground truncate">
+                      {user?.name || 'Admin'}
+                    </p>
+                    <Badge variant="secondary" className="text-[10px] uppercase font-bold py-0 h-4">
+                      {user?.role === 'admin' ? 'Super Admin' : (user?.role || 'Admin')}
+                    </Badge>
+                  </div>
+                  <p className="text-xs leading-none text-muted-foreground truncate">
+                    {user?.email || 'admin@example.com'}
                   </p>
-                  <Badge variant="secondary" className="text-[10px] uppercase font-bold py-0 h-4">
-                    {user?.role || 'admin'}
-                  </Badge>
                 </div>
-                <p className="text-[11px] leading-none text-muted-foreground truncate">
-                  {user?.email || 'admin@example.com'}
-                </p>
-              </div>
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem
-              onClick={() => router.push('/admin/settings')}
-              className="flex items-center gap-2 text-xs py-2 cursor-pointer"
-            >
-              <Settings className="w-3.5 h-3.5 text-muted-foreground" />
-              <span>Admin Settings</span>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem
-              onClick={() => router.push('/account')}
-              className="flex items-center gap-2 text-xs py-2 cursor-pointer"
-            >
-              <UserIcon className="w-3.5 h-3.5 text-muted-foreground" />
-              <span>My Profile</span>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem
-              onClick={() => window.open('/', '_blank')}
-              className="flex items-center gap-2 text-xs py-2 cursor-pointer"
-            >
-              <Store className="w-3.5 h-3.5 text-muted-foreground" />
-              <span>Open Wende Cosmetics</span>
-            </DropdownMenuItem>
+              </DropdownMenuLabel>
+            </DropdownMenuGroup>
 
             <DropdownMenuSeparator />
 
             <DropdownMenuItem
+              render={<Link href="/account" />}
+              className="flex items-center gap-2.5 py-2 px-2.5 text-xs font-medium cursor-pointer"
+            >
+              <UserIcon className="w-4 h-4 text-muted-foreground" />
+              <span>My account</span>
+            </DropdownMenuItem>
+
+            <DropdownMenuItem
+              render={<Link href="/account/settings" />}
+              className="flex items-center gap-2.5 py-2 px-2.5 text-xs font-medium cursor-pointer"
+            >
+              <Settings className="w-4 h-4 text-muted-foreground" />
+              <span>Account Settings</span>
+            </DropdownMenuItem>
+
+            <DropdownMenuItem
+              render={<Link href="/admin/settings" />}
+              className="flex items-center gap-2.5 py-2 px-2.5 text-xs font-medium cursor-pointer"
+            >
+              <SlidersHorizontal className="w-4 h-4 text-muted-foreground" />
+              <span>Store Settings</span>
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+              render={<Link href="/" target="_blank" rel="noopener noreferrer" />}
+              className="flex items-center gap-2.5 py-2 px-2.5 text-xs font-medium cursor-pointer"
+            >
+              <Store className="w-4 h-4 text-muted-foreground" />
+              <span>View Wende Cosmetics</span>
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+              variant="destructive"
               onClick={handleLogout}
-              className="flex items-center gap-2 text-xs py-2 text-destructive focus:text-destructive focus:bg-destructive/10 cursor-pointer"
+              className="flex items-center gap-2.5 py-2 px-2.5 text-xs font-medium text-red-600 focus:text-red-600 focus:bg-red-50 dark:focus:bg-red-950/50 dark:text-red-400 cursor-pointer"
             >
-              <LogOut className="w-3.5 h-3.5" />
-              <span>Sign Out</span>
+              <LogOut className="w-4 h-4 text-red-600 dark:text-red-400" />
+              <span>Sign out</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
