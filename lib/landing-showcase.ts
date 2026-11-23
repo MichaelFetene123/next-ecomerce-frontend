@@ -420,7 +420,7 @@ export const SHOWCASE_PRODUCTS: ShowcaseProductItem[] = [
     price: 1250.00,
     compareAtPrice: null,
     badge: null,
-    image: 'https://images.unsplash.com/photo-1608248597359-009c95d98fa7?w=800&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=800&auto=format&fit=crop&q=80',
     productData: {
       id: 108,
       category_id: 4,
@@ -452,7 +452,7 @@ export const SHOWCASE_PRODUCTS: ShowcaseProductItem[] = [
           id: 10811,
           product_id: 108,
           product_variant_id: null,
-          path: 'https://images.unsplash.com/photo-1608248597359-009c95d98fa7?w=800&auto=format&fit=crop&q=80',
+          path: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=800&auto=format&fit=crop&q=80',
           sort_order: 1,
           created_at: '',
           updated_at: '',

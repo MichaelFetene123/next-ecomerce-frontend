@@ -3,7 +3,7 @@
 import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Sparkles, ShieldCheck, Lock } from 'lucide-react';
+import { ShieldCheck, Lock } from 'lucide-react';
 
 const TelegramIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
   <svg
@@ -53,8 +53,8 @@ export const Footer: React.FC = () => {
               href="/"
               className="flex items-center gap-2.5 font-extrabold text-xl sm:text-2xl tracking-tight text-white hover:opacity-90 transition-opacity group"
             >
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/15 flex items-center justify-center text-secondary border border-white/20 group-hover:scale-105 transition-transform">
-                <Sparkles className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-secondary text-secondary-foreground flex items-center justify-center font-black text-sm sm:text-base group-hover:scale-105 transition-transform shadow-xs">
+                W
               </div>
               <span className="font-heading">
                 Wende <span className="font-light text-secondary">Cosmetics</span>
