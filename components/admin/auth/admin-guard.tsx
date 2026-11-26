@@ -29,13 +29,18 @@ export function AdminGuard({ children, fallback }: AdminGuardProps) {
   useEffect(() => {
     if (mounted && !isLoading && !user) {
       const redirectUrl = encodeURIComponent(pathname);
-      router.push(`/login?redirect=${redirectUrl}`);
+      router.replace(`/login?redirect=${redirectUrl}`);
     }
   }, [mounted, isLoading, user, router, pathname]);
 
-  // Loading state
-  if (!mounted || isLoading || !user) {
+  // Loading state while verifying an active session
+  if (!mounted || isLoading) {
     return <>{fallback || <AdminPageSkeleton />}</>;
+  }
+
+  // Do not flash the dashboard skeleton while redirecting unauthenticated users
+  if (!user) {
+    return null;
   }
 
   // Role check: if authenticated user is not an admin
